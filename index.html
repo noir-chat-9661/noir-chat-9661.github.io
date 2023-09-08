@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>My Profile</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script src="./script.js" defer></script>
+  </head>
+  <body onload="loaded()">
+    <center>
+      <h1>Profile</h1>
+      <div>
+        <span class="block">
+          <span class="left">Name</span>
+          <span class="right">えいた</span> </span
+        ><wbr />
+        <span class="block">
+          <span class="left">Location</span>
+          <span class="right">Aichi, Japan</span> </span
+        ><wbr />
+        <span class="block">
+          <span class="left">Age</span>
+          <span class="right" id="age"></span><wbr /> </span
+        ><wbr />
+        <span class="block">
+          <span class="left">Birthday</span>
+          <span class="right">2006/5/22</span>
+        </span>
+      </div>
+      <br />
+      <div>
+        <h2 class="aboutme">About Me</h2>
+        <p class="am">
+          基本ノープランで何かを作っている高校2年生。<br />最近はマスター(酒場BOT)やDiscordの読み上げ・音楽再生BOTなどの作成をしながらwikiの執筆を担当。
+        </p>
+        <span class="lang js">JavaScript(Node.js)</span><wbr /><span
+          class="lang ts"
+          >TypeScript</span
+        ><wbr /><span class="lang ruby">Ruby</span><wbr /><span class="lang c"
+          >C</span
+        >
+      </div>
+      <br />
+      <div>
+        <h2 class="sns">My Accounts</h2>
+        <span class="block">
+          <span class="left youtube">YouTube</span>
+          <span class="right"
+            ><a href="https://youtube.com/@eita9661">@eita9661</a></span
+          > </span
+        ><wbr />
+        <span class="block">
+          <span class="left twitter">Twitter</span>
+          <span class="right"
+            ><a href="https://twitter.com/Eita_hj_0522">@Eita_hj_0522</a></span
+          > </span
+        ><wbr />
+        <span class="block">
+          <span class="left github">GitHub</span>
+          <span class="right"
+            ><a href="https://github.com/Eita-hj">Eita-hj</a></span
+          > </span
+        ><wbr />
+        <span class="block">
+          <span class="left discord">Discord</span>
+          <span class="right"
+            ><a href="https://discord.com/users/717287025442816051"
+              >azegig</a
+            ></span
+          >
+        </span>
+      </div>
+      <br />
+      <h2 class="hcq">HIMACHATQUEST</h2>
+      <p>No.16762 しめじ隊員サプリ💊</p>
+      <p><b>Links</b></p>
+      <p class="links">
+        <a href="http://hcqtools.com/">tools</a>&emsp;<a
+          href="http://hcqaddon.com"
+          >addon</a
+        >&emsp;<a href="http://hcqwiki.com/">wiki</a>
+      </p>
+      <p>
+        <small
+          >※BOT・アドオン・ツールは運営から作成・使用許可を貰っています。</small
+        >
+      </p>
+    </center>
+    <input type="checkbox" id="ld" onclick="changegaming(this.checked)" />
+    <button
+      class="rd"
+      id="fb"
+      onclick="showForm()"
+    >お問い合わせ</button>
+    <div class="rd" id="form"></div>
+  </body>
+</html>
