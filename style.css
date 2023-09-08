@@ -1,0 +1,203 @@
+@import url('https://fonts.googleapis.com/css?family=Zen+Antique');
+
+html {
+  font-family: "Zen Antique", serif;
+  background-color: #002277;
+  font-size: 20px;
+}
+
+h1 {
+  color: #ffffff;
+  text-align: center;
+}
+
+h2 {
+  width: 11em;
+  margin: 5px;
+  padding: 5px;
+  text-align: center;
+  border-radius: 10px;
+}
+
+h2.hcq {
+  background-color: #66aaff;
+  color: #ffffff;
+}
+
+h2.sns {
+  background-color: #ffffff60;
+  color: #ffffff;
+}
+
+h2.aboutme {
+  background-color: #ffaa55bb;
+  color: #ffffff
+}
+
+a {
+  text-decoration: none;
+  color: #0066ff
+}
+
+p {
+  color: #ffffff;
+}
+
+
+p.links a{
+  color: #77ffff
+}
+
+tr {
+  color: #ffffff;
+}
+
+.am {
+  padding: 5px;
+  margin: 10px;
+  width: 80%;
+  background-color: #99bbff88;
+  border: 1px solid #ffffff;
+  border-radius: 10px;
+}
+
+.block {
+  padding: 5px;
+  display: inline-block;
+  margin: 10px;
+  white-space: nowrap;
+  width: 360px;
+}
+
+.left {
+  background-color: #ffffffaa;
+  color: #ffffff;
+  padding: 5px 10px;
+  text-align: center;
+  border: 1px solid #ffffff;
+  border-radius: 10px;
+}
+
+.right {
+  background-color: #eeeeff;
+  color: #000000;
+  padding: 5px 10px;
+  margin: auto;
+  border: 1px solid #ffffff;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.youtube {
+  background-color: #dd0000bb;
+}
+
+.twitter {
+  background-color: #00aaffbb;
+}
+
+.github {
+  background-color: #000000bb;
+}
+
+.discord {
+  background-color: #5555ffbb;
+}
+
+.lang {
+  color: #ffffff;
+  display: inline-block;
+  text-align: center;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 5px 5px;
+}
+
+.js {
+  background-color: #ffaa0088;
+}
+
+.ts {
+  background-color: #00ffff88;
+}
+
+.ruby {
+  background-color: #ff000088;
+}
+
+.c {
+  background-color: #00ff0088
+}
+
+.ld {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+
+.rb {
+  position: fixed;
+  right: 0;
+}
+
+.rd {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}
+
+button#fb, button#cb {
+  font-size: 1em;
+  background-color: #006600;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+}
+
+p.rbt {
+  background-color: #00000055;
+  font-size: 0.5em;
+}
+
+.gamingmode {
+  animation-name: gamingbg;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-direction: normal;
+}
+
+@keyframes gamingbg {
+  0% {
+    background-color: #ff0000
+  }
+  10% {
+    background-color: #ff8800
+  }
+  20% {
+    background-color: #00ff88
+  }
+  30% {
+    background-color: #00ff00
+  }
+  40% {
+    background-color: #0088ff
+  }
+  50% {
+    background-color: #008888
+  }
+  60% {
+    background-color: #0000ff
+  }
+  70% {
+    background-color: #8800ff
+  }
+  80% {
+    background-color: #880088
+  }
+  90% {
+    background-color: #ff00ff
+  }
+  100% {
+    background-color: #ff0000
+  }
+}
