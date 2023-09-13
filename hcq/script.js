@@ -1,7 +1,10 @@
-function loaded() {
-  const d = new Date();
-  document.getElementById("age").innerHTML =
-    d.getFullYear() -
-    2006 -
-    (Date.now() >= new Date(`${d.getFullYear()}/05/22 0:00`) ? 0 : 1);
+function copy() {
+  const text =
+    "javascript:(()=>{if (document.getElementById('addonwindow')?.innerHTML) return;if(this.LoadedAddonPage)return $().append(2);layercount++;$(\"#layerroot\").append(`<div class='layer' id='layer${layercount}'><h2 class='sourcespace'>読み込み中</h2><button class='layerclosebtn' id='addonwindow' style='display:none' onclick='myremove(this.parentNode)'>×</button></div>`);fetch(\"http://hcqaddon.com/code.js\",{cache:'no-store'}).then(n=>n.text()).then(n=>eval(n))})()";
+  navigator.clipboard.writeText(text);
+  document.getElementById("copyok").style.display = "";
+  setTimeout(
+    () => (document.getElementById("copyok").style.display = "none"),
+    3000
+  );
 }

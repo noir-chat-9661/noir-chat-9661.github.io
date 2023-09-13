@@ -1,86 +1,40 @@
-@import url('https://fonts.googleapis.com/css?family=Zen+Antique');
-
 html {
-  font-family: "Zen Antique", serif;
-  background-color: #002244;
-  font-size: 20px;
+  background-color: #55eeee;
 }
 
-h1 {
-  color: #ffffff;
-  text-align: center;
-}
-
-h2 {
-  width: 11em;
-  margin: 5px;
-  padding: 5px;
-  text-align: center;
-  border: 1px solid #ffffff;
-  border-radius: 10px;
-}
-
-h2.hcq {
-  background-color: #66aaff;
-  color: #ffffff;
-}
-
-h2.sns {
-  background-color: #aa88ee;
-  color: #ffffff;
+.menu {
+  padding: 10px;
 }
 
 a {
   text-decoration: none;
-  color: #0066ff
+  font-weight: bold;
+  color: #0066ff;
+  font-size: 20px;
 }
 
 p {
-  color: #ffffff;
+  font-size: 20px;
 }
 
-tr {
-  color: #ffffff;
-}
-
-.block {
-  padding: 5px;
-  display: inline-block;
-  margin: 10px;
-  white-space: nowrap;
-}
-
-.left {
-  background-color: #aaaaaa;
-  color: #ffffff;
-  padding: 5px;
-  text-align: center;
-  border: 1px solid #ffffff;
-  border-radius: 10px;
-}
-
-.right {
-  background-color: #eeeeff;
+#multihcq,
+#addon,
+#calc {
   color: #000000;
-  padding: 5px;
-  margin: auto;
-  border: 1px solid #ffffff;
-  text-align: center;
+  background-color: #ffffff90;
+  width: 80%;
+  margin: 5px;
+  padding: 10px;
+  display: block;
   border-radius: 10px;
 }
 
-.youtube {
-  background-color: #dd0000;
-}
-
-.twitter {
-  background-color: #00aaff;
-}
-
-.github {
-  background-color: #000000;
-}
-
-.discord {
-  background-color: #5555ff;
+label {
+  color: #000000;
+  background-color: #ddddddaa;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 1.5em;
 }

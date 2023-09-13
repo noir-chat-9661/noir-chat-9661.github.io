@@ -1,70 +1,98 @@
 <!DOCTYPE html>
 <html lang="ja">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <title>My Profile</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <meta http-equiv="Content-Script-Type" content="text/javascript" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link rel="stylesheet" href="./style.css" />
-    <script src="./script.js" defer></script>
+    <script src="./script.js"></script>
+    <title>ヒマクエ補助ツール</title>
   </head>
-  <body onload="loaded()">
+  <body>
     <center>
-      <h1>Profile</h1>
-      <div id="prof1">
-        <span class="block">
-          <span class="left">Name</span>
-          <span class="right">えいた</span> </span
-        ><wbr />
-        <span class="block">
-          <span class="left">Location</span>
-          <span class="right">Aichi, Japan</span> </span
-        ><wbr />
-        <span class="block">
-          <span class="left">Age</span>
-          <span class="right" id="age"></span><wbr /> </span
-        ><wbr />
-        <span class="block">
-          <span class="left">Birthday</span>
-          <span class="right">2006/5/22</span>
+      <h1>ヒマクエ補助ツール</h1>
+      <div class="menu">
+        <label
+          ><input
+            type="checkbox"
+            style="display: none"
+            onchange="document.getElementById('multihcq').style.display = this.checked ? '' : 'none'"
+          />複窓ヒマクエ</label
+        ><br />
+        <span id="multihcq" style="display: none">
+          <p>
+            複数のアカウントを同時に動かす際、極力重くならないように1つのページで同時起動をできるようにしたサイトです。
+          </p>
+          <a href="./HIMAQUESTx2" target="_blank">2窓(縦2つ版)</a>&emsp;
+          <a href="./HIMACHATQUESTx2" target="_blank">2窓(横2つ版)</a><br />
+          <a href="./HIMAQUESTx3" target="_blank">3窓(縦3つ版)</a>&emsp;
+          <a href="./HIMACHATQUESTx3" target="_blank">3窓(横3つ版)</a><br />
+          <a href="./HIMAQUESTx4" target="_blank">4窓(田の字型)</a>&emsp;
+          <a href="./HIMACHATQUESTx4" target="_blank">4窓(横4つ版)</a><br />
+          <a href="./HIMACHATQUESTx5" target="_blank">5窓</a>&emsp;
+          <a href="./HIMACHATQUESTx6" target="_blank">6窓</a><br />
+          <a href="./HIMACHATQUESTx7" target="_blank">7窓</a>&emsp;
+          <a href="./HIMACHATQUESTx8" target="_blank">8窓</a><br />
+          <a href="./HIMACHATQUESTx9" target="_blank">9窓</a>&emsp;
+          <a href="./HIMACHATQUESTx10" target="_blank">10窓</a><br />
+        </span>
+        <br />
+        <label
+          ><input
+            type="checkbox"
+            style="display: none"
+            onchange="document.getElementById('addon').style.display = this.checked ? '' : 'none'"
+          />アドオン</label
+        ><br />
+        <span id="addon" style="display: none">
+          <p>
+            ステータス・鍛治の割り振りボタンの追加などの便利機能を追加するアドオンです。<br />ブックマークレットはAndroid・iPad・iPhoneのブラウザ(safari・chrome)でも使用ができます。<br />また、windows版はアドオンが自動で読み込まれるソフト版がおすすめです。
+          </p>
+          <p>
+            ブックマークレット：<wbr /><button onclick="copy()">
+              コピーする
+            </button>
+            <small id="copyok" style="display: none"
+              ><br />コピー完了　ブックマークに登録してください。</small
+            >
+          </p>
+          <p>
+            アプリ版(windowsのみ)
+            <a href="./addon/setup.exe" target="_blank" download
+              ><wbr />ダウンロード</a
+            >
+          </p>
+        </span>
+        <br />
+        <label
+          ><input
+            type="checkbox"
+            style="display: none"
+            onchange="document.getElementById('calc').style.display = this.checked ? '' : 'none'"
+          />計算機</label
+        ><br />
+        <span id="calc" style="display: none">
+          <a href="./chara_calc" target="_blank">キャラレベル計算機</a><br />
+          <a href="./area_calc" target="_blank">冒険エリア効率計算機</a><br />
+          <a href="./damage_calc" target="_blank">ダメージ計算機</a><br />
+          <a href="./soubi_calc" target="_blank">装備レベル計算機</a><br />
+          <p>
+            ※キャラレベル計算機に関しては<a
+              href="https://remichi.blue/hcq/joblvcalc.php"
+              target="_blank"
+              >こちら</a
+            >の使用を推奨します。
+          </p>
         </span>
       </div>
       <br />
-      <div id="prof2">
-        <h2 class="sns">My Accounts</h2>
-        <span class="block">
-          <span class="left youtube">YouTube</span>
-          <span class="right"
-            ><a href="https://youtube.com/@eita9661">@eita9661</a></span
-          > </span
-        ><wbr />
-        <span class="block">
-          <span class="left twitter">X(旧Twitter)</span>
-          <span class="right"
-            ><a href="https://twitter.com/sgr_9661_ea">sgr_9661_ea</a></span
-          > </span
-        ><wbr />
-        <span class="block">
-          <span class="left github">GitHub</span>
-          <span class="right"
-            ><a href="https://github.com/Eita-hj">Eita-hj</a></span
-          > </span
-        ><wbr />
-        <span class="block">
-          <span class="left discord">Discord</span>
-          <span class="right"
-            ><a href="https://discord.com/users/717287025442816051"
-              >azegig</a
-            ></span
-          >
-        </span>
-      </div>
-      <br />
-      <h2 class="hcq">HIMACHATQUEST</h2>
-      <p>No.16762 しめじ隊員サプリ💊</p>
-      <p><b>Links</b></p>
-      <p><a href="http://hcqtools.com/">tools</a>　<a href="http://hcqaddon.com">addon</a>　<a href="http://hcqwiki.com/">wiki</a></p>
-      <p><small>※アドオンやツールは運営から作成・使用許可を貰っています。</small></p>
+      <hr />
+      <p>
+        何か不具合がありましたら<a href="https://eita.f5.si">こちら</a
+        >の右下にあるお問い合わせからお願いします。
+      </p>
+      <p>また、アドオン含む補助ツールは、運営から許可をいただいております。</p>
     </center>
   </body>
 </html>
