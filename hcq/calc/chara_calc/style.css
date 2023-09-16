@@ -1,0 +1,51 @@
+.wazazone {
+  font-size: 1.8em;
+  padding-bottom: 1em;
+}
+
+.pointsum {
+  font-size: 2em;
+  font-weight:bold;
+}
+
+div.jobtext {
+  font-size: 1.2em;
+}
+
+div.wazazone button {
+  font-size: 0.75em;
+}
+
+button,input,select {
+  font-size: 1.2em;
+}
+
+.wazazone div#wazainfo {
+  font-size: 0.75em;
+  background-color: #aaffff;
+  margin: 1em 10%;
+  padding: 0em 1em 20px
+}
+
+.wazazone div#wazainfo span#infoclose {
+  font-size: 2em;
+  text-align: right;
+  left: auto;
+  padding-right: 10%;
+  display: block;
+}
+
+textarea {
+  font-size: 1em;
+  width: 40em;
+  height: 20em;
+}
+
+legend {
+  font-size: 1.2em
+}
+
+fieldset {
+  margin: 0 10%;
+  font-size: 1.2em
+}

@@ -1,0 +1,21 @@
+table,th,td {
+  border: 0.5px solid;
+  text-align: center;
+}
+
+th[scope='col'] {
+    background-color: #44bbcc;
+    color: #ffffff;
+}
+
+th[scope='row'] {
+    background-color: #99ffee;
+}
+
+td[scope='row2'] {
+    background-color: #99eeaa;
+}
+
+table.buff td:not([scope='row2']) {
+  background-color: #eeffff
+}

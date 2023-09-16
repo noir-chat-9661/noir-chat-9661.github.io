@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maxium-scale=1, user-scalable=no">
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<title>
+装備レベル計算機
+</title>
+<script src="./calc.js"></script>
+</head>
+<body>
+<center>
+<h1>装備レベル計算機</h1>
+<br>
+武具：<select id="bugu"><option value="none">－－－<option value="dm">ダイヤモンド<option value="d">伝説<option value="g">御神木の剣<option value="s">最強の剣<option value="bs">冒険家セット<option value="yk">勇者の剣<option value="terada">魔法の本<option value="pet">ペットフード<option value="engine">エアエンジン<option value="maseki">古代神の魔石<option value="syuri">家宝の手裏剣<option value="gokou">天照の後光<option value="o">フローラルオーブ</select>
+<br>
+<select id="op1_name" onchange="if(this.value=='n'){document.getElementById('op1').disabled=true}else{document.getElementById('op1').disabled=false}"><option value="n">－－－<option value="b">攻撃<option value="b">防御<option value="b">技術<option value="a">最大SP<option value="b">物理抵抗<option value="b">魔法抵抗<option value="b">薬学<option value="b">攻撃速度<option value="c">物理攻撃<option value="c">魔法攻撃<option value="c">TP獲得<option value="c">移動</select>
+<input type="text" value="1" size="1" maxlength="1" onchange="if(this.value==0||isNaN(this.value)){this.value=1};if(parseFloat(this.value) > 5){this.value=5};" id="op1" disabled>
+<select id="op2_name" onchange="if(this.value=='n'){document.getElementById('op2').disabled=true}else{document.getElementById('op2').disabled=false}"><option value="n">－－－<option value="b">攻撃<option value="b">防御<option value="b">技術<option value="a">最大SP<option value="b">物理抵抗<option value="b">魔法抵抗<option value="b">薬学<option value="b">攻撃速度<option value="c">物理攻撃<option value="c">魔法攻撃<option value="c">TP獲得<option value="c">移動</select>
+<input type="text" value="1" size="1" maxlength="1" onchange="if(this.value==0||isNaN(this.value)){this.value=1};if(parseFloat(this.value) > 5){this.value=5};" id="op2" disabled>
+<select id="op3_name" onchange="if(this.value=='n'){document.getElementById('op3').disabled=true}else{document.getElementById('op3').disabled=false}"><option value="n">－－－<option value="b">攻撃<option value="b">防御<option value="b">技術<option value="a">最大SP<option value="b">物理抵抗<option value="b">魔法抵抗<option value="b">薬学<option value="b">攻撃速度<option value="c">物理攻撃<option value="c">魔法攻撃<option value="c">TP獲得<option value="c">移動</select>
+<input type="text" value="1" size="1" maxlength="1" onchange="if(this.value==0||isNaN(this.value)){this.value=1};if(parseFloat(this.value) > 5){this.value=5};" id="op3" disabled>
+<br><br>
+<button onclick="calc()">ぽち</button>
+<br>
+<br>
+<hr color="yellow" noshade>
+<h3 id="result"></h3>
+</center>
+</body>
+</html>

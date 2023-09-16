@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maxium-scale=1, user-scalable=no">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <meta http-equiv="Content-Script-Type" content="text/javascript" />
+    <title>与ダメ計算機</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="shortcut icon" href="favorite.ico">
+    <script src="./calc.js?5"></script>
+    <script>
+      function getUpdate(){
+        fetch('./update.json').then(n => n.json()).then(n => {
+          document.getElementById("version").innerHTML = n.version
+          document.title = `与ダメ計算機 ver.${n.version}`
+          document.getElementById("update").innerHTML = n.content.join("\n")
+        })
+      }
+    </script>
+  </head>
+  <body onload="getUpdate()">
+    <h1>与ダメ計算機 ver.<span id="version"></span></h1>
+    <label
+      ><input
+        type="radio"
+        name="type"
+        value="0"
+        onchange="AttackTypeChange()"
+      />通常攻撃</label
+    >　<label
+      ><input
+        type="radio"
+        name="type"
+        value="1"
+        onchange="AttackTypeChange()"
+      />TEC依存攻撃(薔薇や毒罠)</label
+    ><br />
+    <h2>攻撃側</h2>
+    <span id="statusarea1" style="display: none">
+      <span id="attacktype1"></span>：<input
+        id="pdt1"
+        type="text"
+        maxlength="4"
+        size="4"
+      />
+      × (<span id="attacktype2"></span>
+      <input id="iryoku" type="text" maxlength="3" size="3" /> × 補正
+      <input id="hosei" type="text" value="1" maxlength="4" size="4" />倍)<br />
+      <span id="attacktype3"
+        >武具：<select id="weapon">
+          <option value="0">魔本/勇剣</option>
+          <option value="1">魔石</option>
+          <option value="2" selected>その他</option></select
+        ><br />OP：<select name="op1">
+          <option value="5">魔攻/物攻5</option>
+          <option value="4">魔攻/物攻4</option>
+          <option value="3">魔攻/物攻3</option>
+          <option value="2">魔攻/物攻2</option>
+          <option value="1">魔攻/物攻1</option>
+          <option value="0" selected>その他</option></select
+        ><select name="op1">
+          <option value="5">魔攻/物攻5</option>
+          <option value="4">魔攻/物攻4</option>
+          <option value="3">魔攻/物攻3</option>
+          <option value="2">魔攻/物攻2</option>
+          <option value="1">魔攻/物攻1</option>
+          <option value="0" selected>その他</option></select
+        ><select name="op1">
+          <option value="5">魔攻/物攻5</option>
+          <option value="4">魔攻/物攻4</option>
+          <option value="3">魔攻/物攻3</option>
+          <option value="2">魔攻/物攻2</option>
+          <option value="1">魔攻/物攻1</option>
+          <option value="0" selected>その他</option></select
+        ><select name="op1">
+          <option value="4">魔攻/物攻4</option>
+          <option value="3">魔攻/物攻3</option>
+          <option value="2">魔攻/物攻2</option>
+          <option value="1">魔攻/物攻1</option>
+          <option value="0" selected>その他</option></select
+        ><select name="op1">
+          <option value="4">魔攻/物攻4</option>
+          <option value="3">魔攻/物攻3</option>
+          <option value="2">魔攻/物攻2</option>
+          <option value="1">魔攻/物攻1</option>
+          <option value="0" selected>その他</option></select
+        ><select name="op1">
+          <option value="4">魔攻/物攻4</option>
+          <option value="3">魔攻/物攻3</option>
+          <option value="2">魔攻/物攻2</option>
+          <option value="1">魔攻/物攻1</option>
+          <option value="0" selected>その他</option>
+        </select>
+        <br />NA/集中(コンセント)：<select id="nc">
+          <optgroup label="NA(ノルアドレナリン)">
+            <option value="N5">NA5</option>
+            <option value="N4">NA4</option>
+            <option value="N3">NA3</option>
+            <option value="N2">NA2</option>
+            <option value="N1">NA1</option>
+          </optgroup>
+          <optgroup label="集中(コンセントレーション)">
+            <option value="C5">集中5</option>
+            <option value="C4">集中4</option>
+            <option value="C3">集中3</option>
+            <option value="C2">集中2</option>
+            <option value="C1">集中1</option>
+          </optgroup>
+          <optgroup>
+            <option value="0" selected>なし</option>
+          </optgroup></select
+        ><br />
+        <label
+          ><input
+            id="hiden1"
+            type="checkbox"
+            onchange="document.getElementById('hiden2').disabled = this.checked"
+          />魔力強化</label
+        >
+        <label
+          ><input
+            id="hiden2"
+            type="checkbox"
+            onchange="document.getElementById('hiden1').disabled = this.checked"
+          />ドネーションのバフ(ドーピング有り)</label
+        ><br />
+        <label
+          ><input
+            id="battle"
+            type="checkbox"
+            onchange="document.getElementById('regist_op').style.display = this.checked ? '' : 'none'"
+          />対戦モード</label
+        ><br />
+        <label>
+          <input
+            id="dbb"
+            type="checkbox"
+            onchange="document.getElementById('dr1').style.display = this.checked ? '' : 'none'"
+          />ダメージ増加系のバフ</label
+        ><br />
+        <span id="dr1" style="display:none">
+          <table style="border-color:#dd5522">
+            <tbody id="dr_table1">
+            <tr>
+              <td style="border-color:#dd5522"><input type="text" maxlength="3" size="3" />%</td>
+              <td style="border-color:#dd5522">
+                <button onclick="tabledel1(this)">
+                  × 削除
+                </button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <button onclick="tableadd1()">＋ 追加</button></span
+        >
+      </span>
+    </span>
+    <br />
+    <div align="center">↓</div>
+    <h2>防御側</h2>
+    <span id="statusarea2" style="display: none">
+      <span id="attacktype4"></span>：<input
+        type="text"
+        id="pdt2"
+        maxlength="4"
+        size="4"
+      /><br />
+      <span id="attacktype5" style="display: none">
+        抵抗系OP：<select name="op2">
+          <option value="5">魔抵/物抵5</option>
+          <option value="4">魔抵/物抵4</option>
+          <option value="3">魔抵/物抵3</option>
+          <option value="2">魔抵/物抵2</option>
+          <option value="1">魔抵/物抵1</option>
+          <option value="0" selected>その他</option></select
+        ><select name="op2">
+          <option value="5">魔抵/物抵5</option>
+          <option value="4">魔抵/物抵4</option>
+          <option value="3">魔抵/物抵3</option>
+          <option value="2">魔抵/物抵2</option>
+          <option value="1">魔抵/物抵1</option>
+          <option value="0" selected>その他</option></select
+        ><select name="op2">
+          <option value="5">魔抵/物抵5</option>
+          <option value="4">魔抵/物抵4</option>
+          <option value="3">魔抵/物抵3</option>
+          <option value="2">魔抵/物抵2</option>
+          <option value="1">魔抵/物抵1</option>
+          <option value="0" selected>その他</option></select
+        ><select name="op2">
+          <option value="4">魔抵/物抵4</option>
+          <option value="3">魔抵/物抵3</option>
+          <option value="2">魔抵/物抵2</option>
+          <option value="1">魔抵/物抵1</option>
+          <option value="0" selected>その他</option></select
+        ><select name="op2">
+          <option value="4">魔抵/物抵4</option>
+          <option value="3">魔抵/物抵3</option>
+          <option value="2">魔抵/物抵2</option>
+          <option value="1">魔抵/物抵1</option>
+          <option value="0" selected>その他</option></select
+        ><select name="op2">
+          <option value="4">魔抵/物抵4</option>
+          <option value="3">魔抵/物抵3</option>
+          <option value="2">魔抵/物抵2</option>
+          <option value="1">魔抵/物抵1</option>
+          <option value="0" selected>その他</option></select
+        ><br
+      />
+      <label><input id="bushin" type="checkbox">武神</label></span>
+      <label
+        ><input
+          id="drb"
+          type="checkbox"
+          onchange="document.getElementById('dr2').style.display = this.checked ? '' : 'none'"
+        />ダメージ軽減系のバフ</label
+      ><br />
+      <span id="dr2" style="display:none">
+        <table style="border-color:#22dd55">
+          <tbody id="dr_table2">
+          <tr>
+            <td style="border-color:#22dd55"><input type="text" maxlength="3" size="3" />%</td>
+            <td style="border-color:#22dd55">
+              <button onclick="tabledel2(this)">
+                × 削除
+              </button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <button onclick="tableadd2()">＋ 追加</button></span
+      >
+    </span>
+    <div align="center">||</div>
+    <button onclick="calc()">計算</button> <span id="result"></span>
+    <br />
+    <hr color="#123456" />
+    ※対戦モードの時は、対戦モードにチェックを入れて<wbr>該当するステータスの√後切り捨ての値を入力してください。<br />
+    <a href="javascript:void(0)" onclick="document.getElementById('buff').style.display = document.getElementById('buff').style.display ? '' : 'none'">参考データ</a>
+    <div id="buff" style="display:none">
+      <table class="buff">
+        <tr>
+          <th colspan="6" scope="col">ド根性</th>
+        </tr>
+        <tr>
+          <th scope="row">得意</th>
+          <td>52%</td>
+          <td>55%</td>
+          <td>59%</td>
+          <td>61%</td>
+          <td>65%</td>
+        </tr>
+        <tr>
+          <th scope="row">通常時</th>
+          <td>40%</td>
+          <td>42%</td>
+          <td>45%</td>
+          <td>47%</td>
+          <td>50%</td>
+        </tr>
+        <tr>
+          <th scope="row">苦手</th>
+          <td>28%</td>
+          <td>29%</td>
+          <td>32%</td>
+          <td>33%</td>
+          <td>35%</td>
+        </tr>
+        <tr>
+          <th colspan="6" scope="col">即席バリア</th>
+        </tr>
+        <tr>
+          <th scope="row">得意</th>
+          <td>67%</td>
+          <td>69%</td>
+          <td>71%</td>
+          <td>73%</td>
+          <td>75%</td>
+        </tr>
+        <tr>
+          <th scope="row">通常時</th>
+          <td>62%</td>
+          <td>64%</td>
+          <td>66%</td>
+          <td>68%</td>
+          <td>70%</td>
+        </tr>
+        <tr>
+          <th scope="row">苦手</th>
+          <td>57%</td>
+          <td>59%</td>
+          <td>61%</td>
+          <td>63%</td>
+          <td>65%</td>
+        </tr>
+        <tr>
+          <th colspan="6" scope="col">パワーストーン</th>
+        </tr>
+        <tr>
+          <th scope="row">多人数フィールド</th>
+          <td colspan="5">15%</td>
+        </tr>
+        <tr>
+          <th scope="row">それ以外</th>
+          <td colspan="5">30%</td>
+        </tr>
+        <tr>
+          <th colspan="6" scope="col">メタルコーティング(ダメージ軽減)</th>
+        </tr>
+        <tr>
+          <th scope="row">得意</th>
+          <td>62%</td>
+          <td>64%</td>
+          <td>66%</td>
+          <td>68%</td>
+          <td>70%</td>
+        </tr>
+        <tr>
+          <th scope="row">通常時</th>
+          <td>42%</td>
+          <td>44%</td>
+          <td>46%</td>
+          <td>48%</td>
+          <td>50%</td>
+        </tr>
+        <tr>
+          <th scope="row">苦手</th>
+          <td>22%</td>
+          <td>24%</td>
+          <td>26%</td>
+          <td>28%</td>
+          <td>30%</td>
+        </tr>
+        <tr>
+          <th colspan="6" scope="col">メタルコーティング(毒軽減)</th>
+        </tr>
+        <tr>
+          <th scope="row">得意</th>
+          <td>82%</td>
+          <td>84%</td>
+          <td>86%</td>
+          <td>88%</td>
+          <td>90%</td>
+        </tr>
+        <tr>
+          <th scope="row">通常時</th>
+          <td>62%</td>
+          <td>64%</td>
+          <td>66%</td>
+          <td>68%</td>
+          <td>70%</td>
+        </tr>
+        <tr>
+          <th scope="row">苦手</th>
+          <td>42%</td>
+          <td>44%</td>
+          <td>46%</td>
+          <td>48%</td>
+          <td>50%</td>
+        </tr>
+        <tr>
+          <th colspan="6" scope="col">退魔の防壁</th>
+        </tr>
+        <tr>
+          <th scope="row">軽減率</th>
+          <td>42%</td>
+          <td>44%</td>
+          <td>46%</td>
+          <td>48%</td>
+          <td>50%</td>
+        </tr>
+        <tr>
+          <th colspan="6" scope="col">アンチマジック</th>
+        </tr>
+        <tr><td colspan="6" scope="row2">1vs1の場合</td></tr>
+        <tr>
+          <th scope="row">得意</th>
+          <td>32%</td>
+          <td>34%</td>
+          <td>36%</td>
+          <td>38%</td>
+          <td>40%</td>
+        </tr>
+        <tr>
+          <th scope="row">通常時</th>
+          <td>17%</td>
+          <td>19%</td>
+          <td>21%</td>
+          <td>23%</td>
+          <td>25%</td>
+        </tr>
+        <tr>
+          <th scope="row">苦手</th>
+          <td>2%</td>
+          <td>4%</td>
+          <td>6%</td>
+          <td>8%</td>
+          <td>10%</td>
+        </tr>
+        <tr><td colspan="6" scope="row2">その他</td></tr>
+        <tr>
+          <th scope="row">得意</th>
+          <td>42%</td>
+          <td>44%</td>
+          <td>46%</td>
+          <td>48%</td>
+          <td>50%</td>
+        </tr>
+        <tr>
+          <th scope="row">通常時</th>
+          <td>27%</td>
+          <td>29%</td>
+          <td>31%</td>
+          <td>33%</td>
+          <td>35%</td>
+        </tr>
+        <tr>
+          <th scope="row">苦手</th>
+          <td>12%</td>
+          <td>14%</td>
+          <td>16%</td>
+          <td>18%</td>
+          <td>20%</td>
+        </tr>
+        <tr>
+          <th colspan="6" scope="col">ブレイブヒート</th>
+        </tr>
+        <tr>
+          <th scope="row">ダメージ軽減/毒軽減</th>
+          <td>62%</td>
+          <td>64%</td>
+          <td>66%</td>
+          <td>68%</td>
+          <td>70%</td>
+        </tr>
+        <tr>
+          <th colspan="6" scope="col">防御行動</th>
+        </tr>
+        <tr>
+          <th scope="row">剣士・僧</th>
+          <td colspan="5">65%</td>
+        </tr>
+        <tr>
+          <th scope="row">魔(マジックバリア)</th>
+          <td colspan="5">30%</td>
+        </tr>
+        <tr>
+          <th scope="row">騎士</th>
+          <td colspan="5">50%(行動2) 75%(行動3)</td>
+        </tr>
+        <tr>
+          <th scope="row">サモナー</th>
+          <td colspan="5">60%</td>
+        </tr>
+        <tr>
+          <th colspan="2" scope="row">秘伝がスパナのメイド</th>
+          <td>得意</td>
+          <td>10%</td>
+          <td>通常時</td>
+          <td>0%</td>
+        </tr>
+        <tr>
+          <th colspan="2" scope="row">秘伝がスパナ以外のメイド</th>
+          <td>得意</td>
+          <td>70%</td>
+          <td>通常時</td>
+          <td>60%</td>
+        </tr>
+      </table>
+    </div>
+    <hr color="#abcdef" />
+    <h2>最近の更新</h2>
+    <div id="update">取得中</div>
+  </body>
+</html>
