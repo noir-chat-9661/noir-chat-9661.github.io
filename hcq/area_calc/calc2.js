@@ -25,7 +25,7 @@ function calc2() {
 		}))
 		.filter((n) => n.type !== 3);
 
-	const en = { hp: 12944, def: 787, tec: 5834 };
+	const en = { hp: 12944, def: 788, tec: 5834 };
 
 	let summoner = list.filter((n) => n.type === 0);
 	const cheer = list.filter((n) => n.type === 1);
