@@ -11,5 +11,5 @@ function copy() {
 
 document.addEventListener("DOMContentLoaded", async (e) => {
   const f = await fetch("https://api.github.com/repos/Eita-hj/himaque_addon/releases/latest").then(n => n.json())
-  document.getElementById("appdl").href = f.find(n => n.name.includes(".exe")).assets.browser_download_url
+  document.getElementById("appdl").href = f.assets.find(n => n.name.includes(".exe")).browser_download_url
 });
