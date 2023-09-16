@@ -1,0 +1,2030 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maxium-scale=1">
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+		<meta http-equiv="Content-Style-Type" content="text/css" />
+		<meta http-equiv="Content-Script-Type" content="text/javascript" />
+		<title>冒険エリア効率計算機 vx.x</title>
+		<script src="./calc.js"></script>
+		<script src="./calc2.js"></script>
+		<script>
+			function getUpdate() {
+			 fetch("./data.json").then(n => n.json()).then(n => {
+				 document.title = `冒険エリア効率計算機 ver.${n.version}`
+				 document.getElementById("version").innerHTML = n.version
+				 document.getElementById("update").innerHTML = n.content.join("\n")
+			 })
+			}
+		</script>
+		<style>
+			td,
+			th {
+				border: 0.5px #1f0e33 solid;
+				text-align: center;
+				padding: 3px 10px;
+				white-space: nowrap;
+			}
+		</style>
+	</head>
+	<body onload="getUpdate()">
+		<center>
+			<h1>冒険エリア効率計算機</h1><h2>ver.<span id="version">x.x</span></h2><h2>浜辺～異世界</h2>
+			<h2 id="e_message"></h2>
+			場所：<label
+				><input
+					type="radio"
+					value="0"
+					name="area"
+					onchange="calc();"
+				/>浜辺</label
+			>
+			<label
+				><input
+					type="radio"
+					value="1"
+					name="area"
+					onchange="calc();"
+				/>砂漠</label
+			>
+			<label
+				><input
+					type="radio"
+					value="2"
+					name="area"
+					onchange="calc();"
+				/>森</label
+			>
+			<label
+				><input
+					type="radio"
+					value="3"
+					name="area"
+					onchange="calc2();"
+				/>異世界</label
+			>
+			<div style="overflow: scroll;">
+				<table align="center" id="table" border>
+					<tr>
+						<th rowspan="2">番号</th>
+						<th rowspan="2">キャラ</th>
+						<th>POW(火力)</th>
+						<th rowspan="2">武具</th>
+						<th colspan="3">武具OP</th>
+						<th colspan="3">護石OP</th>
+					</tr>
+					<tr>
+						<th>TEC(チア・忍)</th>
+						<th>左</th>
+						<th>中</th>
+						<th>右</th>
+						<th>左</th>
+						<th>中</th>
+						<th>右</th>
+					</tr>
+					<tr name="0">
+						<td>サポ</td>
+						<td>
+							<select onchange="setCharatype(this)" class="chara_type">
+								<option value="0">魔</option>
+								<option value="1">チア</option>
+								<option value="2">忍者</option>
+								<option value="3" selected>寄生枠</option>
+							</select>
+						</td>
+						<td>
+							<input type="text" class="powtec" size="10" onchange="calc()" disabled />
+						</td>
+						<td>
+							<select class="bugu" onchange="calc()" disabled>
+								<option value="0">魔本</option>
+								<option value="1">魔石</option>
+								<option value="2">オーブ</option>
+								<option value="3" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="4">魔攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="4">魔攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="4">魔攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+					</tr>
+					<tr name="1">
+						<td>①</td>
+						<td>
+							<select onchange="setCharatype(this)" class="chara_type">
+								<option value="0">魔</option>
+								<option value="1">チア</option>
+								<option value="2">忍者</option>
+								<option value="3" selected>寄生枠</option>
+							</select>
+						</td>
+						<td>
+							<input type="text" class="powtec" size="10" onchange="calc()" disabled />
+						</td>
+						<td>
+							<select class="bugu" onchange="calc()" disabled>
+								<option value="0">魔本</option>
+								<option value="1">魔石</option>
+								<option value="2">オーブ</option>
+								<option value="3" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="4">魔攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="4">魔攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="4">魔攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+					</tr>
+					<tr name="2">
+						<td>②</td>
+						<td>
+							<select onchange="setCharatype(this)" class="chara_type">
+								<option value="0">魔</option>
+								<option value="1">チア</option>
+								<option value="2">忍者</option>
+								<option value="3" selected>寄生枠</option>
+							</select>
+						</td>
+						<td>
+							<input type="text" class="powtec" size="10" onchange="calc()" disabled />
+						</td>
+						<td>
+							<select class="bugu" onchange="calc()" disabled>
+								<option value="0">魔本</option>
+								<option value="1">魔石</option>
+								<option value="2">オーブ</option>
+								<option value="3" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="4">魔攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="4">魔攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="4">魔攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+					</tr>
+					<tr name="3">
+						<td>③</td>
+						<td>
+							<select onchange="setCharatype(this)" class="chara_type">
+								<option value="0">魔</option>
+								<option value="1">チア</option>
+								<option value="2">忍者</option>
+								<option value="3" selected>寄生枠</option>
+							</select>
+						</td>
+						<td>
+							<input type="text" class="powtec" size="10" onchange="calc()" disabled />
+						</td>
+						<td>
+							<select class="bugu" onchange="calc()" disabled>
+								<option value="0">魔本</option>
+								<option value="1">魔石</option>
+								<option value="2">オーブ</option>
+								<option value="3" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="4">魔攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="4">魔攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="4">魔攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+					</tr>
+					<tr name="4">
+						<td>④</td>
+						<td>
+							<select onchange="setCharatype(this)" class="chara_type">
+								<option value="0">魔</option>
+								<option value="1">チア</option>
+								<option value="2">忍者</option>
+								<option value="3" selected>寄生枠</option>
+							</select>
+						</td>
+						<td>
+							<input type="text" class="powtec" size="10" onchange="calc()" disabled />
+						</td>
+						<td>
+							<select class="bugu" onchange="calc()" disabled>
+								<option value="0">魔本</option>
+								<option value="1">魔石</option>
+								<option value="2">オーブ</option>
+								<option value="3" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="4">魔攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="4">魔攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="4">魔攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+					</tr>
+					<tr name="5">
+						<td>⑤</td>
+						<td>
+							<select onchange="setCharatype(this)" class="chara_type">
+								<option value="0">魔</option>
+								<option value="1">チア</option>
+								<option value="2">忍者</option>
+								<option value="3" selected>寄生枠</option>
+							</select>
+						</td>
+						<td>
+							<input type="text" class="powtec" size="10" onchange="calc()" disabled />
+						</td>
+						<td>
+							<select class="bugu" onchange="calc()" disabled>
+								<option value="0">魔本</option>
+								<option value="1">魔石</option>
+								<option value="2">オーブ</option>
+								<option value="3" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="4">魔攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="4">魔攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="4">魔攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+					</tr>
+					<tr name="6">
+						<td>⑥</td>
+						<td>
+							<select onchange="setCharatype(this)" class="chara_type">
+								<option value="0">魔</option>
+								<option value="1">チア</option>
+								<option value="2">忍者</option>
+								<option value="3" selected>寄生枠</option>
+							</select>
+						</td>
+						<td>
+							<input type="text" class="powtec" size="10" onchange="calc()" disabled />
+						</td>
+						<td>
+							<select class="bugu" onchange="calc()" disabled>
+								<option value="0">魔本</option>
+								<option value="1">魔石</option>
+								<option value="2">オーブ</option>
+								<option value="3" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="4">魔攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="4">魔攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="4">魔攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+					</tr>
+					<tr name="7">
+						<td>⑦</td>
+						<td>
+							<select onchange="setCharatype(this)" class="chara_type">
+								<option value="0">魔</option>
+								<option value="1">チア</option>
+								<option value="2">忍者</option>
+								<option value="3" selected>寄生枠</option>
+							</select>
+						</td>
+						<td>
+							<input type="text" class="powtec" size="10" onchange="calc()" disabled />
+						</td>
+						<td>
+							<select class="bugu" onchange="calc()" disabled>
+								<option value="0">魔本</option>
+								<option value="1">魔石</option>
+								<option value="2">オーブ</option>
+								<option value="3" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="4">魔攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="4">魔攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="4">魔攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+					</tr>
+					<tr name="8">
+						<td>⑧</td>
+						<td>
+							<select onchange="setCharatype(this)" class="chara_type">
+								<option value="0">魔</option>
+								<option value="1">チア</option>
+								<option value="2">忍者</option>
+								<option value="3" selected>寄生枠</option>
+							</select>
+						</td>
+						<td>
+							<input type="text" class="powtec" size="10" onchange="calc()" disabled />
+						</td>
+						<td>
+							<select class="bugu" onchange="calc()" disabled>
+								<option value="0">魔本</option>
+								<option value="1">魔石</option>
+								<option value="2">オーブ</option>
+								<option value="3" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="4">魔攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="4">魔攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="4">魔攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+					</tr>
+					<tr name="9">
+						<td>⑨</td>
+						<td>
+							<select onchange="setCharatype(this)" class="chara_type">
+								<option value="0">魔</option>
+								<option value="1">チア</option>
+								<option value="2">忍者</option>
+								<option value="3" selected>寄生枠</option>
+							</select>
+						</td>
+						<td>
+							<input type="text" class="powtec" size="10" onchange="calc()" disabled />
+						</td>
+						<td>
+							<select class="bugu" onchange="calc()" disabled>
+								<option value="0">魔本</option>
+								<option value="1">魔石</option>
+								<option value="2">オーブ</option>
+								<option value="3" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="4">魔攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="4">魔攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="4">魔攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+					</tr>
+					<tr name="10">
+						<td>⑩</td>
+						<td>
+							<select onchange="setCharatype(this)" class="chara_type">
+								<option value="0">魔</option>
+								<option value="1">チア</option>
+								<option value="2">忍者</option>
+								<option value="3" selected>寄生枠</option>
+							</select>
+						</td>
+						<td>
+							<input type="text" class="powtec" size="10" onchange="calc()" disabled />
+						</td>
+						<td>
+							<select class="bugu" onchange="calc()" disabled>
+								<option value="0">魔本</option>
+								<option value="1">魔石</option>
+								<option value="2">オーブ</option>
+								<option value="3" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="4">魔攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="4">魔攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="4">魔攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+					</tr>
+					<tr name="11">
+						<td>⑪</td>
+						<td>
+							<select onchange="setCharatype(this)" class="chara_type">
+								<option value="0">魔</option>
+								<option value="1">チア</option>
+								<option value="2">忍者</option>
+								<option value="3" selected>寄生枠</option>
+							</select>
+						</td>
+						<td>
+							<input type="text" class="powtec" size="10" onchange="calc()" disabled />
+						</td>
+						<td>
+							<select class="bugu" onchange="calc()" disabled>
+								<option value="0">魔本</option>
+								<option value="1">魔石</option>
+								<option value="2">オーブ</option>
+								<option value="3" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="4">魔攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="4">魔攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="4">魔攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc()" class="op" disabled>
+								<option value="0">魔攻1</option>
+								<option value="1">魔攻2</option>
+								<option value="2">魔攻3</option>
+								<option value="3">魔攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+					</tr>
+				</table>
+				<table
+					align="center"
+					id="table2"
+					style="background-color: #ddbbff; display: none"
+					border
+				>
+				<tr>
+					<th rowspan="2">番号</th>
+					<th rowspan="2">キャラ</th>
+					<th>POW(火力)</th>
+					<th rowspan="2">武具</th>
+					<th colspan="3">武具OP</th>
+					<th colspan="3">護石OP</th>
+				</tr>
+				<tr>
+					<th>TEC(チア・忍)</th>
+					<th>左</th>
+					<th>中</th>
+					<th>右</th>
+					<th>左</th>
+					<th>中</th>
+					<th>右</th>
+				</tr>
+					<tr name="0">
+						<td>サポ</td>
+						<td>
+							<select onchange="setCharatype2(this)" class="chara_type">
+								<option value="0">サモ</option>
+								<option value="1">チア</option>
+								<option value="2">忍者</option>
+								<option value="3" selected>寄生枠</option>
+							</select>
+						</td>
+						<td>
+							<input type="text" class="powtec" size="10" onchange="calc2()" disabled />
+						</td>
+						<td>
+							<select class="bugu" onchange="calc2()" disabled>
+								<option value="0">勇剣</option>
+								<option value="1">魔石</option>
+								<option value="2">オーブ</option>
+								<option value="3" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="4">物攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="4">物攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="4">物攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+					</tr>
+					<tr name="1">
+						<td>①</td>
+						<td>
+							<select onchange="setCharatype2(this)" class="chara_type">
+								<option value="0">サモ</option>
+								<option value="1">チア</option>
+								<option value="2">忍者</option>
+								<option value="3" selected>寄生枠</option>
+							</select>
+						</td>
+						<td>
+							<input type="text" class="powtec" size="10" onchange="calc2()" disabled />
+						</td>
+						<td>
+							<select class="bugu" onchange="calc2()" disabled>
+								<option value="0">勇剣</option>
+								<option value="1">魔石</option>
+								<option value="2">オーブ</option>
+								<option value="3" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="4">物攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="4">物攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="4">物攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+					</tr>
+					<tr name="2">
+						<td>②</td>
+						<td>
+							<select onchange="setCharatype2(this)" class="chara_type">
+								<option value="0">サモ</option>
+								<option value="1">チア</option>
+								<option value="2">忍者</option>
+								<option value="3" selected>寄生枠</option>
+							</select>
+						</td>
+						<td>
+							<input type="text" class="powtec" size="10" onchange="calc2()" disabled />
+						</td>
+						<td>
+							<select class="bugu" onchange="calc2()" disabled>
+								<option value="0">勇剣</option>
+								<option value="1">魔石</option>
+								<option value="2">オーブ</option>
+								<option value="3" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="4">物攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="4">物攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="4">物攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+					</tr>
+					<tr name="3">
+						<td>③</td>
+						<td>
+							<select onchange="setCharatype2(this)" class="chara_type">
+								<option value="0">サモ</option>
+								<option value="1">チア</option>
+								<option value="2">忍者</option>
+								<option value="3" selected>寄生枠</option>
+							</select>
+						</td>
+						<td>
+							<input type="text" class="powtec" size="10" onchange="calc2()" disabled />
+						</td>
+						<td>
+							<select class="bugu" onchange="calc2()" disabled>
+								<option value="0">勇剣</option>
+								<option value="1">魔石</option>
+								<option value="2">オーブ</option>
+								<option value="3" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="4">物攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="4">物攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="4">物攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+					</tr>
+					<tr name="4">
+						<td>④</td>
+						<td>
+							<select onchange="setCharatype2(this)" class="chara_type">
+								<option value="0">サモ</option>
+								<option value="1">チア</option>
+								<option value="2">忍者</option>
+								<option value="3" selected>寄生枠</option>
+							</select>
+						</td>
+						<td>
+							<input type="text" class="powtec" size="10" onchange="calc2()" disabled />
+						</td>
+						<td>
+							<select class="bugu" onchange="calc2()" disabled>
+								<option value="0">勇剣</option>
+								<option value="1">魔石</option>
+								<option value="2">オーブ</option>
+								<option value="3" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="4">物攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="4">物攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="4">物攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+					</tr>
+					<tr name="5">
+						<td>⑤</td>
+						<td>
+							<select onchange="setCharatype2(this)" class="chara_type">
+								<option value="0">サモ</option>
+								<option value="1">チア</option>
+								<option value="2">忍者</option>
+								<option value="3" selected>寄生枠</option>
+							</select>
+						</td>
+						<td>
+							<input type="text" class="powtec" size="10" onchange="calc2()" disabled />
+						</td>
+						<td>
+							<select class="bugu" onchange="calc2()" disabled>
+								<option value="0">勇剣</option>
+								<option value="1">魔石</option>
+								<option value="2">オーブ</option>
+								<option value="3" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="4">物攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="4">物攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="4">物攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+					</tr>
+					<tr name="6">
+						<td>⑥</td>
+						<td>
+							<select onchange="setCharatype2(this)" class="chara_type">
+								<option value="0">サモ</option>
+								<option value="1">チア</option>
+								<option value="2">忍者</option>
+								<option value="3" selected>寄生枠</option>
+							</select>
+						</td>
+						<td>
+							<input type="text" class="powtec" size="10" onchange="calc2()" disabled />
+						</td>
+						<td>
+							<select class="bugu" onchange="calc2()" disabled>
+								<option value="0">勇剣</option>
+								<option value="1">魔石</option>
+								<option value="2">オーブ</option>
+								<option value="3" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="4">物攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="4">物攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="4">物攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+					</tr>
+					<tr name="7">
+						<td>⑦</td>
+						<td>
+							<select onchange="setCharatype2(this)" class="chara_type">
+								<option value="0">サモ</option>
+								<option value="1">チア</option>
+								<option value="2">忍者</option>
+								<option value="3" selected>寄生枠</option>
+							</select>
+						</td>
+						<td>
+							<input type="text" class="powtec" size="10" onchange="calc2()" disabled />
+						</td>
+						<td>
+							<select class="bugu" onchange="calc2()" disabled>
+								<option value="0">勇剣</option>
+								<option value="1">魔石</option>
+								<option value="2">オーブ</option>
+								<option value="3" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="4">物攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="4">物攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="4">物攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+					</tr>
+					<tr name="8">
+						<td>⑧</td>
+						<td>
+							<select onchange="setCharatype2(this)" class="chara_type">
+								<option value="0">サモ</option>
+								<option value="1">チア</option>
+								<option value="2">忍者</option>
+								<option value="3" selected>寄生枠</option>
+							</select>
+						</td>
+						<td>
+							<input type="text" class="powtec" size="10" onchange="calc2()" disabled />
+						</td>
+						<td>
+							<select class="bugu" onchange="calc2()" disabled>
+								<option value="0">勇剣</option>
+								<option value="1">魔石</option>
+								<option value="2">オーブ</option>
+								<option value="3" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="4">物攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="4">物攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="4">物攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+					</tr>
+					<tr name="9">
+						<td>⑨</td>
+						<td>
+							<select onchange="setCharatype2(this)" class="chara_type">
+								<option value="0">サモ</option>
+								<option value="1">チア</option>
+								<option value="2">忍者</option>
+								<option value="3" selected>寄生枠</option>
+							</select>
+						</td>
+						<td>
+							<input type="text" class="powtec" size="10" onchange="calc2()" disabled />
+						</td>
+						<td>
+							<select class="bugu" onchange="calc2()" disabled>
+								<option value="0">勇剣</option>
+								<option value="1">魔石</option>
+								<option value="2">オーブ</option>
+								<option value="3" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="4">物攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="4">物攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="4">物攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+					</tr>
+					<tr name="10">
+						<td>⑩</td>
+						<td>
+							<select onchange="setCharatype2(this)" class="chara_type">
+								<option value="0">サモ</option>
+								<option value="1">チア</option>
+								<option value="2">忍者</option>
+								<option value="3" selected>寄生枠</option>
+							</select>
+						</td>
+						<td>
+							<input type="text" class="powtec" size="10" onchange="calc2()" disabled />
+						</td>
+						<td>
+							<select class="bugu" onchange="calc2()" disabled>
+								<option value="0">勇剣</option>
+								<option value="1">魔石</option>
+								<option value="2">オーブ</option>
+								<option value="3" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="4">物攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="4">物攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="4">物攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+					</tr>
+					<tr name="11">
+						<td>⑪</td>
+						<td>
+							<select onchange="setCharatype2(this)" class="chara_type">
+								<option value="0">サモ</option>
+								<option value="1">チア</option>
+								<option value="2">忍者</option>
+								<option value="3" selected>寄生枠</option>
+							</select>
+						</td>
+						<td>
+							<input type="text" class="powtec" size="10" onchange="calc2()" disabled />
+						</td>
+						<td>
+							<select class="bugu" onchange="calc2()" disabled>
+								<option value="0">勇剣</option>
+								<option value="1">魔石</option>
+								<option value="2">オーブ</option>
+								<option value="3" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="4">物攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="4">物攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="4">物攻5</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+						<td>
+							<select onchange="calc2()" class="op" disabled>
+								<option value="0">物攻1</option>
+								<option value="1">物攻2</option>
+								<option value="2">物攻3</option>
+								<option value="3">物攻4</option>
+								<option value="5" selected>その他</option>
+							</select>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<br />
+			<hr color="#1f1e33" noshade />
+			<span id="result">冒険エリアを選択してください。</span>
+			<br />
+			<hr color="#1f1e33" noshade />
+			<br />
+			<p>～使い方～</p>
+			<p>Ⅰ.冒険エリアを選択してください。</p>
+			<p>
+				Ⅱ.キャラの種類を火力、チア、忍者(割忍)、その他(寄生枠)から選択します。<wbr>(与ダメ計算のためクナイ忍や僧は寄生枠扱いになります。)
+			</p>
+			<p>Ⅲ.火力キャラならPOWを、チアまたは割忍の場合はTECの値を入力してください。</p>
+			<p>Ⅳ.(火力とチアのみ)武具を選択してください。</p>
+			<p>
+				Ⅴ.(火力のみ)OPの種類(魔攻opなかったら無視)とそのレベル(1～5)を選択してください。
+			</p>
+			<p>Ⅵ.結果が表示されます。</p>
+			<hr color="#e0e1cc" noshade />
+			<h2>最近の更新情報</h2>
+			<div id="update">取得中</div>
+			<hr color="#e0e1cc" noshade />
+		</center>
+	</body>
+</html>

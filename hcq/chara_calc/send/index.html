@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+		<meta http-equiv="Content-Style-Type" content="text/css" />
+		<meta http-equiv="Content-Script-Type" content="text/javascript" />
+		<title>レシピ送信用</title>
+		<script src="./cookie.js"></script>
+		<script src="./script.js"></script>
+
+	</head>
+	<body onload="start()">
+		<center>
+			<h1>レシピ送信</h1>
+      <p id="text"></p>
+			送信方法：<label><input type="radio" name="type" value="0"/>ヒマクエ垢</label>　<label><input type="radio" name="type" value="1"/>Discord垢</label><br />
+			<label>ユーザーNo.(ヒマクエの場合) / ユーザータグ(Discordの場合、例：えいた#5124)<input type="text" id="user" /></label><br>
+			<button onclick="send()">送信</button>
+			<div id="code"></div>
+		</center>
+	</body>
+</html>
