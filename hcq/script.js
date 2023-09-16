@@ -8,3 +8,8 @@ function copy() {
     3000
   );
 }
+
+document.addEventListener("DOMContentLoaded", async (e) => {
+  const f = await fetch("https://api.github.com/repos/Eita-hj/himaque_addon/releases/latest").then(n => n.json())
+  document.getElementById("appdl").href = f.assets.browser_download_url
+});
