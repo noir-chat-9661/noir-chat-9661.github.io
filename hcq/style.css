@@ -24,7 +24,7 @@ p {
   background-color: #ffffff90;
   width: 80%;
   margin: 10px;
-  padding: 10px;
+  padding: 5px;
   display: block;
   border-radius: 10px;
 }
@@ -32,7 +32,7 @@ p {
 label {
   color: #000000;
   background-color: #ddddddaa;
-  padding: 10px;
+  padding: 5px;
   margin: 10px;
   border-radius: 5px;
   font-weight: bold;
