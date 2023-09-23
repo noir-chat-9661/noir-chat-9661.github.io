@@ -57,7 +57,7 @@
               ><br />コピー完了　ブックマークに登録してください。</small
             >
           </p>
-          <p>
+          <p id="app" style="display:none;">
             アプリ版(windowsのみ)
             <a id="appdl" href="https://github.com/Eita-hj/himaque_addon/releases/download/1.0.3/setup.exe" target="_blank" download
               ><wbr />ダウンロード</a
@@ -83,6 +83,27 @@
               target="_blank"
               >こちら</a
             >の使用を推奨します。
+          </p>
+        </span>
+        <br />
+        <label
+          ><input
+            type="checkbox"
+            style="display: none"
+            onchange="document.getElementById('bookmarklet').style.display = this.checked ? '' : 'none'"
+          />ブックマークレット</label
+        ><br />
+        <span id="bookmarklet" style="display: none">
+          <p><b>移動系</b><br />
+            30,50に移動(地帯用)：<button onclick="copybml(0)">コピーする</button><br />
+            50,50に移動(緊伝用)：<button onclick="copybml(1)">コピーする</button><br />
+            60,50に移動(特注)：<button onclick="copybml(2)">コピーする</button><br />
+            任意座標に移動(開拓用、使用時に入力が求められます)：<button onclick="copybml(3)">コピーする</button><br /><br />
+            <b>状態変更系</b><br />
+            無職変更：<button onclick="copybml(3)">コピーする</button>
+            <small id="copyok2" style="display: none"
+              ><br />コピー完了　ブックマークに登録してください。</small
+            >
           </p>
         </span>
       </div>
