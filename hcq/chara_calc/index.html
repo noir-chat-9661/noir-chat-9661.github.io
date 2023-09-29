@@ -7,27 +7,27 @@
     <meta name="viewport" content="width=device-width" />
     <title>レベル計算機 (ほぼ個人用)</title>
     <link rel="stylesheet" href="style.css" />
-    <script src="./scripts/cookie.js"></script>
-    <script src="./scripts/data.js"></script>
-    <script src="./scripts/calc.js"></script>
-    <script src="./scripts/core.js"></script>
+    <script src="./scripts/cookie.js" defer></script>
+    <script src="./scripts/data.js" defer></script>
+    <script src="./scripts/calc.js" defer></script>
+    <script src="./scripts/core.js" defer></script>
     <script>
       <!--
-      function versioncheck() {
-        fetch("./update/data.json")
-          .then((r) => r.json())
-          .then((n) => n.updates.at(-1).at(-1).version)
-          .then((n) => {
-            document.getElementById("nowversion").innerHTML = n;
-            document.title = `レベル計算機 (ダウンしていた時用) ver.${n}`;
-          });
-      }
-      function ready() {
-        versioncheck();
-        fetch("./data/wazadata.json")
-          .then((n) => n.json())
-          .then((n) => (waza = n));
-      }
+        function versioncheck() {
+          fetch("./update/data.json")
+            .then((r) => r.json())
+            .then((n) => n.updates.at(-1).at(-1).version)
+            .then((n) => {
+              document.getElementById("nowversion").innerHTML = n;
+              document.title = `レベル計算機 (ダウンしていた時用) ver.${n}`;
+            });
+        }
+        function ready() {
+          versioncheck();
+          fetch("./data/wazadata.json")
+            .then((n) => n.json())
+            .then((n) => (waza = n));
+        }
       -->
     </script>
   </head>
@@ -583,7 +583,7 @@
           onclick="javascript:this.select()"
           readonly
         ></textarea
-        ><br /><button type="button" onclick="senddata()">
+        ><br /><button type="button" onclick="senddata()" style="display:none">
           このレシピを転送する
         </button>
         <br />
@@ -592,7 +592,6 @@
       <br /><br />
       <div class="pointsum">合計：<span id="total_sum">0</span></div>
       <div class="wazazone">
-        <br />
         <div class="jobtext">
           <label style="background-color: #aaccff"
             ><b>戦士技(<span class="waza_sum">0</span>)</b
@@ -611,7 +610,7 @@
               name="jobtype"
               onchange="wazalist(this)"
               id="1" /></label
-          ><wbr />&nbsp;
+          ><wbr />
           <label style="background-color: #ffff88"
             ><b>僧技(<span class="waza_sum">0</span>)</b
             ><input
@@ -638,7 +637,7 @@
               name="jobtype"
               onchange="wazalist(this)"
               id="4" /></label
-          ><wbr />&nbsp;
+          ><wbr />
           <label style="background-color: #77dddd"
             ><b>騎士技(<span class="waza_sum">0</span>)</b
             ><input
@@ -658,7 +657,6 @@
               id="6"
           /></label>
         </div>
-        <br />
         <div id="wazainfo" style="display: none">
           <span id="info_description"></span>
         </div>
