@@ -169,4 +169,5 @@ p {
   left: 50%;
   font-size: 1.5rem;
   transform: translate(-50%, -50%);
+  word-break: keep-all;
 }
