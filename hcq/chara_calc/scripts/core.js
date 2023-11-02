@@ -401,10 +401,7 @@ function waza_level(y) {
   switch (name) {
     case "reset":
       waza[n].level =
-        place === default_waza[jobid] &&
-        jobid === type - 1
-          ? 1
-          : 0;
+        place === default_waza[jobid] && jobid === type - 1 ? 1 : 0;
       break;
     case "-1":
       if (waza[n].level > 0) waza[n].level--;
@@ -613,6 +610,9 @@ function loadcookie() {
   document.getElementById("tec_input").value = c.status.tec;
   document.getElementById("chara_type").value = c.type;
   document.getElementById("hiden").style.display = c.type ? "" : "none";
+  document.getElementById("chara_hiden").innerHTML = hiden[charainfo.type]
+    .map((n, m) => `<option value="${m}">${n}</option>`)
+    .join("");
   document.getElementById("chara_hiden").value = c.hiden;
   document.getElementById("bugu").value = c.bugu.type;
   document.getElementById("bugu_info").style.display = c.bugu.type
@@ -631,6 +631,14 @@ function loadcookie() {
   document.getElementById("stone2").value = c.stone[1];
   document.getElementById("stone3").value = c.stone[2];
 
+  document.getElementById("sum_pow").innerHTML =
+    charainfo.bugu.status.pow + charainfo.bugu.kaji.pow;
+  document.getElementById("sum_def").innerHTML =
+    charainfo.bugu.status.def + charainfo.bugu.kaji.def;
+  document.getElementById("sum_tec").innerHTML =
+    charainfo.bugu.status.tec + charainfo.bugu.kaji.tec;
+  document.getElementById("bonus_nokori").innerHTML = charainfo.status.amari;
+
   for (let i = 0; i < 7; i++) {
     document.getElementsByClassName("waza_sum")[i].innerHTML = pointcalc(i);
   }
@@ -640,4 +648,226 @@ function loadcookie() {
     s > 204 ? "#ff0000" : "#000000";
 
   calc(settings.shortoutput, false);
+}
+
+function jsonMenu() {
+  document.getElementById("jsonmenu").style.display = document.getElementById(
+    "jsonmenu"
+  ).style.display
+    ? ""
+    : "none";
+}
+
+const j_weapon = [
+  "-1",
+  "12",
+  "13",
+  "14",
+  "15",
+  "28",
+  "29",
+  "30",
+  "31",
+  "32",
+  "33",
+  "34",
+  "35",
+  "36",
+  "37",
+  "38",
+  "39",
+  "40",
+  "41",
+  "42",
+  "43",
+  "44",
+  "45",
+  "46",
+];
+const j_optionA = [
+  "-1",
+  "4",
+  "9",
+  "14",
+  "19",
+  "24",
+  "29",
+  "34",
+  "39",
+  "44",
+  "49",
+  "54",
+  "59",
+];
+const j_optionB = [
+  "-1",
+  "3",
+  "7",
+  "11",
+  "15",
+  "19",
+  "23",
+  "27",
+  "31",
+  "35",
+  "39",
+];
+function jsonInOut(mode) {
+  document.getElementById("jsonarea").style.display = "";
+  if (mode === "in") {
+    document.getElementById("jsonout").style.display = "none";
+    document.getElementById("jsonin").style.display = "";
+    document.getElementById("jsontext").readOnly = false;
+    document.getElementById("jsontext").value = "";
+    document.getElementById("errmsg").style.display = "none";
+    document.getElementById("errmsg2").style.display = "none";
+  } else if (mode === "out") {
+    document.getElementById("jsonin").style.display = "none";
+    document.getElementById("jsonout").style.display = "";
+    document.getElementById("jsontext").readOnly = true;
+    const plane = {};
+    plane.jobPoint = [[], [], [], [], [], [], []];
+    waza.forEach((n) => plane.jobPoint[n.jobid].push(n.level.toString()));
+    plane.charaData = {
+      outputCharacterData: settings.charaoutput,
+      characterName: charainfo.name,
+      characterType: (charainfo.type - 1).toString(),
+      hiden: charainfo.hiden.toString(),
+      remain: (charainfo.amari - 1).toString(),
+      weapon: j_weapon[charainfo.bugu.type],
+      weaponDummy1: "-1",
+      weaponOption0: j_optionA[charainfo.bugu.op[0]],
+      weaponOption1: j_optionA[charainfo.bugu.op[1]],
+      weaponOption2: j_optionA[charainfo.bugu.op[2]],
+      weaponOptionDummy1: "-1",
+      weaponPow: charainfo.bugu.status.pow.toString(),
+      weaponPowPlus: charainfo.bugu.kaji.pow.toString(),
+      weaponDef: charainfo.bugu.status.def.toString(),
+      weaponDefPlus: charainfo.bugu.kaji.def.toString(),
+      weaponTec: charainfo.bugu.status.tec.toString(),
+      weaponTecPlus: charainfo.bugu.kaji.tec.toString(),
+      weaponOption3: j_optionB[charainfo.stone[0]],
+      weaponOption4: j_optionB[charainfo.stone[1]],
+      weaponOption5: j_optionB[charainfo.stone[2]],
+      weaponOptionDummy2: "-1",
+      stars: charainfo.star.toString(),
+      charalevel: "200",
+      bonusPow: charainfo.status.pow.toString(),
+      bonusDef: charainfo.status.def.toString(),
+      bonusTec: charainfo.status.tec.toString(),
+    };
+    document.getElementById("jsontext").value = JSON.stringify(plane);
+  }
+}
+
+function jsonLoad() {
+  document.getElementById("errmsg").style.display = "none";
+  document.getElementById("errmsg2").style.display = "none";
+  if (!isJSON(document.getElementById("jsontext").value))
+    return (document.getElementById("errmsg").style.display = "");
+  const json = JSON.parse(document.getElementById("jsontext").value);
+  if (!typeof json === "object")
+    return (document.getElementById("errmsg").style.display = "");
+  const a = Number(j_weapon.findIndex((n) => n === json.charaData.weapon));
+  if (a === -1) return (document.getElementById("errmsg2").style.display = "");
+  const b = Number(j_optionA.findIndex((n) => n === json.charaData.weaponOption0));
+  if (b === -1) return (document.getElementById("errmsg2").style.display = "");
+  const c = Number(j_optionA.findIndex((n) => n === json.charaData.weaponOption1));
+  if (c === -1) return (document.getElementById("errmsg2").style.display = "");
+  const d = Number(j_optionA.findIndex((n) => n === json.charaData.weaponOption2));
+  if (d === -1) return (document.getElementById("errmsg2").style.display = "");
+  const e = Number(j_optionB.findIndex((n) => n === json.charaData.weaponOption3));
+  if (e === -1) return (document.getElementById("errmsg2").style.display = "");
+  const f = Number(j_optionB.findIndex((n) => n === json.charaData.weaponOption4));
+  if (f === -1) return (document.getElementById("errmsg2").style.display = "");
+  const g = Number(j_optionB.findIndex((n) => n === json.charaData.weaponOption5));
+  if (g === -1) return (document.getElementById("errmsg2").style.display = "");
+  if (!confirm(`名前：${json.charaData.characterName || "未設定"}のレシピデータを読み込みますか。`)) return;;
+  json.jobPoint.flat().map(Number).forEach((n, m) => {
+    waza[m].level = n;
+    document.getElementsByClassName("waza_lv")[m].innerHTML = lv_moji[n];
+    document.getElementsByClassName("point")[m].innerHTML =
+      points[waza[m].point][n];
+  });
+  charainfo.name = document.getElementById("chara_name").value =
+    json.charaData.characterName;
+  charainfo.star = document.getElementById("star").value = Number(json.charaData.stars);
+  charainfo.type = document.getElementById("chara_type").value =
+    Number(json.charaData.characterType) + 1;
+  document.getElementById("chara_hiden").innerHTML = hiden[charainfo.type]
+    .map((n, m) => `<option value="${m}">${n}</option>`)
+    .join("");
+  charainfo.hiden = document.getElementById("chara_hiden").value = Number(
+    json.charaData.hiden
+  );
+  charainfo.amari = document.getElementById("amari_point").value =
+    Number(json.charaData.remain) + 1;
+  charainfo.status.pow = document.getElementById("pow_input").value = Number(
+    json.charaData.bonusPow
+  );
+  charainfo.status.def = document.getElementById("def_input").value = Number(
+    json.charaData.bonusDef
+  );
+  charainfo.status.tec = document.getElementById("tec_input").value = Number(
+    json.charaData.bonusTec
+  );
+  charainfo.bugu.type = document.getElementById("bugu").value = a;
+  charainfo.bugu.status.pow = document.getElementById("bugu_pow").value =
+    Number(json.charaData.weaponPow);
+  charainfo.bugu.status.def = document.getElementById("bugu_def").value =
+    Number(json.charaData.weaponDef);
+  charainfo.bugu.status.tec = document.getElementById("bugu_tec").value =
+    Number(json.charaData.weaponTec);
+  charainfo.bugu.kaji.pow = document.getElementById("kaji_pow").value = Number(
+    json.charaData.weaponPowPlus
+  );
+  charainfo.bugu.kaji.def = document.getElementById("kaji_def").value = Number(
+    json.charaData.weaponDefPlus
+  );
+  charainfo.bugu.kaji.tec = document.getElementById("kaji_tec").value = Number(
+    json.charaData.weaponTecPlus
+  );
+  charainfo.bugu.op = [b, c, d].map(Number);
+  charainfo.stone = [e, f, g].map(Number);
+  document.getElementById("hiden").style.display = charainfo.hiden
+    ? ""
+    : "none";
+  document.getElementById("bugu_info").style.display = a ? "" : "none";
+  document.getElementById("bugu_op1").value = b;
+  document.getElementById("bugu_op2").value = c;
+  document.getElementById("bugu_op3").value = d;
+  document.getElementById("stone1").value = e;
+  document.getElementById("stone2").value = f;
+  document.getElementById("stone3").value = g;
+
+  for (let i = 0; i < 7; i++) {
+    document.getElementsByClassName("waza_sum")[i].innerHTML = pointcalc(i);
+  }
+  const s = pointcalc();
+  document.getElementById("total_sum").innerHTML = s;
+  document.getElementById("total_sum").style.color =
+    s > 204 ? "#ff0000" : "#000000";
+
+  document.getElementById("sum_pow").innerHTML =
+    charainfo.bugu.status.pow + charainfo.bugu.kaji.pow;
+  document.getElementById("sum_def").innerHTML =
+    charainfo.bugu.status.def + charainfo.bugu.kaji.def;
+  document.getElementById("sum_tec").innerHTML =
+    charainfo.bugu.status.tec + charainfo.bugu.kaji.tec;
+  document.getElementById("bonus_nokori").innerHTML = charainfo.status.amari;
+  
+  
+  calc(settings.shortoutput, false);
+  document.getElementById('jsonarea').style.display = 'none'
+}
+
+function jsonCopy() {
+  try {
+    navigator.clipboard.writeText(document.getElementById("jsontext").value);
+    document.getElementById("copyok").style.display = "";
+    setTimeout(
+      () => (document.getElementById("copyok").style.display = "none"),
+      3000
+    );
+  } catch {}
 }
