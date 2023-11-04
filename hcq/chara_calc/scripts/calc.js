@@ -47,7 +47,7 @@ function calc(s, b, o = true) {
   } else if (charatype === 5 && h === 1) {
     status.as += 3;
   } else if (charatype === 6 && h === 1) {
-    status.sp += 400;
+    status.SP += 400;
   }
   const {
     bugu: { type: bugutype, op: buguop, status: bugustatus, kaji },
