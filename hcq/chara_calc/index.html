@@ -27,10 +27,113 @@
         fetch("./data/wazadata.json")
           .then((n) => n.json())
           .then((n) => {
+            const cookie = cookieManager.parse();
             waza = n;
-            document.getElementById("load").style.display = "none";
-            document.getElementById("main").style.display = "";
+            if (cookie.backups) {
+              const { chara: c } = JSON.parse(
+                decodeURIComponent(cookie.backups)
+              );
+              document.getElementById("backupname").innerHTML =
+                c.name || "未設定";
+              document.getElementById("backupcheck").style.display = "";
+              document.getElementById("nowloadgin").style.display = "none";
+            } else {
+              document.getElementById("load").style.display = "none";
+              document.getElementById("main").style.display = "";
+            }
           });
+      }
+      function loadBackup() {
+        const backup = JSON.parse(
+          decodeURIComponent(cookieManager.parse().backups)
+        );
+        const { waza: w, chara: c, settings: st } = backup;
+        "0"
+          .repeat(waza.length - BigInt("0x" + w).toString().length)
+          .concat(BigInt("0x" + w).toString())
+          .split("")
+          .forEach((n, m) => {
+            waza[m].level = Number(n);
+            document.getElementsByClassName("waza_lv")[m].innerHTML =
+              lv_moji[n];
+            document.getElementsByClassName("point")[m].innerHTML =
+              points[waza[m].point][n];
+          });
+        charainfo.name = c.name;
+        charainfo.star = c.star;
+        charainfo.type = c.type;
+        charainfo.hiden = c.hiden;
+        charainfo.amari = c.amari;
+        charainfo.status.pow = c.status.pow;
+        charainfo.status.def = c.status.def;
+        charainfo.status.tec = c.status.tec;
+        charainfo.bugu.type = c.bugu.type;
+        charainfo.bugu.status.pow = c.bugu.status.pow;
+        charainfo.bugu.status.def = c.bugu.status.def;
+        charainfo.bugu.status.tec = c.bugu.status.tec;
+        charainfo.bugu.kaji.pow = c.bugu.kaji.pow;
+        charainfo.bugu.kaji.def = c.bugu.kaji.def;
+        charainfo.bugu.kaji.tec = c.bugu.kaji.tec;
+        charainfo.bugu.op = c.bugu.op;
+        charainfo.stone = c.stone;
+        document.getElementById("chara_name").value = c.name;
+        document.getElementById("amari_point").value = c.amari;
+        document.getElementById("star").value = c.star;
+        document.getElementById("pow_input").value = c.status.pow;
+        document.getElementById("def_input").value = c.status.def;
+        document.getElementById("tec_input").value = c.status.tec;
+        document.getElementById("chara_type").value = c.type;
+        document.getElementById("hiden").style.display = c.type ? "" : "none";
+        document.getElementById("chara_hiden").innerHTML = hiden[charainfo.type]
+          .map((n, m) => `<option value="${m}">${n}</option>`)
+          .join("");
+        document.getElementById("chara_hiden").value = c.hiden;
+        document.getElementById("bugu").value = c.bugu.type;
+        document.getElementById("bugu_info").style.display = c.bugu.type
+          ? ""
+          : "none";
+        document.getElementById("bugu_pow").value = c.bugu.status.pow;
+        document.getElementById("kaji_pow").value = c.bugu.kaji.pow;
+        document.getElementById("bugu_def").value = c.bugu.status.def;
+        document.getElementById("kaji_def").value = c.bugu.kaji.def;
+        document.getElementById("bugu_tec").value = c.bugu.status.tec;
+        document.getElementById("kaji_tec").value = c.bugu.kaji.tec;
+        document.getElementById("bugu_op1").value = c.bugu.op[0];
+        document.getElementById("bugu_op2").value = c.bugu.op[1];
+        document.getElementById("bugu_op3").value = c.bugu.op[2];
+        document.getElementById("stone1").value = c.stone[0];
+        document.getElementById("stone2").value = c.stone[1];
+        document.getElementById("stone3").value = c.stone[2];
+
+        document.getElementById("sum_pow").innerHTML =
+          charainfo.bugu.status.pow + charainfo.bugu.kaji.pow;
+        document.getElementById("sum_def").innerHTML =
+          charainfo.bugu.status.def + charainfo.bugu.kaji.def;
+        document.getElementById("sum_tec").innerHTML =
+          charainfo.bugu.status.tec + charainfo.bugu.kaji.tec;
+        document.getElementById("bonus_nokori").innerHTML =
+          charainfo.status.amari;
+
+        for (let i = 0; i < 7; i++) {
+          document.getElementsByClassName("waza_sum")[i].innerHTML =
+            pointcalc(i);
+        }
+        const s = pointcalc();
+        document.getElementById("total_sum").innerHTML = s;
+        document.getElementById("total_sum").style.color =
+          s > 204 ? "#ff0000" : "#000000";
+
+        Object.keys(st).forEach(n => {
+          settings[n] = document.getElementById(n).checked = st[n]
+        })
+        calc(settings.shortoutput, false);
+        document.getElementById("load").style.display = "none";
+        document.getElementById("main").style.display = "";
+      }
+      function deleteBackup() {
+        cookieManager.set("backups", "", { "Max-Age": 0 });
+        document.getElementById("load").style.display = "none";
+        document.getElementById("main").style.display = "";
       }
       document.addEventListener("DOMContentLoaded", async (e) => {
         if (location.href.startsWith("http://eita.f5.si"))
@@ -40,11 +143,20 @@
     </script>
   </head>
   <body onload="ready()">
-    <span id="load"
-      ><span class="nowlodgin"
-        >now lodgin<br />技のデータを取得しています...</span
-      ></span
-    >
+    <span id="load">
+      <span id="nowloadgin">
+        now loadgin<br />
+        技のデータを取得しています...
+      </span>
+      <span id="backupcheck" style="display: none">
+        名前：<span id="backupname">未設定</span
+        >のバックアップデータがあります。復元しますか。<br />
+        <span class="buttons">
+          <button onclick="loadBackup()">はい</button>
+          <button onclick="deleteBackup()">いいえ(破棄されます)</button>
+        </span>
+      </span>
+    </span>
     <span id="main" style="display: none">
       <a href="../">ヒマクエ関連へ戻る</a>
       <hr color="black" size="0.5" />
@@ -553,6 +665,14 @@
               class="settings"
               onchange="setting(this)"
             />自動更新時に短縮で出力</label
+          ><br />
+          <label
+            ><input
+              type="checkbox"
+              id="autobackup"
+              class="settings"
+              onchange="setting(this)"
+            />自動バックアップ</label
           >
           <br />
           <p><b>クッキー</b></p>

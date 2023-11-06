@@ -163,11 +163,21 @@ p {
   height: 100%;
 }
 
-.nowlodgin {
+#nowloadgin, #backupcheck {
+  display: block;
   position: absolute;
   top: 50%;
   left: 50%;
   font-size: 1.5rem;
   transform: translate(-50%, -50%);
   word-break: keep-all;
+}
+
+.buttons {
+  display: inline-block;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  word-break: keep-all;  
 }

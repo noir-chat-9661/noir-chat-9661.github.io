@@ -53,6 +53,7 @@ const settings = {
   shortoutput: false,
   charaoutput: true,
   statusoutput: true,
+  autobackup: false
 };
 
 function optionchange(y) {
@@ -380,14 +381,22 @@ function boxshow(y) {
 function setting(y) {
   const { id, checked } = y;
   settings[id] = checked;
+  if (id === "autobackup" && !checked) cookieManager.set("backups", "", { "Max-Age": 0 });
+  calc(false, false, false, true)
 }
 
+let jid = null;
 function wazalist(y) {
   const { id, checked } = y;
   for (let i = 0; i < 7; i++) {
     document.getElementById(`jobid${i}`).style.display = "none";
   }
-  document.getElementById(`jobid${id}`).style.display = checked ? "" : "none";
+  if (jid === id) {
+    document.getElementById(id).checked = false;
+    return jid = null;
+  }
+  jid = id
+  document.getElementById(`jobid${id}`).style.display = "";
   document.getElementsByClassName("wazazone")[0].style["background-color"] =
     y.parentNode.style["background-color"];
 }
@@ -495,6 +504,7 @@ function reset(id) {
     document.getElementById("bdef2").innerHTML = "–";
     document.getElementById("hoseitext").innerHTML =
       '<span id="hoseitext">得意：– 苦手：–</span>';
+    cookieManager.set("backups", "", { "Max-Age": 0 });
   } else {
     const w = waza.filter((n) => n.jobid === id);
     w.forEach((n) => {

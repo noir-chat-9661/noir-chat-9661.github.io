@@ -8,7 +8,7 @@ const cookieManager = {
         ? encodeURIComponent(data)
         : encodeURIComponent(JSON.stringify(data));
     const o = option
-      ? `${option.Expires ? `; Expires=${option.Expires}` : ""}${
+      ? `${option.Expires ? `; expires=${option.Expires}` : ""}${
           option["Max-Age"] ? `; Max-Age=${option["Max-Age"]}` : ""
         }${option.Domain ? `; Domain=${option.Domain}` : ""}${
           option.Path ? `; Path=${option.Path}` : ""

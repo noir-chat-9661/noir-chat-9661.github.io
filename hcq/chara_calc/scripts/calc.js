@@ -1,10 +1,24 @@
 "use strict";
 const hosei = {
   advantage: -1,
-  disadvantage: -1
-}
+  disadvantage: -1,
+};
 
-function calc(s, b, o = true) {
+function calc(s, b, o = true, cc = false) {
+  if (settings.autobackup){
+    try {
+      cookieManager.set(
+        "backups",
+        {
+          waza: BigInt(waza.map((n) => n.level).join("")).toString(16),
+          chara: charainfo,
+          settings
+        },
+        { Expires: "Fri, 31 Dec 9999 23:59:59 GMT" }
+      );
+    } catch {}
+  }
+  if (cc) return;
   if (pointcalc() > 204) return b ? alert("まずいですよ！！！") : false;
   const charatype = charainfo.type - 1;
   let status =
@@ -351,7 +365,6 @@ function calc(s, b, o = true) {
     stone[0] == 6 ? 0.16 : 0,
     stone[1] == 6 ? 0.16 : 0,
     stone[2] == 6 ? 0.16 : 0,
-    
   ];
   const bpow =
     (bugutype == 15 ? 0.2 : 0) +
@@ -409,7 +422,8 @@ function calc(s, b, o = true) {
       );
   document.getElementById("mdef1").innerHTML = star
     ? `${resultformat(mdef.reduce((a, b) => a / (1 - b), d))} (${resultformat(
-        mdef.reduce((a, b) => a / (1 - b), status.def) / ((charatype === 0 && h === 1) ? 0.75 : 1)
+        mdef.reduce((a, b) => a / (1 - b), status.def) /
+          (charatype === 0 && h === 1 ? 0.75 : 1)
       )})`
     : resultformat(mdef.reduce((a, b) => a / (1 - b), status.def));
   document.getElementById("bpow1").innerHTML = star
@@ -421,7 +435,8 @@ function calc(s, b, o = true) {
     : resultformat(status.pow * (1 + bpow) * (bugutype == 20 ? 1.2 : 1));
   document.getElementById("bdef1").innerHTML = star
     ? `${resultformat(bdef.reduce((a, b) => a / (1 - b), d))} (${resultformat(
-        bdef.reduce((a, b) => a / (1 - b), status.def) / ((charatype === 0 && h === 1) ? 0.75 : 1)
+        bdef.reduce((a, b) => a / (1 - b), status.def) /
+          (charatype === 0 && h === 1 ? 0.75 : 1)
       )})`
     : resultformat(bdef.reduce((a, b) => a / (1 - b), status.def));
   document.getElementById("mpow2").innerHTML = resultformat(
@@ -430,13 +445,15 @@ function calc(s, b, o = true) {
       (bugutype == 20 ? 1.2 : 1)
   );
   document.getElementById("mdef2").innerHTML = resultformat(
-    mdef.reduce((a, b) => a / (1 - b / 2), root(status.def)) / ((charatype === 0 && h === 1) ? 0.75 : 1)
+    mdef.reduce((a, b) => a / (1 - b / 2), root(status.def)) /
+      (charatype === 0 && h === 1 ? 0.75 : 1)
   );
   document.getElementById("bpow2").innerHTML = resultformat(
     root(status.pow) * (1 + bpow / 2) * (bugutype == 20 ? 1.2 : 1)
   );
   document.getElementById("bdef2").innerHTML = resultformat(
-    bdef.reduce((a, b) => a / (1 - b / 2), root(status.def)) / ((charatype === 0 && h === 1) ? 0.75 : 1)
+    bdef.reduce((a, b) => a / (1 - b / 2), root(status.def)) /
+      (charatype === 0 && h === 1 ? 0.75 : 1)
   );
   if (settings.autooutput || b) {
     for (let i = 0; i < 57; i++) {
