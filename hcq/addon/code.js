@@ -1,5 +1,5 @@
 (function () {
-  const version = "3.3.3";
+  const version = "3.3.4";
   const id = "layer" + layercount;
   if (this.addonApp) {
     document.title += `+Addon ver.${version}`;
@@ -398,40 +398,8 @@
   this.TabMenuSettei = () => {
     var _0x333399 = _0x162a80;
     $("#layer_settei").remove();
-    if (bgmflg == 0x1) bgmchecked = _0x333399(0x41a);
-    else bgmchecked = "";
-    if (otoflg == 0x1) otochecked = _0x333399(0x41a);
-    else otochecked = "";
-    if (masumeflg == 0x1) masumechecked = "";
-    else masumechecked = "";
-    var _0x369456 = "";
-    if (effectflg == 0x0) _0x369456 = _0x333399(0x41a);
-    var _0x2c55f6 = "";
-    if (effectflg == 0x1) _0x2c55f6 = _0x333399(0x41a);
-    var _0x548723 = "";
-    if (effectflg == 0x2) _0x548723 = "checked=\x27checked\x27";
-    var _0x1fdf14 = "";
-    if (ecoflg == 0x0) _0x1fdf14 = _0x333399(0x41a);
-    var _0x164013 = "";
-    if (ecoflg == 0x1) _0x164013 = _0x333399(0x41a);
-    var _0x1f0305 = "";
-    if (ecoflg == 0x2) _0x1f0305 = _0x333399(0x41a);
-    var _0x1a5446 = "";
-    if (cnf_ougi == 0x0) _0x1a5446 = _0x333399(0x9ea);
-    var _0x43504f = "";
-    if (cnf_ougi == 0x1) _0x43504f = _0x333399(0x9ea);
-    var _0x5d3a86 = "";
-    if (cnf_ougi == 0x2) _0x5d3a86 = _0x333399(0x9ea);
-    var _0x165d5c = "";
-    if (cnf_act == 0x0) _0x165d5c = _0x333399(0x9ea);
-    var _0x3eaa39 = "";
-    if (cnf_act == 0x1) _0x3eaa39 = _0x333399(0x9ea);
-    var _0xaefe3c = "";
-    if (cnf_act == 0x2) _0xaefe3c = _0x333399(0x9ea);
-    var _0x501cdd = _0x333399(0x867);
-    if (dsflgspecial == 0x0) _0x501cdd = _0x333399(0x83a);
     $("#layerroot").append(
-      "<div class='layer' style='background-color:#EEEEEE;text-align:center;' id='layer_settei'> 	<button class='widebtn' onclick='Toiawase()'>お問い合わせ</button><br />	<br />	<div style='text-align:center'>画面サイズ<br />		<a href='javascript:void(0);' class='astyle' onclick='GamenSize(1)'>縦長</a>　		<a href='javascript:void(0);' class='astyle' onclick='GamenSize(2)'>横長</a>　		<a href='javascript:void(0);' class='astyle' onclick='GamenSize(3)'>PC</a>	</div> 	<div style='margin-top:20px;'> 		奥義予約 <label><input type='radio' name='radio_cnfougi' value='0' onclick='SetteiOugiYoyaku(0)'/>有効</label> 		<label><input type='radio' name='radio_cnfougi' value='1' onclick='SetteiOugiYoyaku(1)/>対戦のみ</label> 		<label><input type='radio' name='radio_cnfougi' value='2' onclick='SetteiOugiYoyaku(2)'/>無効</label> 	</div> 	<div style='margin-top:10px;'> 		行動切替 <label><input type='radio' name='radio_cnfact' value='0' onclick='SetteiActRendou(0)' />有効</label> 		<label><input type='radio' name='radio_cnfact' value='1' onclick='SetteiActRendou(1)' />対戦のみ</label> 		<label><input type='radio' name='radio_cnfact' value='2' onclick='SetteiActRendou(2)'/>無効</label>\x20\x09</div>\x20\x09<div\x20style=\x27margin-top:20px;\x27>\x20\x09\x09<label><input\x20id=\x27checkbox_masume\x27\x20type=\x27checkbox\x27\x20 onclick='CheckboxMasume()'>座標表示</label> 	</div> 	<div id='effmodediv' style='margin-top:10px;'> 		エフェクト<label><input type='radio' class='effmode_radio' name='radioeffect' value='0' onclick='CheckboxEffect()' />通常</label> 		<label><input type='radio' class='effmode_radio' name='radioeffect' value='1' onclick='CheckboxEffect()' />簡易</label> 		<label><input type='radio' class='effmode_radio' name='radioeffect' value='2' onclick='CheckboxEffect()' />無し</label> 	</div>	<div style='margin-top:10px'>	<label><input id='checkbox_bgm' type='checkbox' \x20onclick=\x27CheckboxBGM()\x27>BGM</label>\x20\x09<label><input\x20id=\x27checkbox_oto\x27\x20type=\x27checkbox\x27\x20 onclick='CheckboxOTO()'>効果音</label>	<br>	<small>※モバイル端末ではうまく再生されないかも。</small></div> 	<div id='ecomodediv' style='margin-top:10px;'> 		エコモード<label><input type='radio' class='ecomode_radio' name='radioecomode' value='0' onclick='CheckboxEco()' />OFF</label> 		<label><input type='radio' class='ecomode_radio' name='radioecomode' value='1' onclick='CheckboxEco()' />ON</label>\x20\x09\x09<label><input\x20type=\x27radio\x27\x20class=\x27ecomode_radio\x27\x20name=\x27radioecomode\x27\x20value=\x272\x27\x20onclick=\x27CheckboxEco()\x27\x20/>最大</label> 	</div> 	<br><br>	<div style='margin-top:10px;'></div> 	<a href='javascript:void(0);' class='astyle' onclick='LogClear()' >ログ消去(3DS用)</a>　 	<span id='3dsmodecheck' onclick='DSKaizyo();layerclose(this);'></span> 	<BR><BR> 	<button class='layerclosebtn' onclick='myremove(this.parentNode)'>×</button> </div>"
+      "<div class='layer' style='background-color:#EEEEEE;text-align:center;' id='layer_settei'> 	<button class='widebtn' onclick='Toiawase()'>お問い合わせ</button><br />	<br />	<div style='text-align:center'>画面サイズ<br />		<a href='javascript:void(0);' class='astyle' onclick='GamenSize(1)'>縦長</a>　		<a href='javascript:void(0);' class='astyle' onclick='GamenSize(2)'>横長</a>　		<a href='javascript:void(0);' class='astyle' onclick='GamenSize(3)'>PC</a>	</div> 	<div style='margin-top:20px;'> 		奥義予約 <label><input type='radio' name='radio_cnfougi' value='0' onclick='SetteiOugiYoyaku(0)'/>有効</label> 		<label><input type='radio' name='radio_cnfougi' value='1' onclick='SetteiOugiYoyaku(1)'/>対戦のみ</label> 		<label><input type='radio' name='radio_cnfougi' value='2' onclick='SetteiOugiYoyaku(2)'/>無効</label> 	</div> 	<div style='margin-top:10px;'> 		行動切替 <label><input type='radio' name='radio_cnfact' value='0' onclick='SetteiActRendou(0)' />有効</label> 		<label><input type='radio' name='radio_cnfact' value='1' onclick='SetteiActRendou(1)' />対戦のみ</label> 		<label><input type='radio' name='radio_cnfact' value='2' onclick='SetteiActRendou(2)'/>無効</label>\x20\x09</div>\x20\x09<div\x20style=\x27margin-top:20px;\x27>\x20\x09\x09<label><input\x20id=\x27checkbox_masume\x27\x20type=\x27checkbox\x27\x20 onclick='CheckboxMasume()'>座標表示</label> 	</div> 	<div id='effmodediv' style='margin-top:10px;'> 		エフェクト<label><input type='radio' class='effmode_radio' name='radioeffect' value='0' onclick='CheckboxEffect()' />通常</label> 		<label><input type='radio' class='effmode_radio' name='radioeffect' value='1' onclick='CheckboxEffect()' />簡易</label> 		<label><input type='radio' class='effmode_radio' name='radioeffect' value='2' onclick='CheckboxEffect()' />無し</label> 	</div>	<div style='margin-top:10px'>	<label><input id='checkbox_bgm' type='checkbox' \x20onclick=\x27CheckboxBGM()\x27>BGM</label>\x20\x09<label><input\x20id=\x27checkbox_oto\x27\x20type=\x27checkbox\x27\x20 onclick='CheckboxOTO()'>効果音</label>	<br>	<small>※モバイル端末ではうまく再生されないかも。</small></div> 	<div id='ecomodediv' style='margin-top:10px;'> 		エコモード<label><input type='radio' class='ecomode_radio' name='radioecomode' value='0' onclick='CheckboxEco()' />OFF</label> 		<label><input type='radio' class='ecomode_radio' name='radioecomode' value='1' onclick='CheckboxEco()' />ON</label>\x20\x09\x09<label><input\x20type=\x27radio\x27\x20class=\x27ecomode_radio\x27\x20name=\x27radioecomode\x27\x20value=\x272\x27\x20onclick=\x27CheckboxEco()\x27\x20/>最大</label> 	</div> 	<br><br>	<div style='margin-top:10px;'></div> 	<a href='javascript:void(0);' class='astyle' onclick='LogClear()' >ログ消去(3DS用)</a>　 	<span id='3dsmodecheck' onclick='DSKaizyo();layerclose(this);'></span> 	<BR><BR> 	<button class='layerclosebtn' onclick='myremove(this.parentNode)'>×</button> </div>"
     );
     document.getElementsByName("radio_cnfougi")[cnf_ougi].selected = true;
     document.getElementsByName("radio_cnfact")[cnf_act].selected = true;
