@@ -403,8 +403,8 @@
     );
     document.getElementsByName("radio_cnfougi")[cnf_ougi].selected = true;
     document.getElementsByName("radio_cnfact")[cnf_act].selected = true;
-    document.getElementsByName("effmode_radio")[effectflg].selected = true;
-    document.getElementsByName("ecomode_radio")[ecoflg].selected = true;
+    document.getElementsByClassName("effmode_radio")[effectflg].selected = true;
+    document.getElementsByClassName("ecomode_radio")[ecoflg].selected = true;
     document.getElementById("checkbox_masume").selected = !!masumeflg;
     document.getElementById("checkbox_bgm").selected = !!bgmflg;
     document.getElementById("checkbox_oto").selected = !!otoflg;
