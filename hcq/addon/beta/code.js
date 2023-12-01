@@ -1,5 +1,5 @@
 (function () {
-  const version = "3.4.0-beta-1.1";
+  const version = "3.4.0-beta-1.2";
   const id = "layer" + layercount;
   if (this.addonApp) {
     document.title += `+Addon ver.${version}`;
@@ -130,10 +130,10 @@
     ダイヤモンドの手甲: 9.3,
     御神木の剣: 10,
     最強の剣: 10.1,
-    伝説の剣: 11,
-    伝説の杖: 11.1,
-    伝説の斧: 11.2,
-    伝説の手甲: 11.3
+    伝説の剣: 10.2,
+    伝説の杖: 10.3,
+    伝説の斧: 10.4,
+    伝説の手甲: 10.5
   };
   this.LoadPorch = () => {
     if (porchupdate == ![]) return 0;
