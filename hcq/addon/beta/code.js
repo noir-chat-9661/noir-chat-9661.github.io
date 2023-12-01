@@ -244,7 +244,7 @@
           .join("PorchResultDumpCancel("),
       }))
       .map((n) => {
-        n.sizai = n.name.startsWith("モンスターコイン") ? 0 : sizai[n.name];
+        n.sizai = n.getElementsByClassName("porchul2_name")[0].innerHTML.split(/\s<small\sclass\=\"kuro\">\d+<\/small>/).join("");
         return n;
       })
       .sort((a, b) => a.sizai - b.sizai);
