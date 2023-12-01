@@ -405,6 +405,16 @@
       },
     });
   };
+  this.Toiawase = () => {
+	  $('#toiawaseform').remove();
+    Layer(
+      "<div class='layer' id='toiawaseform'><div style="text-align:center;padding-top:20px;"><textarea style='width:80%;height:150px;' id='toiawasetext'></textarea><br /><button onclick='SendToiawase()'>送信</button><div style='color:red;'>※送信前に必ず内容を確認すること</div></div><button class='layerclosebtn' id='addonwindow' style='display:none' onclick='myremove(this.parentNode)'>×</button></div>",
+      null, "toiawaseform", null
+    );
+  };
+  this.SendToiawase = () => {
+    fetch("https://eita.f5.si/")
+  };
   this.TabMenuSettei = async () => {
     $("#layer_settei").remove();
     $("#layerroot").append(
