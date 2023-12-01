@@ -417,6 +417,7 @@
     if (!naiyou) return alert("内容を入力してください。");
     const formData = new FormData();
     formData.append("naiyou", naiyou);
+    formData.append("spam", Math.floor( Math.random() * 9999 ) + 1);
     formData.append("user", myid);
     formData.append("key", seskey);
     fetch("./contact/toiawasend.php", {
