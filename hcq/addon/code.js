@@ -233,7 +233,7 @@
     ];
     const array2 = array
       .map((n) => ({
-        name: n.getElementsByClassName("porchul2_name")[0].innerHTML,
+        name: n.getElementsByClassName("porchul2_name")[0].innerHTML.split(/\s<small\sclass\=\"kuro\">\d+<\/small>/).join(""),
         id: Number(
           n.innerHTML.split("PorchResultSuteru(")[1].split(", this)")[0]
         ),
@@ -244,7 +244,7 @@
           .join("PorchResultDumpCancel("),
       }))
       .map((n) => {
-        n.sizai = n.getElementsByClassName("porchul2_name")[0].innerHTML.split(/\s<small\sclass\=\"kuro\">\d+<\/small>/).join("");
+        n.sizai = sizai[n.name]
         return n;
       })
       .sort((a, b) => a.sizai - b.sizai);
