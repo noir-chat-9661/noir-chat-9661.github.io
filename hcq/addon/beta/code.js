@@ -271,14 +271,14 @@
     ];
     const array2 = array
       .map((n) => ({
-        name: n.getElementsByClassName("porchul2_name")[0].innerHTML,
+        name: n.getElementsByClassName("porchul2_name")[0].innerHTML.split(/\s\<small\sclass\=\"kuro\"\>\d+\<\/small\>/).join(""),
         id: Number(
           n.innerHTML.split("PorchResultDump(")[1].split(", this)")[0]
         ),
         dom: n.innerHTML,
       }))
       .map((n) => {
-        n.sizai = n.name.startsWith("モンスターコイン") ? 0 : sizai[n.name];
+        n.sizai = sizai[n.name];
         return n;
       })
       .sort((a, b) => a[type ? "sizai" : "id"] - b[type ? "sizai" : "id"]);
