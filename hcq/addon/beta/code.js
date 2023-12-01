@@ -1,5 +1,5 @@
 (function () {
-  const version = "3.4.0-beta";
+  const version = "3.4.0-beta-1.1";
   const id = "layer" + layercount;
   if (this.addonApp) {
     document.title += `+Addon ver.${version}`;
