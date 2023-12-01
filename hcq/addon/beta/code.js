@@ -1,5 +1,5 @@
 (function () {
-  const version = "3.4.0-beta-4";
+  const version = "3.4.0-beta-5";
   const id = "layer" + layercount;
   if (this.addonApp) {
     document.title += `+Addon ver.${version}`;
@@ -406,14 +406,30 @@
     });
   };
   this.Toiawase = () => {
-	  $('#toiawaseform').remove();
+    $('#toiawaseform').remove();
     Layer(
-      "<div class='layer' id='toiawaseform'><div style='text-align:center;padding-top:20px;'><textarea style='width:80%;height:150px;' id='toiawasetext'></textarea><br /><button onclick='SendToiawase()'>送信</button><div style='color:red;'>※送信前に必ず内容を確認すること</div></div><button class='layerclosebtn' id='addonwindow' style='display:none' onclick='myremove(this.parentNode)'>×</button></div>",
+      "<div style='text-align:center;padding-top:20px;'><div id='toiawasedescription' style='color:red;font-weight:bold;'>※送信前に必ず内容を確認すること</div><textarea style='width:80%;height:150px;' id='toiawasetext'></textarea><br /><button id='sendtoiawasebtn' onclick='SendToiawase()'>送信</button><br /></div>",
       null, "toiawaseform", null
     );
   };
   this.SendToiawase = () => {
-    fetch("https://eita.f5.si/")
+    const naiyou = document.getElementById("toiawasetext").value;
+    if (!naiyou) return alert("内容を入力してください。");
+    const formData = new FormData();
+    formData.append("naiyou", naiyou);
+    formData.append("user", myid);
+    formData.append("key", seskey);
+    fetch("http://sub-eita.f5.si/test/", {
+      method: "post",
+      body: formData
+    })
+    document.getElementById("toiawasetext").readOnly = true;
+    const sendbutton = document.getElementById("sendtoiawasebtn");
+    sendbutton.innerHTML = "OK";
+    sendbutton.onclick = () => myremove(sendbutton.parentNode.parentNode.parentNode);
+    const description = document.getElementById("toiawasedescription");
+    description.style.color = "black";
+    description.innerHTML = "送信完了"
   };
   this.TabMenuSettei = async () => {
     $("#layer_settei").remove();
