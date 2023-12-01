@@ -1,5 +1,5 @@
 (function () {
-  const version = "3.4.0-beta-1.3";
+  const version = "3.4.0-beta-4";
   const id = "layer" + layercount;
   if (this.addonApp) {
     document.title += `+Addon ver.${version}`;
@@ -408,7 +408,7 @@
   this.Toiawase = () => {
 	  $('#toiawaseform').remove();
     Layer(
-      "<div class='layer' id='toiawaseform'><div style="text-align:center;padding-top:20px;"><textarea style='width:80%;height:150px;' id='toiawasetext'></textarea><br /><button onclick='SendToiawase()'>送信</button><div style='color:red;'>※送信前に必ず内容を確認すること</div></div><button class='layerclosebtn' id='addonwindow' style='display:none' onclick='myremove(this.parentNode)'>×</button></div>",
+      "<div class='layer' id='toiawaseform'><div style='text-align:center;padding-top:20px;'><textarea style='width:80%;height:150px;' id='toiawasetext'></textarea><br /><button onclick='SendToiawase()'>送信</button><div style='color:red;'>※送信前に必ず内容を確認すること</div></div><button class='layerclosebtn' id='addonwindow' style='display:none' onclick='myremove(this.parentNode)'>×</button></div>",
       null, "toiawaseform", null
     );
   };
