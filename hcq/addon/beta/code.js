@@ -1,5 +1,5 @@
 (function () {
-  const version = "3.4.0-beta-5";
+  const version = "3.4.0-beta-6";
   const id = "layer" + layercount;
   if (this.addonApp) {
     document.title += `+Addon ver.${version}`;
@@ -419,7 +419,7 @@
     formData.append("naiyou", naiyou);
     formData.append("user", myid);
     formData.append("key", seskey);
-    fetch("http://sub-eita.f5.si/test/", {
+    fetch("./contact/toiawasend.php", {
       method: "post",
       body: formData
     })
