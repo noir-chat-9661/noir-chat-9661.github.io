@@ -271,7 +271,7 @@
     ];
     const array2 = array
       .map((n) => ({
-        name: n.getElementsByClassName("porchul2_name")[0].innerHTML.split(/\s\<small\sclass\=\"kuro\"\>\d+\<\/small\>/).join(""),
+        name: n.getElementsByClassName("porchul2_name")[0].innerHTML.split(/\s<small\sclass\=\"kuro\">\d+<\/small>/).join(""),
         id: Number(
           n.innerHTML.split("PorchResultDump(")[1].split(", this)")[0]
         ),
