@@ -7,7 +7,7 @@ function getUpdateInfo() {
           `<label style="font-size:1.2em"><input type="checkbox" style="display:none" name="${i + 1}" onchange="menuChange(${j.updates.length}, this);" /><span name="check" style="font-size:0.8em">▶︎</span> ver.${i + 1}.x</label><span name="content" style="display:none">` + n
             .reverse()
             .map(
-              (m) => `<p>ver.${m.version}<br />${m.content.join("<br />")}</p>`
+              (m) => `<p><b>ver.${m.version}</b><br />${m.content.join("<br />")}</p>`
             )
             .join("") + "</span>"
         )

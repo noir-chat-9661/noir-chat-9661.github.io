@@ -163,7 +163,7 @@
       <center>
         <h1>レベル計算機<small>(ほぼ個人用)</small></h1>
         <h2>ver.<span id="nowversion">x.x</span></h2>
-        <p>もし不具合などがあれば、しめじ隊員サプリ💊(16762)まで。</p>
+        <p>もし不具合などがあれば、えいた(No.16762)まで。</p>
         <br />
         <button type="button" name="option" onclick="boxshow(this)">
           キャラ設定</button
@@ -202,204 +202,6 @@
             <option value="5">メイド</option>
             <option value="6">パラディン</option>
             <option value="7">サモナー</option></select
-          ><br /><br />
-
-          ボーナスポイント (残り<span id="bonus_nokori">600</span>)<br />
-          POW：<br class="mobilebr" /><span id="bonus_pow"
-            ><button
-              class="mobilestyle"
-              type="button"
-              onclick="optionchange(this)"
-              id="pow_-100"
-            >
-              -100</button
-            ><button
-              class="mobilestyle"
-              type="button"
-              onclick="optionchange(this)"
-              id="pow_-10"
-            >
-              -10</button
-            ><button
-              class="mobilestyle"
-              type="button"
-              onclick="optionchange(this)"
-              id="pow_-1"
-            >
-              -1
-            </button>
-            <input
-              type="text"
-              maxlength="3"
-              size="3"
-              id="pow_input"
-              value="0"
-              style="text-align: center"
-              onchange="optionchange(this)"
-              onfocus="if (this.value == 0) this.value = ''"
-              onblur="if (this.value == '') this.value = 0"
-            />
-            <button
-              class="mobilestyle"
-              type="button"
-              onclick="optionchange(this)"
-              id="pow_+1"
-            >
-              +1</button
-            ><button
-              class="mobilestyle"
-              type="button"
-              onclick="optionchange(this)"
-              id="pow_+10"
-            >
-              +10</button
-            ><button
-              class="mobilestyle"
-              type="button"
-              onclick="optionchange(this)"
-              id="pow_+100"
-            >
-              +100</button
-            ><br /><button
-              type="button"
-              onclick="optionchange(this)"
-              id="pow_reset"
-            >
-              R
-            </button>
-            <button type="button" onclick="optionchange(this)" id="pow_max">
-              MAX
-            </button></span
-          ><br />
-          DEF：<br class="mobilebr" /><span id="bonus_def"
-            ><button
-              class="mobilestyle"
-              type="button"
-              onclick="optionchange(this)"
-              id="def_-100"
-            >
-              -100</button
-            ><button
-              class="mobilestyle"
-              type="button"
-              onclick="optionchange(this)"
-              id="def_-10"
-            >
-              -10</button
-            ><button
-              class="mobilestyle"
-              type="button"
-              onclick="optionchange(this)"
-              id="def_-1"
-            >
-              -1
-            </button>
-            <input
-              type="text"
-              maxlength="3"
-              size="3"
-              id="def_input"
-              value="0"
-              style="text-align: center"
-              onchange="optionchange(this)"
-              onfocus="if (this.value == 0) this.value = ''"
-              onblur="if (this.value == '') this.value = 0"
-              class="mobilestyle"
-            />
-            <button
-              class="mobilestyle"
-              type="button"
-              onclick="optionchange(this)"
-              id="def_+1"
-            >
-              +1</button
-            ><button
-              class="mobilestyle"
-              type="button"
-              onclick="optionchange(this)"
-              id="def_+10"
-            >
-              +10</button
-            ><button
-              class="mobilestyle"
-              type="button"
-              onclick="optionchange(this)"
-              id="def_+100"
-            >
-              +100</button
-            ><br />
-            <button type="button" onclick="optionchange(this)" id="def_reset">
-              R
-            </button>
-            <button type="button" onclick="optionchange(this)" id="def_max">
-              MAX
-            </button></span
-          ><br />
-          TEC：<br class="mobilebr" /><span id="bonus_tec"
-            ><button
-              class="mobilestyle"
-              type="button"
-              onclick="optionchange(this)"
-              id="tec_-100"
-            >
-              -100</button
-            ><button
-              class="mobilestyle"
-              type="button"
-              onclick="optionchange(this)"
-              id="tec_-10"
-            >
-              -10</button
-            ><button
-              class="mobilestyle"
-              type="button"
-              onclick="optionchange(this)"
-              id="tec_-1"
-            >
-              -1
-            </button>
-            <input
-              type="text"
-              maxlength="3"
-              size="3"
-              id="tec_input"
-              value="0"
-              style="text-align: center"
-              onchange="optionchange(this)"
-              onfocus="if (this.value == 0) this.value = ''"
-              onblur="if (this.value == '') this.value = 0"
-            />
-            <button
-              class="mobilestyle"
-              type="button"
-              onclick="optionchange(this)"
-              id="tec_+1"
-            >
-              +1</button
-            ><button
-              class="mobilestyle"
-              type="button"
-              onclick="optionchange(this)"
-              id="tec_+10"
-            >
-              +10</button
-            ><button
-              class="mobilestyle"
-              type="button"
-              onclick="optionchange(this)"
-              id="tec_+100"
-            >
-              +100</button
-            ><br /><button
-              type="button"
-              onclick="optionchange(this)"
-              id="tec_reset"
-            >
-              R
-            </button>
-            <button type="button" onclick="optionchange(this)" id="tec_max">
-              MAX
-            </button></span
           ><br /><br />
 
           キャラタイプ：<select
@@ -619,6 +421,205 @@
             <option value="9">[物理攻撃４]</option>
             <option value="10">[魔法攻撃４]</option>
           </select>
+          <br /><br />
+          
+          ボーナスポイント (残り<span id="bonus_nokori">600</span>)<br />
+          POW：<br class="mobilebr" /><span id="bonus_pow"
+            ><button
+              class="mobilestyle"
+              type="button"
+              onclick="optionchange(this)"
+              id="pow_-100"
+            >
+              -100</button
+            ><button
+              class="mobilestyle"
+              type="button"
+              onclick="optionchange(this)"
+              id="pow_-10"
+            >
+              -10</button
+            ><button
+              class="mobilestyle"
+              type="button"
+              onclick="optionchange(this)"
+              id="pow_-1"
+            >
+              -1
+            </button>
+            <input
+              type="text"
+              maxlength="3"
+              size="3"
+              id="pow_input"
+              value="0"
+              style="text-align: center"
+              onchange="optionchange(this)"
+              onfocus="if (this.value == 0) this.value = ''"
+              onblur="if (this.value == '') this.value = 0"
+            />
+            <button
+              class="mobilestyle"
+              type="button"
+              onclick="optionchange(this)"
+              id="pow_+1"
+            >
+              +1</button
+            ><button
+              class="mobilestyle"
+              type="button"
+              onclick="optionchange(this)"
+              id="pow_+10"
+            >
+              +10</button
+            ><button
+              class="mobilestyle"
+              type="button"
+              onclick="optionchange(this)"
+              id="pow_+100"
+            >
+              +100</button
+            ><br /><button
+              type="button"
+              onclick="optionchange(this)"
+              id="pow_reset"
+            >
+              R
+            </button>
+            <button type="button" onclick="optionchange(this)" id="pow_max">
+              MAX
+            </button></span
+          ><br />
+          DEF：<br class="mobilebr" /><span id="bonus_def"
+            ><button
+              class="mobilestyle"
+              type="button"
+              onclick="optionchange(this)"
+              id="def_-100"
+            >
+              -100</button
+            ><button
+              class="mobilestyle"
+              type="button"
+              onclick="optionchange(this)"
+              id="def_-10"
+            >
+              -10</button
+            ><button
+              class="mobilestyle"
+              type="button"
+              onclick="optionchange(this)"
+              id="def_-1"
+            >
+              -1
+            </button>
+            <input
+              type="text"
+              maxlength="3"
+              size="3"
+              id="def_input"
+              value="0"
+              style="text-align: center"
+              onchange="optionchange(this)"
+              onfocus="if (this.value == 0) this.value = ''"
+              onblur="if (this.value == '') this.value = 0"
+              class="mobilestyle"
+            />
+            <button
+              class="mobilestyle"
+              type="button"
+              onclick="optionchange(this)"
+              id="def_+1"
+            >
+              +1</button
+            ><button
+              class="mobilestyle"
+              type="button"
+              onclick="optionchange(this)"
+              id="def_+10"
+            >
+              +10</button
+            ><button
+              class="mobilestyle"
+              type="button"
+              onclick="optionchange(this)"
+              id="def_+100"
+            >
+              +100</button
+            ><br />
+            <button type="button" onclick="optionchange(this)" id="def_reset">
+              R
+            </button>
+            <button type="button" onclick="optionchange(this)" id="def_max">
+              MAX
+            </button></span
+          ><br />
+          TEC：<br class="mobilebr" /><span id="bonus_tec"
+            ><button
+              class="mobilestyle"
+              type="button"
+              onclick="optionchange(this)"
+              id="tec_-100"
+            >
+              -100</button
+            ><button
+              class="mobilestyle"
+              type="button"
+              onclick="optionchange(this)"
+              id="tec_-10"
+            >
+              -10</button
+            ><button
+              class="mobilestyle"
+              type="button"
+              onclick="optionchange(this)"
+              id="tec_-1"
+            >
+              -1
+            </button>
+            <input
+              type="text"
+              maxlength="3"
+              size="3"
+              id="tec_input"
+              value="0"
+              style="text-align: center"
+              onchange="optionchange(this)"
+              onfocus="if (this.value == 0) this.value = ''"
+              onblur="if (this.value == '') this.value = 0"
+            />
+            <button
+              class="mobilestyle"
+              type="button"
+              onclick="optionchange(this)"
+              id="tec_+1"
+            >
+              +1</button
+            ><button
+              class="mobilestyle"
+              type="button"
+              onclick="optionchange(this)"
+              id="tec_+10"
+            >
+              +10</button
+            ><button
+              class="mobilestyle"
+              type="button"
+              onclick="optionchange(this)"
+              id="tec_+100"
+            >
+              +100</button
+            ><br /><button
+              type="button"
+              onclick="optionchange(this)"
+              id="tec_reset"
+            >
+              R
+            </button>
+            <button type="button" onclick="optionchange(this)" id="tec_max">
+              MAX
+            </button></span
+          >
         </fieldset>
 
         <fieldset id="settings" style="display: none">

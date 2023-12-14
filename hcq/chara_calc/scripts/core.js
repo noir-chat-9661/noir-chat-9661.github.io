@@ -572,29 +572,37 @@ function savecookie() {
     if (!check) return;
   }
   try {
-    cookieManager.set("waza", waza.map((n) => n.level).join(""), {
+    cookieManager.set("waza", BigInt(waza.map((n) => n.level).join("")).toString(16), {
       Expires: "Fri, 31 Dec 9999 23:59:59 GMT",
     });
     cookieManager.set("chara", charainfo, {
+      Expires: "Fri, 31 Dec 9999 23:59:59 GMT",
+    });
+    if (!v) cookieManager.set("v", "1", {
       Expires: "Fri, 31 Dec 9999 23:59:59 GMT",
     });
   } catch (e) {}
 }
 
 function loadcookie() {
-  const { waza: w, chara: c0 } = cookieManager.parse();
+  const { waza: w, chara: c0, v } = cookieManager.parse();
+  if (!c0) return alert("cookieにデータが登録されていません。");
+  if (!v) return alert("古いバージョンのデータのため復元ができません。");
   const c = JSON.parse(decodeURIComponent(c0));
   const check = confirm(
     `名前：${c.name || "未設定"}のレシピデータを読み込みますか。`
   );
   if (!check) return;
   if (!w) return;
-  w.split("").forEach((n, m) => {
-    waza[m].level = Number(n);
-    document.getElementsByClassName("waza_lv")[m].innerHTML = lv_moji[n];
-    document.getElementsByClassName("point")[m].innerHTML =
-      points[waza[m].point][n];
-  });
+  "0"
+    .repeat(waza.length - BigInt("0x" + w).toString().length)
+    .concat(BigInt("0x" + w).toString())
+    .split("").forEach((n, m) => {
+      waza[m].level = Number(n);
+      document.getElementsByClassName("waza_lv")[m].innerHTML = lv_moji[n];
+      document.getElementsByClassName("point")[m].innerHTML =
+        points[waza[m].point][n];
+    });
   charainfo.name = c.name;
   charainfo.star = c.star;
   charainfo.type = c.type;

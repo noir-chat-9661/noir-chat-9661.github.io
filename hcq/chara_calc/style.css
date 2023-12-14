@@ -100,6 +100,7 @@ legend {
 }
 
 fieldset {
+  width: min(600px, 80vw);
   margin: 0 min(80px, 3vw);
   padding: 10px min(30px, 5vw);
   font-size: 1.2rem;

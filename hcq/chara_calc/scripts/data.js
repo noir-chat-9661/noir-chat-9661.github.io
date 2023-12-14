@@ -42,7 +42,7 @@ const tokui = {};
 function wazainfo(id) {
   const wazadata = waza[id];
   const { name, level, type, description } = wazadata;
-  let text = `<span id="infoclose"><span onclick="this.parentNode.parentNode.parentNode.style.display = 'none'">×</span></span><span style="font-size:1.2em">${name}</span><br />`;
+  let text = `<span id="infoclose"><span onclick="this.parentNode.parentNode.parentNode.style.display = 'none'">×</span></span><span style="font-size:1.2em">${name}${level ? ` ${lv_moji[level]}` : ""}</span><br />`;
   if (Number(id) > 45) {
     const { lvhosei } = description;
     text += `SP:${description.SP}<br />タイプ:召喚<br />${
