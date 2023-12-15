@@ -7,10 +7,10 @@
     <meta name="viewport" content="width=device-width" />
     <title>レベル計算機 (ほぼ個人用)</title>
     <link rel="stylesheet" href="style.css?v=5.8" />
-    <script src="./scripts/cookie.js?v=5.8" defer></script>
-    <script src="./scripts/data.js?v=5.8" defer></script>
-    <script src="./scripts/calc.js?v=5.8" defer></script>
-    <script src="./scripts/core.js?v=5.8" defer></script>
+    <script src="./scripts/cookie.js?v=5.9" defer></script>
+    <script src="./scripts/data.js?v=5.9" defer></script>
+    <script src="./scripts/calc.js?v=5.9" defer></script>
+    <script src="./scripts/core.js?v=5.9" defer></script>
     <script>
       <!--
       function versioncheck() {
@@ -29,7 +29,148 @@
           .then((n) => {
             const cookie = cookieManager.parse();
             waza = n;
-            if (cookie.backups) {
+            if (getParam("id")) {
+              const id = getParam("id");
+              fetch(`http://hcqshare.f5.si/${id}`, {
+                method: "post",
+              })
+                .then((n) => n.json())
+                .then((json) => {
+                  if (json.error) {
+                    alert("idの指定が無効です。");
+                    return location.replace(
+                      "https://eita.f5.si/hcq/chara_calc"
+                    );
+                  }
+                  document.getElementById("load").style.display = "none";
+                  document.getElementById("main").style.display = "";
+
+                  const a = Number(
+                    j_weapon.findIndex((n) => n === json.charaData.weapon)
+                  );
+                  const b = Number(
+                    j_optionA.findIndex(
+                      (n) => n === json.charaData.weaponOption0
+                    )
+                  );
+                  const c = Number(
+                    j_optionA.findIndex(
+                      (n) => n === json.charaData.weaponOption1
+                    )
+                  );
+                  const d = Number(
+                    j_optionA.findIndex(
+                      (n) => n === json.charaData.weaponOption2
+                    )
+                  );
+                  const e = Number(
+                    j_optionB.findIndex(
+                      (n) => n === json.charaData.weaponOption3
+                    )
+                  );
+                  const f = Number(
+                    j_optionB.findIndex(
+                      (n) => n === json.charaData.weaponOption4
+                    )
+                  );
+                  const g = Number(
+                    j_optionB.findIndex(
+                      (n) => n === json.charaData.weaponOption5
+                    )
+                  );
+                  json.jobPoint
+                    .flat()
+                    .map(Number)
+                    .forEach((n, m) => {
+                      waza[m].level = n;
+                      document.getElementsByClassName("waza_lv")[m].innerHTML =
+                        lv_moji[n];
+                      document.getElementsByClassName("point")[m].innerHTML =
+                        points[waza[m].point][n];
+                    });
+                  charainfo.name = document.getElementById("chara_name").value =
+                    json.charaData.characterName;
+                  charainfo.level = document.getElementById("level").value =
+                    Number(json.charaData.charalevel);
+                  charainfo.star = document.getElementById("star").value =
+                    Number(json.charaData.stars);
+                  charainfo.type = document.getElementById("chara_type").value =
+                    Number(json.charaData.characterType) + 1;
+                  document.getElementById("chara_hiden").innerHTML = hiden[
+                    charainfo.type
+                  ]
+                    .map((n, m) => `<option value="${m}">${n}</option>`)
+                    .join("");
+                  charainfo.hiden = document.getElementById(
+                    "chara_hiden"
+                  ).value = Number(json.charaData.hiden);
+                  charainfo.amari = document.getElementById(
+                    "amari_point"
+                  ).value = Number(json.charaData.remain) + 1;
+                  charainfo.status.pow = document.getElementById(
+                    "pow_input"
+                  ).value = Number(json.charaData.bonusPow);
+                  charainfo.status.def = document.getElementById(
+                    "def_input"
+                  ).value = Number(json.charaData.bonusDef);
+                  charainfo.status.tec = document.getElementById(
+                    "tec_input"
+                  ).value = Number(json.charaData.bonusTec);
+                  charainfo.bugu.type = document.getElementById("bugu").value =
+                    a;
+                  charainfo.bugu.status.pow = document.getElementById(
+                    "bugu_pow"
+                  ).value = Number(json.charaData.weaponPow);
+                  charainfo.bugu.status.def = document.getElementById(
+                    "bugu_def"
+                  ).value = Number(json.charaData.weaponDef);
+                  charainfo.bugu.status.tec = document.getElementById(
+                    "bugu_tec"
+                  ).value = Number(json.charaData.weaponTec);
+                  charainfo.bugu.kaji.pow = document.getElementById(
+                    "kaji_pow"
+                  ).value = Number(json.charaData.weaponPowPlus);
+                  charainfo.bugu.kaji.def = document.getElementById(
+                    "kaji_def"
+                  ).value = Number(json.charaData.weaponDefPlus);
+                  charainfo.bugu.kaji.tec = document.getElementById(
+                    "kaji_tec"
+                  ).value = Number(json.charaData.weaponTecPlus);
+                  charainfo.bugu.op = [b, c, d].map(Number);
+                  charainfo.stone = [e, f, g].map(Number);
+                  document.getElementById("hiden").style.display =
+                    charainfo.hiden ? "" : "none";
+                  document.getElementById("bugu_info").style.display = a
+                    ? ""
+                    : "none";
+                  document.getElementById("bugu_op1").value = b;
+                  document.getElementById("bugu_op2").value = c;
+                  document.getElementById("bugu_op3").value = d;
+                  document.getElementById("stone1").value = e;
+                  document.getElementById("stone2").value = f;
+                  document.getElementById("stone3").value = g;
+
+                  for (let i = 0; i < 7; i++) {
+                    document.getElementsByClassName("waza_sum")[i].innerHTML =
+                      pointcalc(i);
+                  }
+                  const s = pointcalc();
+                  document.getElementById("total_sum").innerHTML = s;
+                  document.getElementById("total_sum").style.color =
+                    s > charainfo.level + 4 ? "#ff0000" : "#000000";
+
+                  document.getElementById("sum_pow").innerHTML =
+                    charainfo.bugu.status.pow + charainfo.bugu.kaji.pow;
+                  document.getElementById("sum_def").innerHTML =
+                    charainfo.bugu.status.def + charainfo.bugu.kaji.def;
+                  document.getElementById("sum_tec").innerHTML =
+                    charainfo.bugu.status.tec + charainfo.bugu.kaji.tec;
+                  document.getElementById("bonus_nokori").innerHTML =
+                    charainfo.status.amari;
+
+                  calc(settings.shortoutput, false);
+                });
+            } else if (cookie.backups) {
               const { chara: c } = JSON.parse(
                 decodeURIComponent(cookie.backups)
               );
@@ -42,6 +183,15 @@
               document.getElementById("main").style.display = "";
             }
           });
+      }
+      function getParam(name, url) {
+        if (!url) url = location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        const regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+          results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return "";
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
       }
       function loadBackup() {
         const backup = JSON.parse(
@@ -143,6 +293,12 @@
       });
       -->
     </script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
+      integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4O5SAGapGt4FodqL8My0mA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
   </head>
   <body onload="ready()">
     <span id="load">
@@ -768,14 +924,14 @@
             onclick="javascript:this.select()"
             readonly
           ></textarea
-          ><br /><button
-            type="button"
-            onclick="senddata()"
-            style="display: none"
-          >
-            このレシピを転送する
-          </button>
+          ><br /><button type="button" onclick="share()">共有する</button>
           <br />
+          <span id="sharespace" style="display: none">
+            サーバーに保存しました！<br />
+            URL: <span id="shareurl"></span><br />
+            QRコード<br />
+            <div id="shareqr"></div>
+          </span>
         </span>
         <br /><button type="button" onclick="reset()">リセット(全て)</button>
         <br /><br />

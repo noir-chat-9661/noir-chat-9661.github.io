@@ -35,10 +35,10 @@ function calc(s, b, o = true, cc = false) {
           SP: 1000,
         };
   if (charatype !== -1) {
-    status.HP += chara_status2[charatype].HP * charainfo.level;
-    status.pow += chara_status2[charatype].pow * charainfo.level;
-    status.def += chara_status2[charatype].def * charainfo.level;
-    status.tec += chara_status2[charatype].tec * charainfo.level;
+    status.HP += Math.floor(chara_status2[charatype].HP * charainfo.level);
+    status.pow += Math.floor(chara_status2[charatype].pow * charainfo.level);
+    status.def += Math.floor(chara_status2[charatype].def * charainfo.level);
+    status.tec += Math.floor(chara_status2[charatype].tec * charainfo.level);
   }
   const { amari, hiden: h } = charainfo;
   for (let i = 0; i < 7; i++) {
@@ -195,31 +195,33 @@ function calc(s, b, o = true, cc = false) {
     hosei.disadvantage !== -1 ? hoseitext[hosei.disadvantage] : "なし"
   }`;
 
-  for (let i = 0; i < 3; i++) {
-    const n = buguop[i];
-    switch (n) {
-      case 1:
-        status.pow += 200;
-        break;
-      case 2:
-        status.def += 200;
-        break;
-      case 3:
-        status.tec += 200;
-        break;
-      case 4:
-        status.SP += 1000;
-        break;
-      case 5:
-      case 6:
-        status.HP += 45;
-        break;
-      case 8:
-        status.as += 9;
-        break;
-      case 12:
-        status.ms += 9;
-        break;
+  if (bugutype) {
+    for (let i = 0; i < 3; i++) {
+      const n = buguop[i];
+      switch (n) {
+        case 1:
+          status.pow += 200;
+          break;
+        case 2:
+          status.def += 200;
+          break;
+        case 3:
+          status.tec += 200;
+          break;
+        case 4:
+          status.SP += 1000;
+          break;
+        case 5:
+        case 6:
+          status.HP += 45;
+          break;
+        case 8:
+          status.as += 9;
+          break;
+        case 12:
+          status.ms += 9;
+          break;
+      }
     }
   }
   for (let i = 0; i < 3; i++) {
@@ -369,15 +371,15 @@ function calc(s, b, o = true, cc = false) {
   text += text2;
   const mpow =
     (bugutype == 16 ? 0.2 : 0) +
-    (buguop[0] == 10 ? 0.5 : 0) +
-    (buguop[1] == 10 ? 0.5 : 0) +
-    (buguop[2] == 10 ? 0.5 : 0) +
+    (bugutype != 0 && buguop[0] == 10 ? 0.5 : 0) +
+    (bugutype != 0 && buguop[1] == 10 ? 0.5 : 0) +
+    (bugutype != 0 && buguop[2] == 10 ? 0.5 : 0) +
     (stone[0] == 10 ? 0.2 : 0) +
     (stone[1] == 10 ? 0.2 : 0) +
     (stone[2] == 10 ? 0.2 : 0);
   const mdef = [
-    buguop[0] == 6 ? 0.3 : 0,
-    buguop[1] == 6 ? 0.3 : 0,
+    bugutype != 0 && buguop[0] == 6 ? 0.3 : 0,
+    bugutype != 0 && buguop[1] == 6 ? 0.3 : 0,
     buguop[2] == 6 ? 0.3 : 0,
     stone[0] == 6 ? 0.16 : 0,
     stone[1] == 6 ? 0.16 : 0,
@@ -385,16 +387,16 @@ function calc(s, b, o = true, cc = false) {
   ];
   const bpow =
     (bugutype == 15 ? 0.2 : 0) +
-    (buguop[0] == 9 ? 0.5 : 0) +
-    (buguop[1] == 9 ? 0.5 : 0) +
-    (buguop[2] == 9 ? 0.5 : 0) +
+    (bugutype != 0 && buguop[0] == 9 ? 0.5 : 0) +
+    (bugutype != 0 && buguop[1] == 9 ? 0.5 : 0) +
+    (bugutype != 0 && buguop[2] == 9 ? 0.5 : 0) +
     (stone[0] == 9 ? 0.2 : 0) +
     (stone[1] == 9 ? 0.2 : 0) +
     (stone[2] == 9 ? 0.2 : 0);
   const bdef = [
-    buguop[0] == 5 ? 0.3 : 0,
-    buguop[1] == 5 ? 0.3 : 0,
-    buguop[2] == 5 ? 0.3 : 0,
+    bugutype != 0 && buguop[0] == 5 ? 0.3 : 0,
+    bugutype != 0 && buguop[1] == 5 ? 0.3 : 0,
+    bugutype != 0 && buguop[2] == 5 ? 0.3 : 0,
     stone[0] == 5 ? 0.16 : 0,
     stone[1] == 5 ? 0.16 : 0,
     stone[2] == 5 ? 0.16 : 0,
@@ -492,11 +494,4 @@ function resultformat(v) {
 
 function root(v) {
   return Math.floor(Math.sqrt(v));
-}
-
-function senddata() {
-  const d = calc(true, true, false);
-  const name = d[0];
-  const text = d[1].split("\n").join(" ");
-  open(`./send/?text=${text}&name=${name}`);
 }

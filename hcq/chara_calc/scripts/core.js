@@ -953,6 +953,61 @@ function jsonLoad() {
   document.getElementById("jsonarea").style.display = "none";
 }
 
+async function share() {
+  const plane = {};
+  plane.jobPoint = [[], [], [], [], [], [], []];
+  waza.forEach((n) => plane.jobPoint[n.jobid].push(n.level.toString()));
+  plane.charaData = {
+    outputCharacterData: settings.charaoutput,
+    characterName: charainfo.name,
+    characterType: (charainfo.type - 1).toString(),
+    hiden: charainfo.hiden.toString(),
+    remain: (charainfo.amari - 1).toString(),
+    weapon: j_weapon[charainfo.bugu.type],
+    weaponDummy1: "-1",
+    weaponOption0: j_optionA[charainfo.bugu.op[0]],
+    weaponOption1: j_optionA[charainfo.bugu.op[1]],
+    weaponOption2: j_optionA[charainfo.bugu.op[2]],
+    weaponOptionDummy1: "-1",
+    weaponPow: charainfo.bugu.status.pow.toString(),
+    weaponPowPlus: charainfo.bugu.kaji.pow.toString(),
+    weaponDef: charainfo.bugu.status.def.toString(),
+    weaponDefPlus: charainfo.bugu.kaji.def.toString(),
+    weaponTec: charainfo.bugu.status.tec.toString(),
+    weaponTecPlus: charainfo.bugu.kaji.tec.toString(),
+    weaponOption3: j_optionB[charainfo.stone[0]],
+    weaponOption4: j_optionB[charainfo.stone[1]],
+    weaponOption5: j_optionB[charainfo.stone[2]],
+    weaponOptionDummy2: "-1",
+    stars: charainfo.star.toString(),
+    charalevel: charainfo.level.toString(),
+    bonusPow: charainfo.status.pow.toString(),
+    bonusDef: charainfo.status.def.toString(),
+    bonusTec: charainfo.status.tec.toString(),
+  };
+  const json = JSON.stringify(plane);
+  const { id } = await fetch(
+    "http://hcqshare.f5.si",
+    {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: json,
+    }
+  ).then((n) => n.json());
+  const url = `http://hcqshare.f5.si/${id}`;
+  document.getElementById("sharespace").style.display = "";
+  document.getElementById("shareurl").innerHTML = url;
+  document.getElementById("shareqr").innerHTML = "";
+  new QRCode("shareqr", {
+    text: url,
+    width: 128,
+    height: 128,
+    correctLevel: 0,
+  });
+}
+
 function jsonCopy() {
   try {
     navigator.clipboard.writeText(document.getElementById("jsontext").value);
