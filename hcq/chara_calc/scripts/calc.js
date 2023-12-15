@@ -5,21 +5,22 @@ const hosei = {
 };
 
 function calc(s, b, o = true, cc = false) {
-  if (settings.autobackup){
+  if (settings.autobackup) {
     try {
       cookieManager.set(
         "backups",
         {
           waza: BigInt(waza.map((n) => n.level).join("")).toString(16),
           chara: charainfo,
-          settings
+          settings,
         },
         { Expires: "Fri, 31 Dec 9999 23:59:59 GMT" }
       );
     } catch {}
   }
   if (cc) return;
-  if (pointcalc() > 204) return b ? alert("まずいですよ！！！") : false;
+  if (pointcalc() > charainfo.level + 4)
+    return b ? alert("まずいですよ！！！") : false;
   const charatype = charainfo.type - 1;
   let status =
     charatype !== -1
@@ -34,21 +35,21 @@ function calc(s, b, o = true, cc = false) {
           SP: 1000,
         };
   if (charatype !== -1) {
-    status.HP += chara_status2[charatype].HP * 200;
-    status.pow += chara_status2[charatype].pow * 200;
-    status.def += chara_status2[charatype].def * 200;
-    status.tec += chara_status2[charatype].tec * 200;
+    status.HP += chara_status2[charatype].HP * charainfo.level;
+    status.pow += chara_status2[charatype].pow * charainfo.level;
+    status.def += chara_status2[charatype].def * charainfo.level;
+    status.tec += chara_status2[charatype].tec * charainfo.level;
   }
   const { amari, hiden: h } = charainfo;
   for (let i = 0; i < 7; i++) {
     const l = pointcalc(i);
     let p = 0;
     if (
-      pointcalc() < 204 &&
+      pointcalc() < charainfo.level + 4 &&
       charatype !== -1 &&
       i == (amari ? amari - 1 : charatype)
     )
-      p = 204 - pointcalc();
+      p = charainfo.level + 4 - pointcalc();
     status.HP += Math.floor(chara_status3[i].HP * (l + p));
     status.pow += Math.floor(chara_status3[i].pow * (l + p));
     status.def += Math.floor(chara_status3[i].def * (l + p));
@@ -294,11 +295,11 @@ function calc(s, b, o = true, cc = false) {
   const d = Math.floor(status.def * (star / 10 + 1));
   const t = Math.floor(status.tec * (star / 10 + 1));
   if (settings.statusoutput)
-    text += `〜最終ステータス(Lv.200)〜\nHP ${status.HP || 1} SP ${
-      status.SP / 5 + 200
-    } (${status.SP * 0.15 + 150})/${status.SP} POW ${star ? `${p} (` : ""}${
-      status.pow
-    }${star ? ")" : ""} DEF ${star ? `${d} (` : ""}${status.def}${
+    text += `〜最終ステータス(Lv.${charainfo.level})〜\nHP ${
+      status.HP || 1
+    } SP ${status.SP / 5 + 200} (${status.SP * 0.15 + 150})/${status.SP} POW ${
+      star ? `${p} (` : ""
+    }${status.pow}${star ? ")" : ""} DEF ${star ? `${d} (` : ""}${status.def}${
       star ? ")" : ""
     } TEC ${star ? `${t} (` : ""}${status.tec}${star ? ")" : ""} 攻速 ${
       status.as
@@ -318,35 +319,51 @@ function calc(s, b, o = true, cc = false) {
 
   let text2 = "";
   text2 = `職lv: 戦${pointcalc(0)}${
-    204 - pointcalc() && (amari ? amari - 1 : charatype) === 0
-      ? `+${204 - pointcalc()}(${204 - pointcalc() + pointcalc(0)})`
+    charainfo.level + 4 - pointcalc() && (amari ? amari - 1 : charatype) === 0
+      ? `+${charainfo.level + 4 - pointcalc()}(${
+          charainfo.level + 4 - pointcalc() + pointcalc(0)
+        })`
       : ""
   } 魔${pointcalc(1)}${
-    204 - pointcalc() && (amari ? amari - 1 : charatype) === 1
-      ? `+${204 - pointcalc()}(${204 - pointcalc() + pointcalc(1)})`
+    charainfo.level + 4 - pointcalc() && (amari ? amari - 1 : charatype) === 1
+      ? `+${charainfo.level + 4 - pointcalc()}(${
+          charainfo.level + 4 - pointcalc() + pointcalc(1)
+        })`
       : ""
   } 僧${pointcalc(2)}${
-    204 - pointcalc() && (amari ? amari - 1 : charatype) === 2
-      ? `+${204 - pointcalc()}(${204 - pointcalc() + pointcalc(2)})`
+    charainfo.level + 4 - pointcalc() && (amari ? amari - 1 : charatype) === 2
+      ? `+${charainfo.level + 4 - pointcalc()}(${
+          charainfo.level + 4 - pointcalc() + pointcalc(2)
+        })`
       : ""
   } 忍${pointcalc(3)}${
-    204 - pointcalc() && (amari ? amari - 1 : charatype) === 3
-      ? `+${204 - pointcalc()}(${204 - pointcalc() + pointcalc(3)})`
+    charainfo.level + 4 - pointcalc() && (amari ? amari - 1 : charatype) === 3
+      ? `+${charainfo.level + 4 - pointcalc()}(${
+          charainfo.level + 4 - pointcalc() + pointcalc(3)
+        })`
       : ""
   } メ${pointcalc(4)}${
-    204 - pointcalc() && (amari ? amari - 1 : charatype) === 4
-      ? `+${204 - pointcalc()}(${204 - pointcalc() + pointcalc(4)})`
+    charainfo.level + 4 - pointcalc() && (amari ? amari - 1 : charatype) === 4
+      ? `+${charainfo.level + 4 - pointcalc()}(${
+          charainfo.level + 4 - pointcalc() + pointcalc(4)
+        })`
       : ""
   } 騎${pointcalc(5)}${
-    204 - pointcalc() && (amari ? amari - 1 : charatype) === 5
-      ? `+${204 - pointcalc()}(${204 - pointcalc() + pointcalc(5)})`
+    charainfo.level + 4 - pointcalc() && (amari ? amari - 1 : charatype) === 5
+      ? `+${charainfo.level + 4 - pointcalc()}(${
+          charainfo.level + 4 - pointcalc() + pointcalc(5)
+        })`
       : ""
   } 召${pointcalc(6)}${
-    204 - pointcalc() && (amari ? amari - 1 : charatype) === 6
-      ? `+${204 - pointcalc()}(${204 - pointcalc() + pointcalc(6)})`
+    charainfo.level + 4 - pointcalc() && (amari ? amari - 1 : charatype) === 6
+      ? `+${charainfo.level + 4 - pointcalc()}(${
+          charainfo.level + 4 - pointcalc() + pointcalc(6)
+        })`
       : ""
   }  計${
-    204 - pointcalc() && charatype !== -1 ? `204(${pointcalc()})` : pointcalc()
+    charainfo.level + 4 - pointcalc() && charatype !== -1
+      ? `${charainfo.level + 4}(${pointcalc()})`
+      : pointcalc()
   }\n`;
   text2 += "技lv:";
   text += text2;
@@ -382,17 +399,17 @@ function calc(s, b, o = true, cc = false) {
     stone[1] == 5 ? 0.16 : 0,
     stone[2] == 5 ? 0.16 : 0,
   ];
-  document.getElementById(
-    "mstext"
-  ).innerHTML = `〜最終ステータス(Lv.200)〜<br />HP ${status.HP || 1} SP ${
-    status.SP / 5 + 200
-  } (${status.SP * 0.15 + 150})/${status.SP}<br />POW ${star ? `${p} (` : ""}${
-    status.pow
-  }${star ? ")" : ""} DEF ${star ? `${d} (` : ""}${status.def}${
+  document.getElementById("mstext").innerHTML = `〜最終ステータス(Lv.${
+    charainfo.level
+  })〜<br />HP ${status.HP || 1} SP ${status.SP / 5 + 200} (${
+    status.SP * 0.15 + 150
+  })/${status.SP}<br />POW ${star ? `${p} (` : ""}${status.pow}${
     star ? ")" : ""
-  } TEC ${star ? `${t} (` : ""}${status.tec}${star ? ")" : ""}<br />攻速 ${
-    status.as
-  } 移動 ${status.ms}<br /><br />〜√後〜<br />POW→${
+  } DEF ${star ? `${d} (` : ""}${status.def}${star ? ")" : ""} TEC ${
+    star ? `${t} (` : ""
+  }${status.tec}${star ? ")" : ""}<br />攻速 ${status.as} 移動 ${
+    status.ms
+  }<br /><br />〜√後〜<br />POW→${
     star ? `${root(p)} 余り：${p - root(p) ** 2} (究極強化なし→` : ""
   }${root(status.pow)} 余り：${status.pow - root(status.pow) ** 2}${
     star ? ")" : ""

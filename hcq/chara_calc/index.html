@@ -6,11 +6,11 @@
     <meta http-equiv="Content-Script-Type" content="text/javascript" />
     <meta name="viewport" content="width=device-width" />
     <title>レベル計算機 (ほぼ個人用)</title>
-    <link rel="stylesheet" href="style.css" />
-    <script src="./scripts/cookie.js?v=5.5" defer></script>
-    <script src="./scripts/data.js?v=5.5" defer></script>
-    <script src="./scripts/calc.js?v=5.5" defer></script>
-    <script src="./scripts/core.js?v=5.5" defer></script>
+    <link rel="stylesheet" href="style.css?v=5.8" />
+    <script src="./scripts/cookie.js?v=5.8" defer></script>
+    <script src="./scripts/data.js?v=5.8" defer></script>
+    <script src="./scripts/calc.js?v=5.8" defer></script>
+    <script src="./scripts/core.js?v=5.8" defer></script>
     <script>
       <!--
       function versioncheck() {
@@ -60,6 +60,7 @@
               points[waza[m].point][n];
           });
         charainfo.name = c.name;
+        charainfo.level = c.level;
         charainfo.star = c.star;
         charainfo.type = c.type;
         charainfo.hiden = c.hiden;
@@ -78,6 +79,7 @@
         charainfo.stone = c.stone;
         document.getElementById("chara_name").value = c.name;
         document.getElementById("amari_point").value = c.amari;
+        document.getElementById("level").value = c.level;
         document.getElementById("star").value = c.star;
         document.getElementById("pow_input").value = c.status.pow;
         document.getElementById("def_input").value = c.status.def;
@@ -121,11 +123,11 @@
         const s = pointcalc();
         document.getElementById("total_sum").innerHTML = s;
         document.getElementById("total_sum").style.color =
-          s > 204 ? "#ff0000" : "#000000";
+          s > charainfo.level + 4 ? "#ff0000" : "#000000";
 
-        Object.keys(st).forEach(n => {
-          settings[n] = document.getElementById(n).checked = st[n]
-        })
+        Object.keys(st).forEach((n) => {
+          settings[n] = document.getElementById(n).checked = st[n];
+        });
         calc(settings.shortoutput, false);
         document.getElementById("load").style.display = "none";
         document.getElementById("main").style.display = "";
@@ -182,17 +184,28 @@
             maxlength="10"
             onchange="optionchange(this)"
           /><br /><br />
-          ☆<input
-            type="text"
-            style="text-align: center"
-            id="star"
-            maxlength="1"
-            size="1"
-            onchange="optionchange(this)"
-            value="0"
-            onfocus="if (this.value == 0) this.value = ''"
-            onblur="if (this.value == '') this.value = 0"
-          /><br /><br />
+          <label
+            >lv<input
+              type="text"
+              style="text-align: center"
+              id="level"
+              maxlength="3"
+              size="3"
+              onchange="optionchange(this)"
+              value="200"
+          /></label>
+          <label
+            >☆<input
+              type="text"
+              style="text-align: center"
+              id="star"
+              maxlength="1"
+              size="1"
+              onchange="optionchange(this)"
+              value="0"
+              onfocus="if (this.value == 0) this.value = ''"
+              onblur="if (this.value == '') this.value = 0" /></label
+          ><br /><br />
           余りポイント：<select id="amari_point" onchange="optionchange(this)">
             <option value="0" selected>キャラタイプと同じ</option>
             <option value="1">剣士</option>
@@ -422,7 +435,7 @@
             <option value="10">[魔法攻撃４]</option>
           </select>
           <br /><br />
-          
+
           ボーナスポイント (残り<span id="bonus_nokori">600</span>)<br />
           POW：<br class="mobilebr" /><span id="bonus_pow"
             ><button

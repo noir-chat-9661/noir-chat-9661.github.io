@@ -1,6 +1,7 @@
 "use strict";
 const charainfo = {
   name: "",
+  level: 200,
   star: 0,
   type: 0,
   hiden: 0,
@@ -13,7 +14,7 @@ const charainfo = {
       return this.pow + this.def + this.tec;
     },
     get amari() {
-      const r = 600 - this.sum;
+      const r = charainfo.level * 3 - this.sum;
       return r < 0 ? 0 : r;
     },
   },
@@ -53,7 +54,7 @@ const settings = {
   shortoutput: false,
   charaoutput: true,
   statusoutput: true,
-  autobackup: false
+  autobackup: false,
 };
 
 function optionchange(y) {
@@ -61,6 +62,13 @@ function optionchange(y) {
   switch (id) {
     case "chara_name":
       charainfo.name = value;
+      break;
+    case "level":
+      if (value === "" || isNaN(value)) y.value = "200";
+      if (Number.isInteger(value)) y.value = parseInt(value);
+      if (Number(y.value) < 1) y.value = "1";
+      if (Number(y.value) > 200) y.value = "200";
+      charainfo.level = Number(y.value);
       break;
     case "star":
       if (value === "" || isNaN(value)) y.value = "0";
@@ -90,13 +98,18 @@ function optionchange(y) {
     case "pow_input":
       if (value === "" || isNaN(value)) y.value = "0";
       if (Number.isInteger(value)) y.value = parseInt(value);
-      if (charainfo.status.def + charainfo.status.tec + Number(y.value) > 600) {
-        y.value = 600 - (charainfo.status.def + charainfo.status.tec);
+      if (
+        charainfo.status.def + charainfo.status.tec + Number(y.value) >
+        charainfo.level * 3
+      ) {
+        y.value =
+          charainfo.level * 3 - (charainfo.status.def + charainfo.status.tec);
       }
+      if (y.value < 0) y.value = 0;
       charainfo.status.pow = Number(y.value);
       break;
     case "pow_+1":
-      if (charainfo.status.sum + Number(y.innerHTML) > 600) {
+      if (charainfo.status.sum + Number(y.innerHTML) > charainfo.level * 3) {
         charainfo.status.pow += charainfo.status.amari;
       } else {
         if (charainfo.status.amari === 0) break;
@@ -104,7 +117,7 @@ function optionchange(y) {
       }
       break;
     case "pow_+10":
-      if (charainfo.status.sum + Number(y.innerHTML) > 600) {
+      if (charainfo.status.sum + Number(y.innerHTML) > charainfo.level * 3) {
         charainfo.status.pow += charainfo.status.amari;
       } else {
         if (charainfo.status.amari === 0) break;
@@ -112,7 +125,7 @@ function optionchange(y) {
       }
       break;
     case "pow_+100":
-      if (charainfo.status.sum + Number(y.innerHTML) > 600) {
+      if (charainfo.status.sum + Number(y.innerHTML) > charainfo.level * 3) {
         charainfo.status.pow += charainfo.status.amari;
       } else {
         if (charainfo.status.amari === 0) break;
@@ -121,6 +134,8 @@ function optionchange(y) {
       break;
     case "pow_max":
       charainfo.status.pow += charainfo.status.amari;
+      if (charainfo.status.sum - charainfo.level * 3 < charainfo.status.pow)
+        charainfo.status.pow -= charainfo.status.sum - charainfo.level * 3;
       break;
     case "def_reset":
       charainfo.status.def = 0;
@@ -140,13 +155,18 @@ function optionchange(y) {
     case "def_input":
       if (value === "" || isNaN(value)) y.value = "0";
       if (Number.isInteger(value)) y.value = parseInt(value);
-      if (charainfo.status.pow + charainfo.status.tec + Number(y.value) > 600) {
-        y.value = 600 - (charainfo.status.pow + charainfo.status.tec);
+      if (
+        charainfo.status.pow + charainfo.status.tec + Number(y.value) >
+        charainfo.level * 3
+      ) {
+        y.value =
+          charainfo.level * 3 - (charainfo.status.pow + charainfo.status.tec);
       }
+      if (y.value < 0) y.value = 0;
       charainfo.status.def = Number(y.value);
       break;
     case "def_+1":
-      if (charainfo.status.sum + Number(y.innerHTML) > 600) {
+      if (charainfo.status.sum + Number(y.innerHTML) > charainfo.level * 3) {
         charainfo.status.def += charainfo.status.amari;
       } else {
         if (charainfo.status.amari === 0) break;
@@ -154,7 +174,7 @@ function optionchange(y) {
       }
       break;
     case "def_+10":
-      if (charainfo.status.sum + Number(y.innerHTML) > 600) {
+      if (charainfo.status.sum + Number(y.innerHTML) > charainfo.level * 3) {
         charainfo.status.def += charainfo.status.amari;
       } else {
         if (charainfo.status.amari === 0) break;
@@ -162,7 +182,7 @@ function optionchange(y) {
       }
       break;
     case "def_+100":
-      if (charainfo.status.sum + Number(y.innerHTML) > 600) {
+      if (charainfo.status.sum + Number(y.innerHTML) > charainfo.level * 3) {
         charainfo.status.def += charainfo.status.amari;
       } else {
         if (charainfo.status.amari === 0) break;
@@ -171,6 +191,8 @@ function optionchange(y) {
       break;
     case "def_max":
       charainfo.status.def += charainfo.status.amari;
+      if (charainfo.status.sum - charainfo.level * 3 < charainfo.status.def)
+        charainfo.status.def -= charainfo.status.sum - charainfo.level * 3;
       break;
     case "tec_reset":
       charainfo.status.tec = 0;
@@ -190,13 +212,18 @@ function optionchange(y) {
     case "tec_input":
       if (value === "" || isNaN(value)) y.value = "0";
       if (Number.isInteger(value)) y.value = parseInt(value);
-      if (charainfo.status.pow + charainfo.status.def + Number(y.value) > 600) {
-        y.value = 600 - (charainfo.status.pow + charainfo.status.def);
+      if (
+        charainfo.status.pow + charainfo.status.def + Number(y.value) >
+        charainfo.level * 3
+      ) {
+        y.value =
+          charainfo.level * 3 - (charainfo.status.pow + charainfo.status.def);
       }
+      if (y.value < 0) y.value = 0;
       charainfo.status.tec = Number(y.value);
       break;
     case "tec_+1":
-      if (charainfo.status.sum + Number(y.innerHTML) > 600) {
+      if (charainfo.status.sum + Number(y.innerHTML) > charainfo.level * 3) {
         charainfo.status.tec += charainfo.status.amari;
       } else {
         if (charainfo.status.amari === 0) break;
@@ -204,7 +231,7 @@ function optionchange(y) {
       }
       break;
     case "tec_+10":
-      if (charainfo.status.sum + Number(y.innerHTML) > 600) {
+      if (charainfo.status.sum + Number(y.innerHTML) > charainfo.level * 3) {
         charainfo.status.tec += charainfo.status.amari;
       } else {
         if (charainfo.status.amari === 0) break;
@@ -212,7 +239,7 @@ function optionchange(y) {
       }
       break;
     case "tec_+100":
-      if (charainfo.status.sum + Number(y.innerHTML) > 600) {
+      if (charainfo.status.sum + Number(y.innerHTML) > charainfo.level * 3) {
         charainfo.status.tec += charainfo.status.amari;
       } else {
         if (charainfo.status.amari === 0) break;
@@ -221,6 +248,8 @@ function optionchange(y) {
       break;
     case "tec_max":
       charainfo.status.tec += charainfo.status.amari;
+      if (charainfo.status.sum - charainfo.level * 3 < charainfo.status.tec)
+        charainfo.status.tec -= charainfo.status.sum - charainfo.level * 3;
       break;
     case "chara_type":
       charainfo.type = Number(value);
@@ -247,7 +276,7 @@ function optionchange(y) {
       }
       document.getElementById("total_sum").innerHTML = pointcalc();
       document.getElementById("total_sum").style.color =
-        pointcalc() > 204 ? "#ff0000" : "#000000";
+        pointcalc() > charainfo.level + 4 ? "#ff0000" : "#000000";
       break;
     case "chara_hiden":
       charainfo.hiden = Number(value);
@@ -368,7 +397,16 @@ function optionchange(y) {
     charainfo.bugu.status.def + charainfo.bugu.kaji.def;
   document.getElementById("sum_tec").innerHTML =
     charainfo.bugu.status.tec + charainfo.bugu.kaji.tec;
-  document.getElementById("bonus_nokori").innerHTML = charainfo.status.amari;
+  const a =
+    charainfo.level * 3 -
+    (charainfo.status.pow + charainfo.status.def + charainfo.status.tec);
+  document.getElementById("bonus_nokori").innerHTML = a;
+  document.getElementById("bonus_nokori").style.color =
+    a < 0 ? "#ff0000" : "#000000";
+  const s = pointcalc();
+  document.getElementById("total_sum").innerHTML = s;
+  document.getElementById("total_sum").style.color =
+    s > charainfo.level + 4 ? "#ff0000" : "#000000";
   calc(settings.shortoutput, false);
 }
 
@@ -381,8 +419,9 @@ function boxshow(y) {
 function setting(y) {
   const { id, checked } = y;
   settings[id] = checked;
-  if (id === "autobackup" && !checked) cookieManager.set("backups", "", { "Max-Age": 0 });
-  calc(false, false, false, true)
+  if (id === "autobackup" && !checked)
+    cookieManager.set("backups", "", { "Max-Age": 0 });
+  calc(false, false, false, true);
 }
 
 let jid = null;
@@ -393,9 +432,9 @@ function wazalist(y) {
   }
   if (jid === id) {
     document.getElementById(id).checked = false;
-    return jid = null;
+    return (jid = null);
   }
-  jid = id
+  jid = id;
   document.getElementById(`jobid${id}`).style.display = "";
   document.getElementsByClassName("wazazone")[0].style["background-color"] =
     y.parentNode.style["background-color"];
@@ -437,7 +476,7 @@ function waza_level(y) {
   const s = pointcalc();
   document.getElementById("total_sum").innerHTML = s;
   document.getElementById("total_sum").style.color =
-    s > 204 ? "#ff0000" : "#000000";
+    s > charainfo.level + 4 ? "#ff0000" : "#000000";
   calc(settings.shortoutput, false);
 }
 
@@ -453,6 +492,7 @@ function reset(id) {
     });
     charainfo.name = "";
     charainfo.type = 0;
+    charainfo.level = 200;
     charainfo.star = 0;
     charainfo.hiden = 0;
     charainfo.amari = 0;
@@ -528,7 +568,7 @@ function reset(id) {
   const s = pointcalc();
   document.getElementById("total_sum").innerHTML = s;
   document.getElementById("total_sum").style.color =
-    s > 204 ? "#ff0000" : "#000000";
+    s > charainfo.level + 4 ? "#ff0000" : "#000000";
 }
 
 function pointcalc(id) {
@@ -561,7 +601,7 @@ function copy(d = false) {
 }
 
 function savecookie() {
-  const { waza: w, chara: c0 } = cookieManager.parse();
+  const { waza: w, chara: c0, v } = cookieManager.parse();
   if (c0) {
     const c = JSON.parse(decodeURIComponent(c0));
     const check = confirm(
@@ -572,15 +612,20 @@ function savecookie() {
     if (!check) return;
   }
   try {
-    cookieManager.set("waza", BigInt(waza.map((n) => n.level).join("")).toString(16), {
-      Expires: "Fri, 31 Dec 9999 23:59:59 GMT",
-    });
+    cookieManager.set(
+      "waza",
+      BigInt(waza.map((n) => n.level).join("")).toString(16),
+      {
+        Expires: "Fri, 31 Dec 9999 23:59:59 GMT",
+      }
+    );
     cookieManager.set("chara", charainfo, {
       Expires: "Fri, 31 Dec 9999 23:59:59 GMT",
     });
-    if (!v) cookieManager.set("v", "1", {
-      Expires: "Fri, 31 Dec 9999 23:59:59 GMT",
-    });
+    if (!v)
+      cookieManager.set("v", "1", {
+        Expires: "Fri, 31 Dec 9999 23:59:59 GMT",
+      });
   } catch (e) {}
 }
 
@@ -597,13 +642,15 @@ function loadcookie() {
   "0"
     .repeat(waza.length - BigInt("0x" + w).toString().length)
     .concat(BigInt("0x" + w).toString())
-    .split("").forEach((n, m) => {
+    .split("")
+    .forEach((n, m) => {
       waza[m].level = Number(n);
       document.getElementsByClassName("waza_lv")[m].innerHTML = lv_moji[n];
       document.getElementsByClassName("point")[m].innerHTML =
         points[waza[m].point][n];
     });
   charainfo.name = c.name;
+  charainfo.level = c.level;
   charainfo.star = c.star;
   charainfo.type = c.type;
   charainfo.hiden = c.hiden;
@@ -622,6 +669,7 @@ function loadcookie() {
   charainfo.stone = c.stone;
   document.getElementById("chara_name").value = c.name;
   document.getElementById("amari_point").value = c.amari;
+  document.getElementById("level").value = c.level;
   document.getElementById("star").value = c.star;
   document.getElementById("pow_input").value = c.status.pow;
   document.getElementById("def_input").value = c.status.def;
@@ -663,7 +711,7 @@ function loadcookie() {
   const s = pointcalc();
   document.getElementById("total_sum").innerHTML = s;
   document.getElementById("total_sum").style.color =
-    s > 204 ? "#ff0000" : "#000000";
+    s > charainfo.level + 4 ? "#ff0000" : "#000000";
 
   calc(settings.shortoutput, false);
 }
@@ -769,7 +817,7 @@ function jsonInOut(mode) {
       weaponOption5: j_optionB[charainfo.stone[2]],
       weaponOptionDummy2: "-1",
       stars: charainfo.star.toString(),
-      charalevel: "200",
+      charalevel: charainfo.level.toString(),
       bonusPow: charainfo.status.pow.toString(),
       bonusDef: charainfo.status.def.toString(),
       bonusTec: charainfo.status.tec.toString(),
@@ -788,28 +836,55 @@ function jsonLoad() {
     return (document.getElementById("errmsg").style.display = "");
   const a = Number(j_weapon.findIndex((n) => n === json.charaData.weapon));
   if (a === -1) return (document.getElementById("errmsg2").style.display = "");
-  const b = Number(j_optionA.findIndex((n) => n === json.charaData.weaponOption0));
+  const b = Number(
+    j_optionA.findIndex((n) => n === json.charaData.weaponOption0)
+  );
   if (b === -1) return (document.getElementById("errmsg2").style.display = "");
-  const c = Number(j_optionA.findIndex((n) => n === json.charaData.weaponOption1));
+  const c = Number(
+    j_optionA.findIndex((n) => n === json.charaData.weaponOption1)
+  );
   if (c === -1) return (document.getElementById("errmsg2").style.display = "");
-  const d = Number(j_optionA.findIndex((n) => n === json.charaData.weaponOption2));
+  const d = Number(
+    j_optionA.findIndex((n) => n === json.charaData.weaponOption2)
+  );
   if (d === -1) return (document.getElementById("errmsg2").style.display = "");
-  const e = Number(j_optionB.findIndex((n) => n === json.charaData.weaponOption3));
+  const e = Number(
+    j_optionB.findIndex((n) => n === json.charaData.weaponOption3)
+  );
   if (e === -1) return (document.getElementById("errmsg2").style.display = "");
-  const f = Number(j_optionB.findIndex((n) => n === json.charaData.weaponOption4));
+  const f = Number(
+    j_optionB.findIndex((n) => n === json.charaData.weaponOption4)
+  );
   if (f === -1) return (document.getElementById("errmsg2").style.display = "");
-  const g = Number(j_optionB.findIndex((n) => n === json.charaData.weaponOption5));
+  const g = Number(
+    j_optionB.findIndex((n) => n === json.charaData.weaponOption5)
+  );
   if (g === -1) return (document.getElementById("errmsg2").style.display = "");
-  if (!confirm(`名前：${json.charaData.characterName || "未設定"}のレシピデータを読み込みますか。`)) return;;
-  json.jobPoint.flat().map(Number).forEach((n, m) => {
-    waza[m].level = n;
-    document.getElementsByClassName("waza_lv")[m].innerHTML = lv_moji[n];
-    document.getElementsByClassName("point")[m].innerHTML =
-      points[waza[m].point][n];
-  });
+  if (
+    !confirm(
+      `名前：${
+        json.charaData.characterName || "未設定"
+      }のレシピデータを読み込みますか。`
+    )
+  )
+    return;
+  json.jobPoint
+    .flat()
+    .map(Number)
+    .forEach((n, m) => {
+      waza[m].level = n;
+      document.getElementsByClassName("waza_lv")[m].innerHTML = lv_moji[n];
+      document.getElementsByClassName("point")[m].innerHTML =
+        points[waza[m].point][n];
+    });
   charainfo.name = document.getElementById("chara_name").value =
     json.charaData.characterName;
-  charainfo.star = document.getElementById("star").value = Number(json.charaData.stars);
+  charainfo.level = document.getElementById("level").value = Number(
+    json.charaData.charalevel
+  );
+  charainfo.star = document.getElementById("star").value = Number(
+    json.charaData.stars
+  );
   charainfo.type = document.getElementById("chara_type").value =
     Number(json.charaData.characterType) + 1;
   document.getElementById("chara_hiden").innerHTML = hiden[charainfo.type]
@@ -864,7 +939,7 @@ function jsonLoad() {
   const s = pointcalc();
   document.getElementById("total_sum").innerHTML = s;
   document.getElementById("total_sum").style.color =
-    s > 204 ? "#ff0000" : "#000000";
+    s > charainfo.level + 4 ? "#ff0000" : "#000000";
 
   document.getElementById("sum_pow").innerHTML =
     charainfo.bugu.status.pow + charainfo.bugu.kaji.pow;
@@ -873,10 +948,9 @@ function jsonLoad() {
   document.getElementById("sum_tec").innerHTML =
     charainfo.bugu.status.tec + charainfo.bugu.kaji.tec;
   document.getElementById("bonus_nokori").innerHTML = charainfo.status.amari;
-  
-  
+
   calc(settings.shortoutput, false);
-  document.getElementById('jsonarea').style.display = 'none'
+  document.getElementById("jsonarea").style.display = "none";
 }
 
 function jsonCopy() {

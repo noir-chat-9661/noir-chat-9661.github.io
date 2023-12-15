@@ -42,7 +42,9 @@ const tokui = {};
 function wazainfo(id) {
   const wazadata = waza[id];
   const { name, level, type, description } = wazadata;
-  let text = `<span id="infoclose"><span onclick="this.parentNode.parentNode.parentNode.style.display = 'none'">×</span></span><span style="font-size:1.2em">${name}${level ? ` ${lv_moji[level]}` : ""}</span><br />`;
+  let text = `<span id="infoclose"><span onclick="this.parentNode.parentNode.parentNode.style.display = 'none'">×</span></span><span style="font-size:1.2em">${name}${
+    level ? ` ${lv_moji[level]}` : ""
+  }</span><br />`;
   if (Number(id) > 45) {
     const { lvhosei } = description;
     text += `SP:${description.SP}<br />タイプ:召喚<br />${
@@ -50,16 +52,18 @@ function wazainfo(id) {
         ? `レベル補正:${lvhosei[level - 1]}`
         : `レベル補正:${lvhosei[0]}〜${lvhosei[4]}`
     }<br />`;
-    const b = hosei.advantage == type ? 1.2 : 1
+    const b = hosei.advantage == type ? 1.2 : 1;
     const d = description.description;
     const slevel = 200 + charainfo.star * 10 + lvhosei[level ? level - 1 : 4];
     text += `ステータス(Lv.${slevel})<br />HP ${Math.floor(
       description.HP * slevel
-    )}<br />POW ${Math.floor(description.pow * slevel * b)} (√後：${Math.floor(Math.floor(description.pow * slevel * b) ** 0.5)})<br />DEF ${Math.floor(
-      description.def * slevel * b
-    )} (√後：${Math.floor(Math.floor(description.def * slevel * b) ** 0.5)})<br />TEC ${Math.floor(description.tec * slevel * b)} (√後：${Math.floor(Math.floor(description.tec * slevel * b) ** 0.5)})<br /><br />${d.join(
-      "<br />"
-    )}`;
+    )}<br />POW ${Math.floor(description.pow * slevel * b)} (√後：${Math.floor(
+      Math.floor(description.pow * slevel * b) ** 0.5
+    )})<br />DEF ${Math.floor(description.def * slevel * b)} (√後：${Math.floor(
+      Math.floor(description.def * slevel * b) ** 0.5
+    )})<br />TEC ${Math.floor(description.tec * slevel * b)} (√後：${Math.floor(
+      Math.floor(description.tec * slevel * b) ** 0.5
+    )})<br /><br />${d.join("<br />")}`;
   } else {
     const t = [...description[level]];
     t[2] = `[得意] ${t[2]}`;
@@ -78,7 +82,7 @@ function wazainfo(id) {
   document.getElementById("wazainfo").style.display = "";
 }
 
-let waza = []
+let waza = [];
 
 const points = [
   [0, 1, 3, 6, 10, 15],
