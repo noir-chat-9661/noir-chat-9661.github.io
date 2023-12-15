@@ -987,7 +987,7 @@ async function share() {
   };
   const json = JSON.stringify(plane);
   const { id } = await fetch(
-    "http://hcqshare.f5.si",
+    "https://hcqshare.f5.si",
     {
       method: "post",
       headers: {
@@ -996,7 +996,7 @@ async function share() {
       body: json,
     }
   ).then((n) => n.json());
-  const url = `http://hcqshare.f5.si/${id}`;
+  const url = `https://hcqshare.f5.si/${id}`;
   document.getElementById("sharespace").style.display = "";
   document.getElementById("shareurl").innerHTML = url;
   document.getElementById("shareqr").innerHTML = "";
