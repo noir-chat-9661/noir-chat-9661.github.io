@@ -167,7 +167,7 @@
                     charainfo.bugu.status.tec + charainfo.bugu.kaji.tec;
                   document.getElementById("bonus_nokori").innerHTML =
                     charainfo.status.amari;
-
+                  history.replaceState("", "", "/");
                   calc(settings.shortoutput, false);
                 });
             } else if (cookie.backups) {
