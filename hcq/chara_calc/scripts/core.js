@@ -544,12 +544,14 @@ function reset(id) {
     document.getElementById("bdef2").innerHTML = "–";
     document.getElementById("hoseitext").innerHTML =
       '<span id="hoseitext">得意：– 苦手：–</span>';
-    [...document.getElementsByClassName(`type${i}`)].map(
-      (n) => (n.style.color = "#000000")
-    );
-    [...document.getElementsByClassName(`type${i}`)].map(
-      (n) => (n.style["font-weight"] = "")
-    );
+    for (let i = 0; i < 7; i++){
+      [...document.getElementsByClassName(`type${i}`)].map(
+        (n) => (n.style.color = "#000000")
+      );
+      [...document.getElementsByClassName(`type${i}`)].map(
+        (n) => (n.style["font-weight"] = "")
+      );
+    }
     cookieManager.set("backups", "", { "Max-Age": 0 });
   } else {
     const w = waza.filter((n) => n.jobid === id);
