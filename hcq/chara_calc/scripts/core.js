@@ -997,7 +997,7 @@ async function share() {
   const { id } = await fetch(
     "https://hcqshare.f5.si",
     {
-      method: "post",
+      method: "put",
       headers: {
         "Content-Type": "application/json",
       },
