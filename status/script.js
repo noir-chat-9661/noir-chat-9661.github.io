@@ -8,7 +8,7 @@ function check() {
     .catch(
       () => (document.getElementById("status1").innerHTML = "🔴 使用不可")
     );
-  fetch("http://sub-eita.f5.si")
+  fetch("https://hcqshare.f5.si")
     .then((n) => {
       document.getElementById("status2").innerHTML = `${
         n.status == 200 ? "🟢 使用可能" : "🔴 使用不可"
