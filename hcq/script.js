@@ -27,7 +27,7 @@ function copybml(num) {
 
 document.addEventListener("DOMContentLoaded", async (e) => {
   if (location.href.startsWith("http://eita.f5.si")) return location.replace("https://eita.f5.si/hcq/");
-  if (!navigator.userAgent.includes("windows")) return;
+  if (!navigator.userAgent.includes("Windows")) return;
   document.getElementById("app").style.display = "";
   const f = await fetch(
     "https://api.github.com/repos/Eita-hj/himaque_addon/releases/latest"
