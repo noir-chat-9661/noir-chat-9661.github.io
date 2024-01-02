@@ -1,5 +1,5 @@
 (function () {
-  const version = "3.5.5";
+  const version = "3.5.6";
   const id = "layer" + layercount;
   if (this.addonApp) {
     document.title += `+Addon ver.${version}`;
@@ -59,7 +59,7 @@
     const dx = v - bonus_pow;
     if (dx > nokoripoint) {
       element.value = bonus_pow + nokoripoint;
-      PointInputPow(element);
+      return PointInputPow(element);
     }
     bonus_pow = v;
     nokoripoint -= dx;
@@ -73,7 +73,7 @@
     const dx = v - bonus_def;
     if (dx > nokoripoint) {
       element.value = bonus_def + nokoripoint;
-      PointInputDef(element);
+      return PointInputDef(element);
     }
     bonus_def = v;
     nokoripoint -= dx;
@@ -87,7 +87,7 @@
     const dx = v - bonus_tec;
     if (dx > nokoripoint) {
       element.value = bonus_tec + nokoripoint;
-      PointInputTec(element);
+      return PointInputTec(element);
     }
     bonus_tec = v;
     nokoripoint -= dx;
