@@ -1,5 +1,5 @@
 (function () {
-  const version = "3.5.4";
+  const version = "3.5.5";
   const id = "layer" + layercount;
   if (this.addonApp) {
     document.title += `+Addon ver.${version}`;
@@ -53,7 +53,7 @@
     document.getElementById("pointinputtec").value = bonus_tec;
   };
   this.PointInputPow = (element) => {
-    if (!Number.isSafeInteger(element.value)) return element.value = bonus_pow;
+    if (!Number.isSafeInteger(Number(element.value))) return element.value = bonus_pow;
     const v = Number(element.value);
     if (v < 0) return element.value = 0, PointInputPow(element);
     const dx = v - bonus_pow;
@@ -67,7 +67,7 @@
     document.getElementById("petstatus_bonuspoint").textContent = nokoripoint;
   };
   this.PointInputDef = (element) => {
-    if (!Number.isSafeInteger(element.value)) return element.value = bonus_def;
+    if (!Number.isSafeInteger(Number(element.value))) return element.value = bonus_def;
     const v = Number(element.value);
     if (v < 0) return element.value = 0, PointInputDef(element);
     const dx = v - bonus_def;
@@ -81,7 +81,7 @@
     document.getElementById("petstatus_bonuspoint").textContent = nokoripoint;
   };
   this.PointInputTec = (element) => {
-    if (!Number.isSafeInteger(element.value)) return element.value = bonus_tec;
+    if (!Number.isSafeInteger(Number(element.value))) return element.value = bonus_tec;
     const v = Number(element.value);
     if (v < 0) return element.value = 0, PointInputTec(element);
     const dx = v - bonus_tec;
