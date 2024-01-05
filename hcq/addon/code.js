@@ -1,5 +1,5 @@
 (function () {
-  const version = "3.6.1";
+  const version = "3.6.2";
   const id = "layer" + layercount;
   if (this.addonApp) {
     document.title += `+Addon ver.${version}`;
@@ -169,7 +169,7 @@
   };
   this.PointSubTec = () => {
     nokoripoint += bonus_tec;
-    bonus_tel = 0;
+    bonus_tec = 0;
     document.getElementById("petstatus_bonustec").textContent = bonus_tec;
     document.getElementById("petstatus_bonuspoint").textContent = nokoripoint;
     document.getElementById("pointinputtec").value = 0;
