@@ -1,5 +1,5 @@
 (function () {
-  const version = "3.6.0";
+  const version = "3.6.1";
   const id = "layer" + layercount;
   if (this.addonApp) {
     document.title += `+Addon ver.${version}`;
@@ -122,7 +122,7 @@
     }
     bonus_pow = v;
     nokoripoint -= dx;
-    document.getElementById("petstatus_bonuspow").textContent = bonus_tec;
+    document.getElementById("petstatus_bonuspow").textContent = bonus_pow;
     document.getElementById("petstatus_bonuspoint").textContent = nokoripoint;
   };
   this.PointInputDef = (element) => {
@@ -136,7 +136,7 @@
     }
     bonus_def = v;
     nokoripoint -= dx;
-    document.getElementById("petstatus_bonusdef").textContent = bonus_tec;
+    document.getElementById("petstatus_bonusdef").textContent = bonus_def;
     document.getElementById("petstatus_bonuspoint").textContent = nokoripoint;
   };
   this.PointInputTec = (element) => {
@@ -169,7 +169,7 @@
   };
   this.PointSubTec = () => {
     nokoripoint += bonus_tec;
-    bonus_def = 0;
+    bonus_tel = 0;
     document.getElementById("petstatus_bonustec").textContent = bonus_tec;
     document.getElementById("petstatus_bonuspoint").textContent = nokoripoint;
     document.getElementById("pointinputtec").value = 0;
