@@ -1,5 +1,5 @@
 (function () {
-  const version = "3.6.2";
+  const version = "3.7.0";
   const id = "layer" + layercount;
   if (this.addonApp) {
     document.title += `+Addon ver.${version}`;
@@ -24,66 +24,123 @@
     "<img src='picts/scene_myroom.png' class='scenehaikeiimg' /> \t <div class='uegamen'> \t \t<div class='hanyoudiv' style='background-color:#FAFAFA;'>\t \t \t<div class='petstatus_imgdiv'>\t\t\t\t<div class='objimgbasediv'>\t\t\t\t\t<img src='' id='petstatus_buguimg' class='objectimg' />\t\t\t\t\t<img src='' id='petstatus_objimg' class='objectimg' />\t\t\t\t</div>\t\t\t</div> \t\t\t<div style='text-align:center'> \t\t\t\t<span id='petstatus_name'></span>　 \t\t\t\t<small>lv</small><span id='petstatus_lv'></span> \t\t\t</div> \t\t\t<div style='margin-left:8%'>\t \t\t\tHP　<span id='petstatus_hp'></span><br/> \t\t\t\t<span style='display:none'>SP　<span id='petstatus_sp'></span><br/></span> \t\t\t\tPOW　<span id='petstatus_pow'></span><br/> \t\t\t\tDEF　<span id='petstatus_def'></span><br/> \t\t\t\tTEC　<span id='petstatus_tec'></span><br/> \t\t\t</div> \t\t\t<div style='font-size:10px;color:#AAAAAA;margin:20px 10px 0px 0px;text-align:right;'>※表記がおかしい場合、装備品を変更してください</div> \t\t</div> \t </div> \t <div class='sitagamen'> \t \t\t<div style='text-align:center'> \t \t\t\tステータスを割り振ります<br /> \t \t\t\tボーナスポイント　<span id='petstatus_bonuspoint'></span> \t \t\t</div> \t \t\t<div style='margin-left:15%'>\t \t\t\tPOW　<span id='petstatus_userpow'></span>+<span id='petstatus_bonuspow' style='display:none'></span><input type='text' size='3' maxlength='3' value='0' id='pointinputpow' onchange='PointInputPow(this)' /><nobr><button onclick='PointAddPow(1)'>+1</button><button onclick='PointAddPow(10)'>+10</button><button onclick='PointAddPow(nokoripoint)'>MAX</button><button onclick='PointSubPow()'>R</button></nobr><br/> \t\t\t\tDEF　<span id='petstatus_userdef'></span>+<span id='petstatus_bonusdef' style='display:none'></span><input type='text' size='3' maxlength='3' value='0' id='pointinputdef' onchange='PointInputDef(this)' /><nobr><button onclick='PointAddDef(1)'>+1</button><button onclick='PointAddDef(10)'>+10</button><button onclick='PointAddDef(nokoripoint)'>MAX</button><button onclick='PointSubDef()'>R</button></nobr><br/> \t\t\t\tTEC　<span id='petstatus_usertec'></span>+<span id='petstatus_bonustec' style='display:none'></span><input type='text' size='3' maxlength='3' value='0' id='pointinputtec' onchange='PointInputTec(this)' /><nobr><button onclick='PointAddTec(1)'>+1</button><button onclick='PointAddTec(10)'>+10</button><button onclick='PointAddTec(nokoripoint)'>MAX</button><button onclick='PointSubTec()'>R</button></nobr><br/> \t\t\t\t<button onclick='SendUserPoint()'>保存！</button> \t\t\t\t<br><span style='color:#FF0000'>やりなおしの種 <span id='petstatus_yarinaosi'></span>個</span> \t\t\t\t<button onclick='PetStatusReset()'>ステータス再振り</button> \t\t\t</div> \t\t\t<button onclick='MyHouseEntry()' class='exitbtn'>戻る</button> \t </div>";
   _0x688a()[2136] =
     "<img src='picts/scene_myroom.png' class='scenehaikeiimg' /> \t\t<div class='uegamen'>\t \t \t<div style='position:absolute;top:10%;bottom:3%;left:5%;right:5%;background-color:#FFFFFF;overflow:hidden;'>\t\t \t \t<div class='myroom_supportdiv'>\t\t \t \t\t<div style='font-size:11px'>SUPPORT CHARACTOR</div>\t\t \t \t\t<div class='supportdeletebtn' onclick='SupportPetDelete(1)'>×</div>\t\t \t \t\t<div class='supportdeletebtn' onclick='SupportPetDelete(2)'>×</div>\t\t \t \t\t<div class='supportdeletebtn' onclick='SupportPetDelete(3)'>×</div>\t\t \t \t\t<div style='clear:both'></div>\t\t \t \t\t<div id='supportpetdiv1' class='supportpetdiv'>取得中</div>\t\t \t \t\t<div id='supportpetdiv2' class='supportpetdiv'></div>\t\t \t \t\t<div id='supportpetdiv3' class='supportpetdiv'></div>\t\t \t \t\t<div style='clear:both'></div>\t\t \t \t\t<button onclick='SupportPetChange(1)' class='supportchengebtn'>変更</button>\t\t \t \t\t<button onclick='SupportPetChange(2)' class='supportchengebtn'>変更</button>\t\t \t \t\t<button onclick='SupportPetChange(3)' class='supportchengebtn'>変更</button>\t\t \t \t</div>\t\t \t \t<div style='clear:both'>[<small>友P</small> <b class='astyle' id='tomop' onclick='SupportLogMore()'>?</b>/<small>1000</small>]</div>\t \t \t\t<div id='supportscorespace'>取得中...</div>\t \t \t</div>\t \t \t<div class='scenetitle'>自分の家</div>\t \t</div> \t\t<div class='sitagamen' style='background-color:transparent'> \t\t\t<button onclick='PetStatusEntry()' class='halfbtn'>ステータス (extend)</button> \t\t\t<button onclick='ItemWindow()' class='halfbtn'>アイテムBOX</button> \t\t\t<button onclick='SceneCharactorChange()' class='halfbtn'>キャラクター変更</button> \t\t\t<button onclick='PetNameDiv()' class='halfbtn'>キャラの名前変更</button> \t\t\t<button onclick='UserWindow(";
+  document.getElementById("areachat").getElementsByClassName("c_formdiv")[0].innerHTML = "<nobr>" + document.getElementById("areachat").getElementsByClassName("c_formdiv")[0].innerHTML + ' <input type="checkbox" id="isshout" onchange="shoutmode(this)" /></nobr>'
   
-  document.onpaste = function(e) {
+  document.onpaste = function (e) {
     const item = e.clipboardData.items[0];
-    const formData = new FormData()
+    const formData = new FormData();
     const blob = item.getAsFile();
     if (e.target.id == "c_inputtext") {
       if (!["image/gif", "image/jpeg", "image/png"].includes(item.type)) {
-        if (item.type.startsWith("image") || item.type.startsWith("video")) alert("対応していない形式です。\npng jpeg gifの3つのみ対応しています。)")
+        if (item.type.startsWith("image") || item.type.startsWith("video"))
+          alert(
+            "対応していない形式です。\npng jpeg gifの3つのみ対応しています。)"
+          );
         return;
-      };
-      if (blob.size > 64000000) return alert("ファイルサイズが大きすぎます。")
+      }
+      if (blob.size > 64000000) return alert("ファイルサイズが大きすぎます。");
       if (!confirm("クリップボードの画像を送信しますか。")) return;
-      formData.append("nerai", String(now_guild))
-      formData.append("seskey", seskey)
-      formData.append("myid", String(myid))
-      formData.append("puri", blob, item.name || `image.${item.type.split("/")[1]}`);
-      formData.append("ftype", "photosubmii")
+      formData.append("nerai", String(now_guild));
+      formData.append("seskey", seskey);
+      formData.append("myid", String(myid));
+      formData.append(
+        "puri",
+        blob,
+        item.name || `image.${item.type.split("/")[1]}`
+      );
+      formData.append("ftype", "photosubmii");
       fetch("https://ksg-network.tokyo/UploadGuild.php", {
         method: "post",
-        body: formData
-      })
+        body: formData,
+      });
     } else if (e.target.className == "c_inputtext") {
       if (!["image/gif", "image/jpeg", "image/png"].includes(item.type)) {
-        if (item.type.startsWith("image") || item.type.startsWith("video")) alert("対応していない形式です。\npng jpeg gifの3つのみ対応しています。")
+        if (item.type.startsWith("image") || item.type.startsWith("video"))
+          alert(
+            "対応していない形式です。\npng jpeg gifの3つのみ対応しています。"
+          );
         return;
-      };
-      if (e.target.parentNode.parentNode.className !== "c_kobetudiv") return alert("画像送信はギルドチャットまたは個別チャットのみ可能です。")
-      if (blob.size > 64000000) return alert("ファイルサイズが大きすぎます。")
+      }
+      if (e.target.parentNode.parentNode.className !== "c_kobetudiv")
+        return alert(
+          "画像送信はギルドチャットまたは個別チャットのみ可能です。"
+        );
+      if (blob.size > 64000000) return alert("ファイルサイズが大きすぎます。");
       if (!confirm("クリップボードの画像を送信しますか。")) return;
-      const target = e.target.parentNode.parentNode.id.slice(6)
-      formData.append("nerai", target)
-      formData.append("seskey", seskey)
-      formData.append("myid", String(myid))
-      formData.append("puri", blob, item.name || `image.${item.type.split("/")[1]}`);
-      formData.append("ftype", "photosubmii")
+      const target = e.target.parentNode.parentNode.id.slice(6);
+      formData.append("nerai", target);
+      formData.append("seskey", seskey);
+      formData.append("myid", String(myid));
+      formData.append(
+        "puri",
+        blob,
+        item.name || `image.${item.type.split("/")[1]}`
+      );
+      formData.append("ftype", "photosubmii");
       fetch("https://ksg-network.tokyo/UploadKobetu.php", {
         method: "post",
-        body: formData
-      })
+        body: formData,
+      });
     } else if (e.target.className == "kakikomi_naiyou") {
       if (!["image/gif", "image/jpeg", "image/png"].includes(item.type)) {
-        if (item.type.startsWith("image") || item.type.startsWith("video")) alert("対応していない形式です。\npng jpeg gifの3つのみ対応しています。)")
+        if (item.type.startsWith("image") || item.type.startsWith("video"))
+          alert(
+            "対応していない形式です。\npng jpeg gifの3つのみ対応しています。)"
+          );
         return;
-      };
-      if (blob.size > 64000000) return alert("ファイルサイズが大きすぎます。")
-      NewTemp(e.target.parentNode.getElementsByTagName("div")[0])
-      document.getElementById(`newtemp${ntmpcount}`).style.display = "none"
-      formData.append("origin", "himaque")
-      formData.append("myid", String(myid))
-      formData.append("seskey", seskey)
-      formData.append("ntmpid", String(ntmpcount))
-      formData.append("puri", blob, item.name || `image.${item.type.split("/")[1]}`);
-      formData.append("ftype", "newsubmi")
+      }
+      if (blob.size > 64000000) return alert("ファイルサイズが大きすぎます。");
+      NewTemp(e.target.parentNode.getElementsByTagName("div")[0]);
+      document.getElementById(`newtemp${ntmpcount}`).style.display = "none";
+      formData.append("origin", "himaque");
+      formData.append("myid", String(myid));
+      formData.append("seskey", seskey);
+      formData.append("ntmpid", String(ntmpcount));
+      formData.append(
+        "puri",
+        blob,
+        item.name || `image.${item.type.split("/")[1]}`
+      );
+      formData.append("ftype", "newsubmi");
       fetch("https://ksg-network.tokyo/UploadPhoto.php", {
         method: "post",
-        body: formData
-      })
+        body: formData,
+      });
     }
+  };
+  this.shoutmode = function (d) {
+    document
+      .getElementById("areachat")
+      .getElementsByClassName("c_inputtext")[0].style["background-color"] = d.checked ? "#aaff88" : "#ffffff"
   }
-  
+  this.HatugenArea = function () {
+    let monku = document
+      .getElementById("areachat")
+      .getElementsByClassName("c_inputtext")[0].value;
+    if (monku == "") return;
+    if (document.getElementById("isshout").checked) monku = "shout!" + monku;
+    if (monku.length > 150)
+      return alert("送信可能上限は150文字(shout!を含む)です。");
+    document
+      .getElementById("areachat")
+      .getElementsByClassName("c_inputtext")[0].value = "";
+    $.ajax({
+      type: "POST",
+      url: "chat_HatugenArea.php",
+      data: {
+        marumie: myid,
+        seskey,
+        monku,
+      },
+      success: (res) => {
+        if (res.error == 404) return Error404();
+        if (res.error != 1) return alert("サーバーエラー0030");
+      },
+      error: () => {
+        return alert("なにかしらの不具合3285");
+      },
+    });
+  };
   this.PointAddPow = (point) => {
     if (point > nokoripoint)
       return alert("これ以上振ることはできません。"), 0x0;
@@ -112,9 +169,10 @@
     document.getElementById("pointinputtec").value = bonus_tec;
   };
   this.PointInputPow = (element) => {
-    if (!Number.isSafeInteger(Number(element.value))) return element.value = bonus_pow;
+    if (!Number.isSafeInteger(Number(element.value)))
+      return (element.value = bonus_pow);
     const v = Number(element.value);
-    if (v < 0) return element.value = 0, PointInputPow(element);
+    if (v < 0) return (element.value = 0), PointInputPow(element);
     const dx = v - bonus_pow;
     if (dx > nokoripoint) {
       element.value = bonus_pow + nokoripoint;
@@ -126,9 +184,10 @@
     document.getElementById("petstatus_bonuspoint").textContent = nokoripoint;
   };
   this.PointInputDef = (element) => {
-    if (!Number.isSafeInteger(Number(element.value))) return element.value = bonus_def;
+    if (!Number.isSafeInteger(Number(element.value)))
+      return (element.value = bonus_def);
     const v = Number(element.value);
-    if (v < 0) return element.value = 0, PointInputDef(element);
+    if (v < 0) return (element.value = 0), PointInputDef(element);
     const dx = v - bonus_def;
     if (dx > nokoripoint) {
       element.value = bonus_def + nokoripoint;
@@ -140,9 +199,10 @@
     document.getElementById("petstatus_bonuspoint").textContent = nokoripoint;
   };
   this.PointInputTec = (element) => {
-    if (!Number.isSafeInteger(Number(element.value))) return element.value = bonus_tec;
+    if (!Number.isSafeInteger(Number(element.value)))
+      return (element.value = bonus_tec);
     const v = Number(element.value);
-    if (v < 0) return element.value = 0, PointInputTec(element);
+    if (v < 0) return (element.value = 0), PointInputTec(element);
     const dx = v - bonus_tec;
     if (dx > nokoripoint) {
       element.value = bonus_tec + nokoripoint;
