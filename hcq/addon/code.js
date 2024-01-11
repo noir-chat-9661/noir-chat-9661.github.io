@@ -1,5 +1,5 @@
 (function () {
-  const version = "3.7.1";
+  const version = "3.7.2";
   const id = "layer" + layercount;
   if (this.addonApp) {
     document.title += `+Addon ver.${version}`;
@@ -33,7 +33,7 @@
       .getElementsByClassName("c_formdiv")[0]
       .innerHTML.split(/\t+/)
       .join(" ") +
-    ' <input type="checkbox" id="isshout" onchange="shoutmode(this)" /></nobr>';
+    ' <input type="checkbox" style="width:unset;" id="isshout" onchange="shoutmode(this)" /></nobr>';
 
   document.onpaste = function (e) {
     const item = e.clipboardData.items[0];
