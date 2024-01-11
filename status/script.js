@@ -17,7 +17,7 @@ function check() {
     .catch(
       () => (document.getElementById("status2").innerHTML = "🔴 使用不可")
     );
-  fetch("https://hcqboard.f5.si")
+  fetch("https://dashboard.eita.f5.si")
     .then((n) => {
       document.getElementById("status3").innerHTML = `${
         n.status == 200 ? "🟢 使用可能" : "🔴 使用不可"
