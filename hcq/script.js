@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", async (e) => {
   if (!navigator.userAgent.includes("Windows")) return;
   document.getElementById("app").style.display = "";
   const f = await fetch(
-    "https://api.github.com/repos/Eita-hj/himaque_addon/releases/latest"
+    "https://api.github.com/repos/Eita-hj/himaque-application/releases/latest"
   ).then((n) => n.json());
   document.getElementById("appdl").href = f.assets.find((n) =>
     n.name.includes(".exe")
