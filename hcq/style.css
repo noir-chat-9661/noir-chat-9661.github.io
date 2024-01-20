@@ -9,8 +9,12 @@ html {
 a {
   text-decoration: none;
   font-weight: bold;
-  color: #0066ff;
+  color: #77ddff;
   font-size: 20px;
+}
+
+a.inquiry {
+  color: #0055ff
 }
 
 p {
@@ -21,8 +25,8 @@ p {
 #addon,
 #calc,
 #bookmarklet {
-  color: #000000;
-  background-color: #ffffff90;
+  color: #ffffff;
+  background-color: #5555bbaa;
   width: 80%;
   margin: 10px;
   padding: 5px;
@@ -31,8 +35,8 @@ p {
 }
 
 label {
-  color: #000000;
-  background-color: #ddddddaa;
+  color: #ffffff;
+  background-color: #22aa22aa;
   padding: 5px 10px;
   margin: 10px;
   border-radius: 5px;
