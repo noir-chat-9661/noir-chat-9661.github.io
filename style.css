@@ -2,35 +2,40 @@
 
 html {
   font-family: "Zen Antique", serif;
-  background-color: #002277;
+  background-color: #44aacc;
   font-size: 20px;
 }
 
 h1 {
+  width: 65vw;
+  margin: 10px;
+  background-color: #ffffff88;
+  padding: 5px;
   color: #ffffff;
   text-align: center;
+  border-radius: 15px;
 }
 
 h2 {
-  width: 11em;
+  width: 15rem;
   margin: 5px;
   padding: 5px;
   text-align: center;
   border-radius: 10px;
 }
 
-h2.hcq {
-  background-color: #66aaff;
+h2.mylink {
+  background-color: #ffaa55bb;
   color: #ffffff;
 }
 
 h2.sns {
-  background-color: #ffffff60;
+  background-color: #00ff88bb;
   color: #ffffff;
 }
 
 h2.aboutme {
-  background-color: #ffaa55bb;
+  background-color: #3355ffbb;
   color: #ffffff
 }
 
@@ -43,19 +48,26 @@ p {
   color: #ffffff;
 }
 
-
 p.links a{
-  color: #77ffff
+  color: #0000ff;
 }
 
 tr {
   color: #ffffff;
 }
 
+.paragraph {
+  background-color: #ccffff44;
+  margin: 15px;
+  padding: 15px 10px;
+  border-radius: 15px;
+  width: 90vw;
+}
+
 .am {
-  padding: 5px;
+  padding: 10px;
   margin: 10px;
-  width: 80%;
+  width: 80vw;
   background-color: #99bbff88;
   border: 1px solid #ffffff;
   border-radius: 10px;
@@ -64,13 +76,13 @@ tr {
 .block {
   padding: 5px;
   display: inline-block;
-  margin: 10px;
+  margin: 5px 10px 10px;
   white-space: nowrap;
   width: 360px;
 }
 
 .left {
-  background-color: #ffffffaa;
+  background-color: #aaaaaaaa;
   color: #ffffff;
   padding: 5px 10px;
   text-align: center;
@@ -104,31 +116,6 @@ tr {
   background-color: #5555ffbb;
 }
 
-.lang {
-  color: #ffffff;
-  display: inline-block;
-  text-align: center;
-  border-radius: 5px;
-  padding: 5px;
-  margin: 5px 5px;
-}
-
-.js {
-  background-color: #ffaa0088;
-}
-
-.ts {
-  background-color: #00ffff88;
-}
-
-.ruby {
-  background-color: #ff000088;
-}
-
-.c {
-  background-color: #00ff0088
-}
-
 .ld {
   position: fixed;
   bottom: 0;
@@ -147,7 +134,7 @@ tr {
 }
 
 button#fb, button#cb {
-  font-size: 1em;
+  font-size: 1rem;
   background-color: #006600;
   color: #ffffff;
   border: none;
@@ -155,7 +142,7 @@ button#fb, button#cb {
 }
 
 p.rbt {
-  background-color: #00000055;
+  background-color: #55555555;
   font-size: 0.5em;
 }
 
