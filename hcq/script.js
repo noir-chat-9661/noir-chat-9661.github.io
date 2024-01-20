@@ -27,12 +27,22 @@ function copybml(num) {
 
 document.addEventListener("DOMContentLoaded", async (e) => {
   if (location.href.startsWith("http://eita.f5.si")) return location.replace("https://eita.f5.si/hcq/");
-  if (!navigator.userAgent.includes("Windows")) return;
+  if (navigator.userAgent.includes("Windows")){
+    const f = await fetch(
+      "https://api.github.com/repos/Eita-hj/himaque-application/releases/latest"
+    ).then((n) => n.json());
+    document.getElementById("appdl").href = f.assets.find((n) =>
+      n.name.includes(".exe")
+    ).browser_download_url;
+  } else if (navigator.userAgetnt.includes("Mac OS")) {
+    const f = await fetch(
+      "https://api.github.com/repos/Eita-hj/himaque-application/releases/latest"
+    ).then((n) => n.json());
+    document.getElementById("appdl").href = f.assets.find((n) =>
+      n.name.includes(".dmg")
+    ).browser_download_url;
+  } else {
+    return;
+  }
   document.getElementById("app").style.display = "";
-  const f = await fetch(
-    "https://api.github.com/repos/Eita-hj/himaque-application/releases/latest"
-  ).then((n) => n.json());
-  document.getElementById("appdl").href = f.assets.find((n) =>
-    n.name.includes(".exe")
-  ).browser_download_url;
 });
