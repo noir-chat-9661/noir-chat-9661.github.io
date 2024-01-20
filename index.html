@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="ja">
   <head>
-    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <meta http-equiv="Content-Style-Type" content="text/css">
-    <meta http-equiv="Content-Script-Type" content="text/javascript">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <meta http-equiv="Content-Script-Type" content="text/javascript" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>My Profile</title>
     <link rel="icon" href="./favicon.ico" />
@@ -13,7 +13,9 @@
   <body onload="loaded()">
     <center>
       <h1>Profile</h1>
-      <div>
+      <br />
+      <div class="paragraph">
+        <h2 class="aboutme">About Me</h2>
         <span class="block">
           <span class="left">Name</span>
           <span class="right">えいた</span> </span
@@ -24,77 +26,66 @@
         ><wbr />
         <span class="block">
           <span class="left">Age</span>
-          <span class="right" id="age"></span><wbr /> </span
+          <span class="right" id="age">17</span><wbr /> </span
         ><wbr />
         <span class="block">
           <span class="left">Birthday</span>
           <span class="right">2006/5/22</span>
         </span>
-      </div>
-      <br />
-      <div>
-        <h2 class="aboutme">About Me</h2>
         <p class="am">
-          基本ノープランで何かを作っている高校2年生。<br />最近はマスター(酒場BOT)やDiscordの読み上げ・音楽再生BOTなどの作成をしながらwikiの執筆を担当。<br />ヒマクエでは資材の-7万を2023/9/8に返済した。
+          最近MacBook Proを購入したせいで金欠になった高2の学生。<br />
+          デザインとかを考えるのが苦手なため、いろんな人のフォーマットを参考にしてこのページを作成した。<br />
+          艦これが好きで結構やっているが、通常海域は5-4までしか進んでいない。
         </p>
-        <span class="lang js">JavaScript(Node.js)</span><wbr /><span
-          class="lang ts"
-          >TypeScript</span
-        ><wbr /><span class="lang ruby">Ruby</span><wbr /><span class="lang c"
-          >C</span
-        >
       </div>
       <br />
-      <div>
+      <div class="paragraph">
         <h2 class="sns">My Accounts</h2>
         <span class="block">
           <span class="left youtube">YouTube</span>
           <span class="right"
-            ><a href="https://youtube.com/@eita9661" target="_blank">@eita9661</a></span
+            ><a href="https://youtube.com/@eita9661" target="_blank"
+              >@eita9661</a
+            ></span
           > </span
         ><wbr />
         <span class="block">
-          <span class="left twitter">Twitter</span>
+          <span class="left twitter">Twitter(現X)</span>
           <span class="right"
-            ><a href="https://twitter.com/Eita_hj_0522" target="_blank">@Eita_hj_0522</a></span
+            ><a href="https://twitter.com/sgr_9661_ea" target="_blank"
+              >@sgr_9661_ea</a
+            ></span
           > </span
         ><wbr />
         <span class="block">
           <span class="left github">GitHub</span>
           <span class="right"
-            ><a href="https://github.com/Eita-hj" target="_blank">Eita-hj</a></span
+            ><a href="https://github.com/Eita-hj" target="_blank"
+              >Eita-hj</a
+            ></span
           > </span
         ><wbr />
         <span class="block">
           <span class="left discord">Discord</span>
           <span class="right"
-            ><a href="https://discord.com/users/717287025442816051"
-                target="_blank"
+            ><a
+              href="https://discord.com/users/717287025442816051"
+              target="_blank"
               >azegig</a
             ></span
           >
         </span>
       </div>
       <br />
-      <h2 class="hcq">HIMACHATQUEST</h2>
-      <p>No.16762 しめじ隊員サプリ💊</p>
-      <p><b>Links</b></p>
-      <p class="links">
-        <a href="./hcq">tools・addon</a
-        >&emsp;<a href="https://hcqwiki.com/">wiki</a>
-      </p>
-      <p>
-        <small
-          >※BOT・アドオン・ツールは運営から作成・使用許可を貰っています。</small
-        >
-      </p>
+      <div class="paragraph">
+        <h2 class="mylink"><b>Links</b></h2>
+        <p class="links">
+          <a href="./hcq">ヒマクエ関連</a>
+        </p>
+      </div>
     </center>
     <input type="checkbox" id="ld" onclick="changegaming(this.checked)" />
-    <button
-      class="rd"
-      id="fb"
-      onclick="showForm()"
-    >お問い合わせ</button>
+    <button class="rd" id="fb" onclick="showForm()">お問い合わせ</button>
     <div class="rd" id="form"></div>
   </body>
 </html>
