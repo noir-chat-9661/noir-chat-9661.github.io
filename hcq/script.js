@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", async (e) => {
     document.getElementById("appdl").href = f.assets.find((n) =>
       n.name.includes(".exe")
     ).browser_download_url;
-  } else if (navigator.userAgetnt.includes("Mac OS")) {
+  } else if (navigator.userAgent.includes("Macintosh")) {
     const f = await fetch(
       "https://api.github.com/repos/Eita-hj/himaque-application/releases/latest"
     ).then((n) => n.json());
