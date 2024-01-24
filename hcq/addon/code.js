@@ -1,5 +1,5 @@
 (function () {
-  const version = "3.8.0";
+  const version = "3.8.1";
   const id = "layer" + layercount;
   if (this.addonApp) {
     document.title += `+Addon ver.${version}`;
@@ -889,7 +889,7 @@
             now_channel = Number(
               "channel" in response
                 ? response.areaname
-                    .split("<span style='color:#AAAAAA'>")[1]
+                    .split("<span style='color:#AAAAAA'>ch")[1]
                     .split("</span>")[0]
                 : 0
             );
@@ -919,7 +919,7 @@
             now_channel = Number(
               "channel" in response
                 ? response.areaname
-                    .split("<span style='color:#AAAAAA'>")[1]
+                    .split("<span style='color:#AAAAAA'>ch")[1]
                     .split("</span>")[0]
                 : 0
             );
@@ -946,7 +946,7 @@
             now_channel = Number(
               "channel" in response
                 ? response.areaname
-                    .split("<span style='color:#AAAAAA'>")[1]
+                    .split("<span style='color:#AAAAAA'>ch")[1]
                     .split("</span>")[0]
                 : 0
             );
@@ -963,7 +963,7 @@
             now_channel = Number(
               "channel" in response
                 ? response.areaname
-                    .split("<span style='color:#AAAAAA'>")[1]
+                    .split("<span style='color:#AAAAAA'>ch")[1]
                     .split("</span>")[0]
                 : 0
             );
