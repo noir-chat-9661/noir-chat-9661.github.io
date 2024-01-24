@@ -1,5 +1,5 @@
 (function () {
-  const version = "3.8.1";
+  const version = "3.8.2";
   const id = "layer" + layercount;
   if (this.addonApp) {
     document.title += `+Addon ver.${version}`;
@@ -847,11 +847,9 @@
         if (response.error != 1) {
           errorflg_Core++;
           if (errorflg_Core > ERRORCOUNT) return alert("サーバエラー:CORE02");
-          return (
-            setTimeout(function () {
-              Core();
-            }, 1000)
-          );
+          return setTimeout(function () {
+            Core();
+          }, 1000);
         }
         now_mission = Number(response.now_mission);
         now_field = 0;
@@ -985,12 +983,28 @@
       error: function () {
         errorflg_Core++;
         if (errorflg_Core > ERRORCOUNT) return alert("なにかしらの不具合02");
-        return (
-          setTimeout(function () {
-            Core();
-          }, 200)
-        );
+        return setTimeout(function () {
+          Core();
+        }, 200);
       },
     });
+  };
+  this.MyGuildOpen = async () => {
+    if (now_guild == 0) return MyGuildList();
+    const { shokui } = await fetch(
+      "https://ksg-network.tokyo/Guild_Window.php",
+      {
+        method: "post",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({
+          myid,
+          seskey,
+          gid: now_guild,
+          origin: "himaque",
+        }).toString(),
+      }
+    ).then((n) => n.json());
+    if (shokui == -1) return MyGuildList();
+    GuildWindow(now_guild);
   };
 }.call());
