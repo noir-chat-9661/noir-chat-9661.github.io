@@ -1,5 +1,5 @@
 (function () {
-  const version = "3.7.2";
+  const version = "3.8.0";
   const id = "layer" + layercount;
   if (this.addonApp) {
     document.title += `+Addon ver.${version}`;
@@ -152,8 +152,7 @@
     });
   };
   this.PointAddPow = (point) => {
-    if (point > nokoripoint)
-      return alert("これ以上振ることはできません。"), 0x0;
+    if (point > nokoripoint) return alert("これ以上振ることはできません。"), 0;
     nokoripoint -= point;
     bonus_pow += point;
     document.getElementById("petstatus_bonuspow").textContent = bonus_pow;
@@ -161,8 +160,7 @@
     document.getElementById("pointinputpow").value = bonus_pow;
   };
   this.PointAddDef = (point) => {
-    if (point > nokoripoint)
-      return alert("これ以上振ることはできません。"), 0x0;
+    if (point > nokoripoint) return alert("これ以上振ることはできません。"), 0;
     nokoripoint -= point;
     bonus_def += point;
     document.getElementById("petstatus_bonusdef").textContent = bonus_def;
@@ -170,8 +168,7 @@
     document.getElementById("pointinputdef").value = bonus_def;
   };
   this.PointAddTec = (point) => {
-    if (point > nokoripoint)
-      return alert("これ以上振ることはできません。"), 0x0;
+    if (point > nokoripoint) return alert("これ以上振ることはできません。"), 0;
     nokoripoint -= point;
     bonus_tec += point;
     document.getElementById("petstatus_bonustec").textContent = bonus_tec;
@@ -256,7 +253,7 @@
       url: "item_KaziSelect.php",
       data: { marumie: myid, seskey, itemid },
       success: function (d) {
-        if (d.error != 0x1) return alert("サーバエラ-7214"), 0x0;
+        if (d.error != 0x1) return alert("サーバエラ-7214"), 0;
         $("#kazi_source").html(d.source);
         const s = document.getElementsByClassName("kazidiv1")[0];
         const t = s.innerHTML;
@@ -676,5 +673,324 @@
     document.getElementById("3dsmodecheck").innerHTML = dsflgspecial
       ? "3DSモード解除"
       : "3DSモード起動";
+  };
+
+  //不具合対応パッチ
+  const userCache = {};
+  this.getUserIp = async (tuid) => {
+    if (userCache[tuid]) return userCache[tuid];
+    const { remote } = await fetch("https://ksg-network.tokyo/UserKanri.php", {
+      method: "post",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams({
+        myid,
+        seskey,
+        tuid,
+        origin: "himaque",
+      }).toString(),
+    }).then((n) => n.json());
+    userCache[tuid] = remote;
+    setTimeout(() => {
+      delete userCache[tuid];
+    }, 300000);
+    return remote;
+  };
+  this.F5ChatKobetu = async (bmark, isLogin) => {
+    if (!SID) return;
+    $.ajax({
+      type: "POST",
+      url: "chat_F5User.php",
+      data: { marumie: myid, seskey, bmark },
+    }).then(
+      (response) => {
+        (async (response) => {
+          if (response.error != 1) {
+            errorflg_ChatKobetu++;
+            if (errorflg_ChatKobetu > ERRORCOUNT)
+              return (document.getElementById("areachat").innerHTML =
+                document.getElementById("partychat").innerHTML =
+                  "接続が途切れました。更新してください。");
+
+            return setTimeout(() => {
+              F5ChatKobetu(bmark, 0);
+            }, 1000);
+          }
+          errorflg_ChatKobetu = 0;
+          if (bmark >= response.bmark)
+            return setTimeout(function () {
+              F5ChatKobetu(bmark, 0);
+            }, 1000);
+          for (let i = 0; i < response.coments.length; i++) {
+            const comment = response.coments[i];
+            let userid = "",
+              ip = "";
+            switch (comment.type) {
+              case "c":
+                userid = comment.source.split("UserWindow(")[1].split(")")[0];
+                ip = await getUserIp(userid);
+                if (musilist.find((n) => n.remote == ip)) break;
+                $("#areachat").find(".c_chatwindow").prepend(comment.source);
+                $("#areachat")
+                  .find(".c_chatwindow")
+                  .find(`table:gt(${dsflg ? 30 : 80})`)
+                  .remove();
+                if (!isLogin) midoku_zentai++;
+                break;
+              case "p":
+                userid = comment.source.split("UserWindow(")[1].split(")")[0];
+                ip = await getUserIp(userid);
+                if (musilist.find((n) => n.remote == ip)) break;
+                $("#partychat").find(".c_chatwindow").prepend(comment.source);
+                $("#partychat")
+                  .find(".c_chatwindow")
+                  .find(`table:gt(${dsflg ? 30 : 80})`)
+                  .remove();
+                if (!isLogin) midoku_pt++;
+                break;
+              case "S":
+                if (!isLogin) Core();
+                break;
+              case "B":
+                if (!isLogin) BgmPlay(Number(comment.songid));
+                break;
+              case "P":
+                if (!isLogin) MyPartyUpdate();
+                break;
+              case "V":
+                if (!isLogin) PvRoomUpdate();
+                break;
+              case "G":
+                $(".ghpid" + comment.pid).css({
+                  left: comment.x + "%",
+                  top: comment.y + "%",
+                });
+                $(".ghpid" + comment.pid)[
+                  comment.muki ? "addClass" : "removeClass"
+                ]("muki_left");
+                break;
+              case "g":
+                if (!isLogin) LoadMyGuildList();
+                break;
+              case "I":
+                if (!isLogin) break;
+                switch (comment.func) {
+                  case "0":
+                  case 0:
+                    break;
+                  case "1":
+                  case 1:
+                    porchupdate = !![];
+                    $("#kabanbtn_count").text(comment.opt1);
+                    break;
+                  case "2":
+                  case 2:
+                    LoadWeaponBox();
+                    break;
+                  case "3":
+                  case 3:
+                    LoadSozaiBox();
+                    break;
+                  case "4":
+                  case 4:
+                    $("#kabanbtn_count").text(comment.opt1);
+                    break;
+                }
+                $("#logspace").prepend(comment.mozi);
+                $("#logspace")
+                  .find(`.syslog:gt(${dsflg ? 30 : 80})`)
+                  .remove();
+                break;
+              default:
+                break;
+            }
+          }
+          if (!isLogin && nowchatshow != 1) {
+            document.getElementById("midoku_zentai").textContent =
+              midoku_zentai;
+            document.getElementById("midoku_zentai").style.display =
+              midoku_zentai ? "" : "none";
+          }
+          if (!isLogin && nowchatshow != 2) {
+            document.getElementById("midoku_pt").textContent = midoku_pt;
+            document.getElementById("midoku_pt").style.display = midoku_pt
+              ? ""
+              : "none";
+          }
+          setTimeout(() => {
+            F5ChatKobetu(response.bmark, 0);
+          }, 300);
+        })(response);
+      },
+      () => {
+        errorflg_ChatKobetu++;
+        if (errorflg_ChatKobetu > ERRORCOUNT)
+          return (document.getElementById("areachat").innerHTML =
+            document.getElementById("partychat").innerHTML =
+              "接続が途切れました。更新してください。");
+        return setTimeout(() => {
+          F5ChatKobetu(bmark, 0);
+        }, 1000);
+      }
+    );
+  };
+  this.MidokuCountMusi = () => {
+    midoku_musi = 0;
+  };
+  this.Core = () => {
+    DosFriendListUpdate = 0;
+    $.ajax({
+      type: "POST",
+      url: "Core2.php",
+      data: { marumie: SID, seskey },
+      success: function (response) {
+        if (response.error == 404) return Error404();
+        if (response.error != 1) {
+          errorflg_Core++;
+          if (errorflg_Core > ERRORCOUNT) return alert("サーバエラー:CORE02");
+          return (
+            setTimeout(function () {
+              Core();
+            }, 1000)
+          );
+        }
+        now_mission = Number(response.now_mission);
+        now_field = 0;
+        now_channel = 0;
+        now_scene = Number(response[_0x162a80(0x34d)]);
+        errorflg_Core = 0x0;
+        if (!response.mylog) $("#logspace").prepend(response.mylog);
+        myparty = response.myparty;
+        mypttype = response.pttype;
+        if (myparty != 0) MyPartyUpdate(), PartyIn();
+        else PartyOut();
+        $("#areaname").html(response["areaname"]), TabMenuClose();
+        switch (response.scene) {
+          case "9":
+          case 9:
+            suterumono = [];
+            ScenePorchResult();
+            $("#porchresultlist").html(response.source);
+            $(_0x162a80(0xa77)).text(response[_0x162a80(0x9c8)]);
+            $("#porchresult_max").text(response[_0x162a80(0x26e)]);
+            $("#porchresult_bot").html(response[_0x162a80(0x464)]);
+            porchmany = Number(response.many);
+            porchmax = Number(response[_0x162a80(0x26e)]);
+            break;
+          case "10":
+          case 10:
+            porchupdate = !![];
+            SetFieldImg(
+              response.haikei,
+              response.imgsize,
+              Number(response.stage)
+            );
+            SceneField(0);
+            now_field = Number(response.field);
+            now_channel = Number(
+              "channel" in response
+                ? response.areaname
+                    .split("<span style='color:#AAAAAA'>")[1]
+                    .split("</span>")[0]
+                : 0
+            );
+            F5fild(now_field, now_channel);
+            if (bgmflg == 1) BgmPlay(now_field == 26 ? 26 : 2);
+            break;
+          case "20":
+          case 20:
+            if ($coloreturn) SceneColosseum(), BgmPlay(1);
+            else SceneTown();
+            if (myparty != 0) TabMenuParty();
+            myquest = Number(response.myquest);
+            if (now_mission < 1) MissionLayer();
+            break;
+          case "30":
+          case 30:
+          case "103":
+          case 103:
+            porchupdate = !![];
+            SetFieldImg(
+              response.haikei,
+              response.imgsize,
+              Number(response.stage)
+            );
+            SceneField(0);
+            now_field = Number(response.field);
+            now_channel = Number(
+              "channel" in response
+                ? response.areaname
+                    .split("<span style='color:#AAAAAA'>")[1]
+                    .split("</span>")[0]
+                : 0
+            );
+            F5fild(now_field, now_channel);
+            response.scene == 30 && BgmPlay(response.bgm);
+            break;
+          case "31":
+          case 31:
+            SceneTxt(response.source);
+            break;
+          case "101":
+          case 101:
+          case "102":
+          case 102:
+          case "105":
+          case 105:
+          case "106":
+          case 106:
+          case "107":
+          case 107:
+            SetFieldImg(response.haikei, response.imgsize, 0);
+            SceneField(0);
+            now_field = Number(response.field);
+            now_channel = Number(
+              "channel" in response
+                ? response.areaname
+                    .split("<span style='color:#AAAAAA'>")[1]
+                    .split("</span>")[0]
+                : 0
+            );
+            F5fild(now_field, now_channel);
+            LoadGvCharactor();
+            if (response.scene == 105) BgmPlay(5);
+            else BgmPlay(3);
+            break;
+          case "104":
+          case 104:
+            SetFieldImg(response.haikei, response.imgsize, 0);
+            SceneField(0);
+            now_field = Number(response.field);
+            now_channel = Number(
+              "channel" in response
+                ? response.areaname
+                    .split("<span style='color:#AAAAAA'>")[1]
+                    .split("</span>")[0]
+                : 0
+            );
+            F5fild(now_field, now_channel);
+            BgmPlay(4);
+            break;
+          case "201":
+          case 201:
+            alert("チュートリアル開始"), SceneTown();
+            break;
+          default:
+            now_field = 0;
+            now_channel = 0;
+            SceneTown();
+            break;
+        }
+        $("body").after(response.areasession);
+      },
+      error: function () {
+        errorflg_Core++;
+        if (errorflg_Core > ERRORCOUNT) return alert("なにかしらの不具合02");
+        return (
+          setTimeout(function () {
+            Core();
+          }, 200)
+        );
+      },
+    });
   };
 }.call());
