@@ -12,7 +12,7 @@ function changegaming(tf){
 
 function showForm(){
   document.getElementById("fb").style.display = "none"
-  document.getElementById("form").innerHTML = '<button id="cb" class="rb" onclick="closeForm()">×</button><br /><p class="rb rbt">お問い合わせ内容に加えて、返信先のユーザーNo.も記入してください。</p><br /><iframe src="https://m.kuku.lu/f.php?5dfabb2603"></iframe>'
+  document.getElementById("form").innerHTML = '<button id="cb" class="rb" onclick="closeForm()">×</button><br /><p class="rb rbt">お問い合わせ内容に加えて、返信先のユーザーNo.も記入してください。</p><br /><iframe src="/form/"></iframe>'
 }
 
 function closeForm(){

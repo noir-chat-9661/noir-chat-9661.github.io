@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>お問い合わせフォーム</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <meta http-equiv="Content-Script-Type" content="text/javascript" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://eita.f5.si/form/style.css" />
+    <script>
+      function start() {
+        fetch("https://api.eita.f5.si/form", { method: "get" })
+          .then((n) => n.json())
+          .then((n) => {
+            document.getElementById("type").innerHTML = n.choices
+              .map((p, q) => `<option value="${q}">${p}</option>`)
+              .join("");
+          });
+      }
+    </script>
+  </head>
+  <body onload="start()">
+    <form method="post" action="https://api.eita.f5.si/form">
+      <h1>お問い合わせフォーム</h1>
+      <p>
+        <small
+          >※Discord鯖参加者はDiscordからお問い合わせした方が早いです。</small
+        >
+      </p>
+      <hr />
+      <p>
+        名前(ユーザー名)を入力してください。(返信用)<span
+          class="required"
+        ></span>
+      </p>
+      <input type="text" name="name" placeholder="入力してください" required />
+      <p>ユーザーNo.を入力してください。</p>
+      <input type="number" name="uid" />
+      <p>
+        お問い合わせの種類を選択してください。<span class="required"></span>
+      </p>
+      <select id="type" name="type" placeholder="選択してください" required></select>
+      <p>
+        お問い合わせの内容を入力してください。 <span class="required"></span>
+      </p>
+      <textarea name="content" placeholder="入力してください" required></textarea><br /><br />
+      <button type="submit">送信</button>
+    </form>
+  </body>
+</html>

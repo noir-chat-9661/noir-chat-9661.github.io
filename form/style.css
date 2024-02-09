@@ -1,0 +1,37 @@
+html {
+  background-color: #88dd88;
+  text-align: center;
+}
+p {
+  color: #333333;
+}
+h1 {
+  color: #000000;
+}
+.required:after {
+  margin: 5px;
+  color: red;
+  content: "*";
+}
+textarea {
+  font-size: 1.2rem;
+  width: 80vw;
+  height: max(20vh, 150px);
+  resize: none;
+  background-color: #aaffaa;
+}
+input {
+  font-size: 1.15rem;
+  color: #000000;
+  background-color: #aaffaa;
+}
+select {
+  font-size: 1.15rem;
+  color: #773377;
+  background-color: #aaffaa;
+}
+button {
+  font-size: 1.15rem;
+  color: #333333;
+  background-color: #aaffdd;
+}
