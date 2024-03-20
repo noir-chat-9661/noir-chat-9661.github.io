@@ -1,4 +1,5 @@
 function loaded() {
+  if (location.href.startsWith("http://")) return location.href = location.href.replace("http", "https");
   const d = new Date();
   document.getElementById("age").innerHTML =
     d.getFullYear() -
