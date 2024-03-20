@@ -1,15 +1,22 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maxium-scale=1, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 <meta http-equiv="Content-Script-Type" content="text/javascript">
 <title>2窓ヒマクエ(縦)</title>
 <link rel="shortcut icon" href="favorite.ico">
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+	if (location.href.startsWith("https://")) return location.href = location.href.replace("https", "http");
+	if (!location.hash) return;
+	[...document.getElementsByTagName("frame")].map(n => n.src += location.hash);
+})
+</script>
 </head>
 <frameset rows="50%,50%">
-  <frame src="http://himaquest.com/">
-  <frame src="http://www.himaquest.com/">
+	<frame src="https://himaquest.com/">
+	<frame src="http://www.himaquest.com/">
 </frameset>
 <noframes>対応機種じゃないとダメだね</noframes>
 </html>
