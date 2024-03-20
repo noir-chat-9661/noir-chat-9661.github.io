@@ -10,11 +10,12 @@
 		<script src="./calc2.js"></script>
 		<script>
 			function getUpdate() {
-			 fetch("./data.json").then(n => n.json()).then(n => {
-				 document.title = `冒険エリア効率計算機 ver.${n.version}`
-				 document.getElementById("version").innerHTML = n.version
-				 document.getElementById("update").innerHTML = n.content.join("\n")
-			 })
+				if (location.href.startsWith("http://")) return location.href = location.href.replace("http", "https");
+				fetch("./data.json").then(n => n.json()).then(n => {
+					document.title = `冒険エリア効率計算機 ver.${n.version}`
+					document.getElementById("version").innerHTML = n.version
+					document.getElementById("update").innerHTML = n.content.join("\n")
+				})
 			}
 		</script>
 		<style>
