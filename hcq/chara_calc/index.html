@@ -23,6 +23,7 @@
           });
       }
       function ready() {
+        if (location.href.startsWith("http://")) return location.href = location.href.replace("http", "https");
         versioncheck();
         fetch("./data/wazadata.json")
           .then((n) => n.json())
