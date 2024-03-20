@@ -1,5 +1,6 @@
 function check() {
-  fetch("https://eita.f5.si")
+  if (location.href.startsWith("http://")) return location.href = location.href.replace("http", "https");
+  fetch("https://pjeita.top")
     .then((n) => {
       document.getElementById("status1").innerHTML = `${
         n.status == 200 ? "🟢 使用可能" : "🔴 使用不可"
@@ -26,7 +27,7 @@ function check() {
     .catch(
       () => (document.getElementById("status3").innerHTML = "🔴 使用不可")
     );
-  fetch("https://hcqwiki.com")
+  fetch("https://wiki.pjeita.top")
     .then((n) => {
       document.getElementById("status4").innerHTML = `${
         n.status == 200 ? "🟢 使用可能" : "🔴 使用不可"
