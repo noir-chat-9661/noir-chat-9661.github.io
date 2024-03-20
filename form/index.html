@@ -6,9 +6,10 @@
     <meta http-equiv="Content-Style-Type" content="text/css" />
     <meta http-equiv="Content-Script-Type" content="text/javascript" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="https://eita.f5.si/form/style.css" />
+    <link rel="stylesheet" href="./style.css" />
     <script>
       function start() {
+      	if (location.href.startsWith("https://")) return location.href = location.href.replace("https", "http");
         fetch("https://api.eita.f5.si/form", { method: "get" })
           .then((n) => n.json())
           .then((n) => {
