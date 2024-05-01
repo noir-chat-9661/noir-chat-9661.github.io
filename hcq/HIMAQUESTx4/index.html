@@ -10,7 +10,8 @@
 document.addEventListener("DOMContentLoaded", () => {
 	if (location.href.startsWith("https://")) {
 		if (new URL(location.href).searchParams.get("redirected") == 1) return location.replace("/hcq/error_redirect");
-		return location.href = location.href.replace("https", "http") + "?redirected=1";
+		location.href = location.href.replace("https", "http") + "?redirected=1";
+		return;
 	}
 	history.replaceState(null, '', location.pathname);
 	if (!location.hash) return;
