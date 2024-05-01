@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	history.replaceState(null, '', location.pathname);
 	if (!location.hash) return;
 	[...document.getElementsByTagName("frame")].map(n => n.src += location.hash);
-})
+});
 </script>
 </head>
 <frameset cols="50%,50%">
