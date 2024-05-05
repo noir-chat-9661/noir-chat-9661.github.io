@@ -22,12 +22,12 @@ hr {
     const howto = $("#howto").removeAttr("id");
     $("#ht").removeAttr("id").on("change", (e) => {
       const descriptions = {
-        pcedge: `<ol><li><a href="edge://settings/content/siteDetails?site=https%3A%2F%2Fpjeita.top" target="_blank">こちら</a>へアクセス</li><li>下へスクロールし、「安全ではないコンテンツ」の項目を「許可する」に変更(httpのアクセスを許可するものです)</li><li>再度複窓ヒマクエへアクセス</li></ol>`,
-        pcchrome: `<ol><li><a href="chrome://settings/content/siteDetails?site=https%3A%2F%2Fpjeita.top" target="_blank">こちら</a>へアクセス</li><li>下へスクロールし、「安全ではないコンテンツ」の項目を「許可する」に変更(httpのアクセスを許可するものです)</li><li>再度複窓ヒマクエへアクセス</li></ol>`,
-        pcbrave: `<ol><li><a href="brave://settings/content/siteDetails?site=https%3A%2F%2Fpjeita.top" target="_blank">こちら</a>へアクセス</li><li>下へスクロールし、「安全ではないコンテンツ」の項目を「許可する」に変更(httpのアクセスを許可するものです)</li><li>再度複窓ヒマクエへアクセス</li></ol>`,
+        pcedge: `<ol><li><a href="edge://settings/content/siteDetails?site=https%3A%2F%2Fpjeita.top" target="_blank">こちら</a>へアクセス(できない場合はアドレスをコピーして直接入力)</li><li>下へスクロールし、「安全ではないコンテンツ」の項目を「許可する」に変更(httpのアクセスを許可するものです)</li><li>再度複窓ヒマクエへアクセス</li></ol>`,
+        pcchrome: `<ol><li><a href="chrome://settings/content/siteDetails?site=https%3A%2F%2Fpjeita.top" target="_blank">こちら</a>へアクセス(できない場合はアドレスをコピーして直接入力)</li><li>下へスクロールし、「安全ではないコンテンツ」の項目を「許可する」に変更(httpのアクセスを許可するものです)</li><li>再度複窓ヒマクエへアクセス</li></ol>`,
+        pcbrave: `<ol><li><a href="brave://settings/content/siteDetails?site=https%3A%2F%2Fpjeita.top" target="_blank">こちら</a>へアクセス(できない場合はアドレスをコピーして直接入力)</li><li>下へスクロールし、「安全ではないコンテンツ」の項目を「許可する」に変更(httpのアクセスを許可するものです)</li><li>再度複窓ヒマクエへアクセス</li></ol>`,
         androidchrome: `現在調査中です。`,
         //androidchrome: `<ol><li><a href="chrome://flags/#https-upgrades" target="_blank">こちら</a>へアクセス</li><li>「」の項目を「Disabled」に変更(httpのアクセスを許可するものです)</li><li>再度複窓ヒマクエへアクセス</li></ol>`,
-        androidbrave: `<ol><li><a href="chrome://flags/#https-by-default" target="_blank">こちら</a>へアクセス</li><li>「Use HTTPS by Default」の項目を「Disabled」に変更(httpのアクセスを許可するものです)</li><li>下に「Relaunch」のボタンがあるのでそれを押してブラウザを再起動して反映</li><li>再度複窓ヒマクエへアクセス</li></ol>`,
+        androidbrave: `<ol><li><a href="chrome://flags/#https-by-default" target="_blank">こちら</a>へアクセス(できない場合はアドレスをコピーして直接入力)</li><li>「Use HTTPS by Default」の項目を「Disabled」に変更(httpのアクセスを許可するものです)</li><li>下に「Relaunch」のボタンがあるのでそれを押してブラウザを再起動して反映</li><li>再度複窓ヒマクエへアクセス</li></ol>`,
       };
       howto.html(descriptions[e.target.value])
     })
