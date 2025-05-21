@@ -1,81 +1,14 @@
-<!DOCTYPE html>
-<html lang="ja">
+<!doctype html>
+<html lang="en">
   <head>
-    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
-    <meta http-equiv="Content-Style-Type" content="text/css" />
-    <meta http-equiv="Content-Script-Type" content="text/javascript" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>My Profile</title>
-    <link rel="icon" href="./favicon.ico" />
-    <link rel="stylesheet" href="./style.css" />
-    <script src="./script.js" defer></script>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + React</title>
+    <script type="module" src="./script.js"></script>
+    <link rel="stylesheet" href="./style.css">
   </head>
-  <body onload="loaded()">
-    <center>
-      <h1>Profile</h1>
-      <br />
-      <div class="paragraph">
-        <h2 class="aboutme">About Me</h2>
-        <span class="block">
-          <span class="left">Name</span>
-          <span class="right">えいた</span> </span
-        ><wbr />
-        <span class="block">
-          <span class="left">Location</span>
-          <span class="right">Aichi, Japan</span> </span
-        ><wbr />
-        <span class="block">
-          <span class="left">Age</span>
-          <span class="right" id="age">17</span><wbr /> </span
-        ><wbr />
-        <span class="block">
-          <span class="left">Birthday</span>
-          <span class="right">2006/5/22</span>
-        </span>
-        <p class="am">
-          限界大学生。
-        </p>
-      </div>
-      <br />
-      <div class="paragraph">
-        <h2 class="sns">My Accounts</h2>
-        <span class="block">
-          <span class="left twitter">Twitter(現X)</span>
-          <span class="right"
-            ><a href="https://twitter.com/sgr_9661_ea" target="_blank"
-              >@sgr_9661_ea</a
-            ></span
-          > </span
-        ><wbr />
-        <span class="block">
-          <span class="left github">GitHub</span>
-          <span class="right"
-            ><a href="https://github.com/Eita-hj" target="_blank"
-              >Eita-hj</a
-            ></span
-          > </span
-        ><wbr />
-        <span class="block">
-          <span class="left discord">Discord</span>
-          <span class="right"
-            ><a
-              href="https://discord.com/users/717287025442816051"
-              target="_blank"
-              >azegig</a
-            ></span
-          >
-        </span>
-      </div>
-      <br />
-      <div class="paragraph">
-        <h2 class="mylink"><b>Links</b></h2>
-        <p class="links">
-          なし
-        </p>
-      </div>
-    </center>
-    <input type="checkbox" id="ld" onclick="changegaming(this.checked)" />
-    <button class="rd" id="fb" onclick="showForm()">お問い合わせ</button>
-    <div class="rd" id="form"></div>
+  <body>
+    <div id="root"></div>
   </body>
 </html>
