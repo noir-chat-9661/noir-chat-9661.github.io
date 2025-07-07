@@ -7,6 +7,7 @@
 		"level": 0,
 		"place": 0,
 		"point": 0,
+		"isDefault": false,
 		"description": [
 			[
 				"SP:200",
@@ -91,6 +92,7 @@
 		"level": 0,
 		"place": 1,
 		"point": 0,
+		"isDefault": false,
 		"description": [
 			[
 				"SP:100",
@@ -211,6 +213,7 @@
 		"level": 0,
 		"place": 2,
 		"point": 1,
+		"isDefault": true,
 		"description": [
 			[
 				"SP:120",
@@ -295,6 +298,7 @@
 		"level": 0,
 		"place": 3,
 		"point": 1,
+		"isDefault": false,
 		"description": [
 			[
 				"SP:120",
@@ -409,6 +413,7 @@
 		"level": 0,
 		"place": 4,
 		"point": 2,
+		"isDefault": false,
 		"description": [
 			[
 				"SP:300",
@@ -499,6 +504,7 @@
 		"level": 0,
 		"place": 5,
 		"point": 2,
+		"isDefault": false,
 		"description": [
 			[
 				"SP:300",
@@ -613,6 +619,7 @@
 		"level": 0,
 		"place": 6,
 		"point": 2,
+		"isDefault": false,
 		"description": [
 			[
 				"SP:300",
@@ -709,6 +716,7 @@
 		"level": 0,
 		"place": 7,
 		"point": 0,
+		"isDefault": false,
 		"description": [
 			[
 				"SP:100",
@@ -805,6 +813,7 @@
 		"level": 0,
 		"place": 8,
 		"point": 0,
+		"isDefault": false,
 		"description": [
 			[
 				"SP:190〜170",
@@ -853,6 +862,7 @@
 		"level": 0,
 		"place": 9,
 		"point": 1,
+		"isDefault": false,
 		"description": [
 			[
 				"SP:200",
@@ -943,6 +953,7 @@
 		"level": 0,
 		"place": 10,
 		"point": 1,
+		"isDefault": true,
 		"description": [
 			[
 				"SP:280",
@@ -1063,6 +1074,7 @@
 		"level": 0,
 		"place": 11,
 		"point": 1,
+		"isDefault": false,
 		"description": [
 			[
 				"SP:200",
@@ -1177,6 +1189,7 @@
 		"level": 0,
 		"place": 12,
 		"point": 2,
+		"isDefault": false,
 		"description": [
 			[
 				"SP:680",
@@ -1279,6 +1292,7 @@
 		"level": 0,
 		"place": 13,
 		"point": 2,
+		"isDefault": false,
 		"description": [
 			[
 				"SP:400",
@@ -1363,6 +1377,7 @@
 		"level": 0,
 		"place": 14,
 		"point": 2,
+		"isDefault": false,
 		"description": [
 			[
 				"SP:400",
@@ -1459,6 +1474,7 @@
 		"level": 0,
 		"place": 15,
 		"point": 0,
+		"isDefault": false,
 		"description": [
 			[
 				"SP:100",
@@ -1549,6 +1565,7 @@
 		"level": 0,
 		"place": 16,
 		"point": 0,
+		"isDefault": false,
 		"description": [
 			[
 				"SP:100",
@@ -1669,6 +1686,7 @@
 		"level": 0,
 		"place": 17,
 		"point": 0,
+		"isDefault": false,
 		"description": [
 			[
 				"SP:100",
@@ -1795,6 +1813,7 @@
 		"level": 0,
 		"place": 18,
 		"point": 1,
+		"isDefault": true,
 		"description": [
 			[
 				"SP:200",
@@ -1879,6 +1898,7 @@
 		"level": 0,
 		"place": 19,
 		"point": 1,
+		"isDefault": false,
 		"description": [
 			[
 				"SP:200",
@@ -1999,6 +2019,7 @@
 		"level": 0,
 		"place": 20,
 		"point": 2,
+		"isDefault": false,
 		"description": [
 			[
 				"SP:300",
@@ -2131,6 +2152,7 @@
 		"level": 0,
 		"place": 21,
 		"point": 2,
+		"isDefault": false,
 		"description": [
 			[
 				"SP:300",
@@ -2245,6 +2267,7 @@
 		"level": 0,
 		"place": 22,
 		"point": 0,
+		"isDefault": false,
 		"description": [
 			[
 				"SP:150",
@@ -2335,6 +2358,7 @@
 		"level": 0,
 		"place": 23,
 		"point": 0,
+		"isDefault": false,
 		"description": [
 			[
 				"SP:100",
@@ -2425,6 +2449,7 @@
 		"level": 0,
 		"place": 24,
 		"point": 1,
+		"isDefault": false,
 		"description": [
 			[
 				"SP:180",
@@ -2521,6 +2546,7 @@
 		"level": 0,
 		"place": 25,
 		"point": 1,
+		"isDefault": true,
 		"description": [
 			[
 				"SP:60",
@@ -2617,6 +2643,7 @@
 		"level": 0,
 		"place": 26,
 		"point": 2,
+		"isDefault": false,
 		"description": [
 			[
 				"SP:140",
@@ -2713,6 +2740,7 @@
 		"level": 0,
 		"place": 27,
 		"point": 2,
+		"isDefault": false,
 		"description": [
 			[
 				"SP:200",
@@ -2821,6 +2849,7 @@
 		"level": 0,
 		"place": 28,
 		"point": 2,
+		"isDefault": false,
 		"description": [
 			[
 				"SP:200",
@@ -2929,6 +2958,7 @@
 		"level": 0,
 		"place": 29,
 		"point": 0,
+		"isDefault": true,
 		"description": [
 			[
 				"SP:100",
@@ -3025,6 +3055,7 @@
 		"level": 0,
 		"place": 30,
 		"point": 0,
+		"isDefault": false,
 		"description": [
 			[
 				"SP:100",
@@ -3109,6 +3140,7 @@
 		"level": 0,
 		"place": 31,
 		"point": 0,
+		"isDefault": false,
 		"description": [
 			[
 				"SP:180",
@@ -3229,6 +3261,7 @@
 		"level": 0,
 		"place": 32,
 		"point": 1,
+		"isDefault": false,
 		"description": [
 			[
 				"SP:300",
@@ -3313,6 +3346,7 @@
 		"level": 0,
 		"place": 33,
 		"point": 1,
+		"isDefault": false,
 		"description": [
 			[
 				"SP:200",
@@ -3415,6 +3449,7 @@
 		"level": 0,
 		"place": 34,
 		"point": 1,
+		"isDefault": false,
 		"description": [
 			[
 				"SP:200",
@@ -3499,6 +3534,7 @@
 		"level": 0,
 		"place": 35,
 		"point": 2,
+		"isDefault": false,
 		"description": [
 			[
 				"SP:250",
@@ -3595,6 +3631,7 @@
 		"level": 0,
 		"place": 36,
 		"point": 2,
+		"isDefault": false,
 		"description": [
 			[
 				"SP:200",
@@ -3685,6 +3722,7 @@
 		"level": 0,
 		"place": 37,
 		"point": 0,
+		"isDefault": false,
 		"description": [
 			[
 				"SP:20",
@@ -3775,6 +3813,7 @@
 		"level": 0,
 		"place": 38,
 		"point": 0,
+		"isDefault": false,
 		"description": [
 			[
 				"SP:150",
@@ -3865,6 +3904,7 @@
 		"level": 0,
 		"place": 39,
 		"point": 0,
+		"isDefault": false,
 		"description": [
 			[
 				"SP:20",
@@ -4003,6 +4043,7 @@
 		"level": 0,
 		"place": 40,
 		"point": 0,
+		"isDefault": false,
 		"description": [
 			[
 				"SP:50",
@@ -4063,6 +4104,7 @@
 		"level": 0,
 		"place": 41,
 		"point": 1,
+		"isDefault": false,
 		"description": [
 			[
 				"SP:150",
@@ -4141,6 +4183,7 @@
 		"level": 0,
 		"place": 42,
 		"point": 1,
+		"isDefault": false,
 		"description": [
 			[
 				"SP:220",
@@ -4237,6 +4280,7 @@
 		"level": 0,
 		"place": 43,
 		"point": 2,
+		"isDefault": true,
 		"description": [
 			[
 				"SP:300",
@@ -4327,6 +4371,7 @@
 		"level": 0,
 		"place": 44,
 		"point": 2,
+		"isDefault": false,
 		"description": [
 			[
 				"SP:200",
@@ -4423,6 +4468,7 @@
 		"level": 0,
 		"place": 45,
 		"point": 1,
+		"isDefault": false,
 		"description": [
 			[
 				"SP:100",
@@ -4555,6 +4601,7 @@
 		"level": 0,
 		"place": 46,
 		"point": 0,
+		"isDefault": true,
 		"description": {
 			"SP": 100,
 			"HP": 0.8,
@@ -4583,6 +4630,7 @@
 		"level": 0,
 		"place": 47,
 		"point": 0,
+		"isDefault": false,
 		"description": {
 			"SP": 200,
 			"HP": 0.675,
@@ -4611,6 +4659,7 @@
 		"level": 0,
 		"place": 48,
 		"point": 0,
+		"isDefault": false,
 		"description": {
 			"SP": 200,
 			"HP": 1.2,
@@ -4640,6 +4689,7 @@
 		"level": 0,
 		"place": 49,
 		"point": 1,
+		"isDefault": false,
 		"description": {
 			"SP": 400,
 			"HP": 2.6,
@@ -4668,6 +4718,7 @@
 		"level": 0,
 		"place": 50,
 		"point": 1,
+		"isDefault": false,
 		"description": {
 			"SP": 500,
 			"HP": 1.5,
@@ -4697,6 +4748,7 @@
 		"level": 0,
 		"place": 51,
 		"point": 1,
+		"isDefault": false,
 		"description": {
 			"SP": 500,
 			"HP": 0.3,
@@ -4726,6 +4778,7 @@
 		"level": 0,
 		"place": 52,
 		"point": 2,
+		"isDefault": false,
 		"description": {
 			"SP": 600,
 			"HP": 1.6,
@@ -4754,6 +4807,7 @@
 		"level": 0,
 		"place": 53,
 		"point": 2,
+		"isDefault": false,
 		"description": {
 			"SP": 700,
 			"HP": 1.5,
@@ -4785,6 +4839,7 @@
 		"level": 0,
 		"place": 54,
 		"point": 2,
+		"isDefault": false,
 		"description": {
 			"SP": 800,
 			"HP": 3,
@@ -4813,6 +4868,7 @@
 		"level": 0,
 		"place": 55,
 		"point": 1,
+		"isDefault": false,
 		"description": {
 			"SP": 500,
 			"HP": 1.1,
@@ -4841,6 +4897,7 @@
 		"level": 0,
 		"place": 56,
 		"point": 1,
+		"isDefault": false,
 		"description": {
 			"SP": 500,
 			"HP": 2.6,
